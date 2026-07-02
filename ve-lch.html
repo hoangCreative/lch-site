@@ -21,6 +21,11 @@
     .wrap-v{ max-width:820px; margin:0 auto; padding:0 clamp(20px,5vw,40px); }
 
     .vn-hero{ padding:150px 0 70px; }
+    .vn-hero-grid{ display:grid; grid-template-columns:1fr 280px; gap:clamp(28px,5vw,56px); align-items:center; }
+    .vn-portrait img{ width:100%; border-radius:16px; display:block; }
+    .vn-portrait figcaption{ font-size:11.5px; color:var(--faint); margin-top:8px; line-height:1.5; }
+    .vn-portrait figcaption a{ color:inherit; }
+    @media (max-width:720px){ .vn-hero-grid{ grid-template-columns:1fr; } .vn-portrait{ max-width:300px; } }
     .vn-eyebrow{ font-family:var(--font-mono, monospace); font-size:12px; letter-spacing:0.14em; text-transform:uppercase; color:var(--turq-text); margin-bottom:22px; }
     .vn-hero h1{ margin:0 0 24px; font-family:var(--font-display, inherit); font-weight:700;
       font-size:clamp(32px,5.6vw,58px); line-height:1.15; letter-spacing:-0.02em; color:var(--ink); max-width:18ch; }
@@ -86,10 +91,18 @@
 
 <section class="vn-hero">
   <div class="wrap-v">
-    <div class="vn-eyebrow">Về Lê Công Hoàng · sinh 1991, TP. Hồ Chí Minh</div>
-    <h1>Một người, nhiều mặt, một trục.</h1>
-    <p>Nhìn danh sách nghề của mình, người ta hay hỏi: rốt cuộc anh làm gì? Diễn viên, sáng lập studio, xây hệ AI, viết, cố vấn, dẫn lớp. Nghe như sáu người khác nhau.</p>
-    <p>Thật ra chỉ một việc, lặp lại trong sáu cái áo: <b style="color:var(--ink);">đọc cho ra cái thật, rồi làm cho tới.</b> Máy quay dạy mình đọc người. Studio dạy mình đọc hệ thống. AI dạy mình đọc cái máy, và đọc lại chính mình. Dưới đây là từng mặt, mỗi mặt kèm đường link để bạn tự kiểm, không cần tin lời mình.</p>
+    <div class="vn-hero-grid">
+      <div>
+        <div class="vn-eyebrow">Về Lê Công Hoàng · sinh 1991, TP. Hồ Chí Minh</div>
+        <h1>Một người, nhiều mặt, một trục.</h1>
+        <p>Nhìn danh sách nghề của mình, người ta hay hỏi: rốt cuộc anh làm gì? Diễn viên, sáng lập studio, xây hệ AI, viết, cố vấn, dẫn lớp. Nghe như sáu người khác nhau.</p>
+        <p>Thật ra chỉ một việc, lặp lại trong sáu cái áo: <b style="color:var(--ink);">đọc cho ra cái thật, rồi làm cho tới.</b> Máy quay dạy mình đọc người. Studio dạy mình đọc hệ thống. AI dạy mình đọc cái máy, và đọc lại chính mình. Dưới đây là từng mặt, mỗi mặt kèm đường link để bạn tự kiểm, không cần tin lời mình.</p>
+      </div>
+      <figure class="vn-portrait" style="margin:0;">
+        <img src="assets/lch-tokyo-2022.jpg" alt="Lê Công Hoàng tại thảm đỏ Liên hoan phim quốc tế Tokyo 2022" />
+        <figcaption>Thảm đỏ Tokyo IFF 2022, cùng "Tro Tàn Rực Rỡ". Ảnh: <a href="https://commons.wikimedia.org/wiki/File:Le_Cong_Hoang_from_%22Glorious_Ashes%22_at_Red_Carpet_of_the_Tokyo_International_Film_Festival_2022_(52460466017)_(cropped).jpg" target="_blank" rel="noopener">Dick Thomas Johnson, CC BY 2.0</a></figcaption>
+      </figure>
+    </div>
   </div>
 </section>
 
@@ -177,6 +190,7 @@
     <p>Mặt mới nhất, và là nơi các mặt kia gặp nhau: một lớp nhỏ cho người đang bị việc nuốt, dạy cách nhắm AI vào đúng chỗ đang ăn mất giờ, để mua lại buổi tối và cuối tuần. Người dẫn không phải thầy dạy công cụ, là người đã đi trước một đoạn và trả đủ học phí trên đoạn đó.</p>
     <div class="face-links">
       <a href="index.html" class="noext">Xem lớp học</a>
+      <a href="https://chiphicohoi.com/" target="_blank" rel="noopener">chiphicohoi.com, nhà của hai khung tư duy</a>
     </div>
   </div>
 </section>
