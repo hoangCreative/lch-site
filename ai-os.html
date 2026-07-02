@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="vi" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>LCH's AI OS · Hệ điều hành làm việc quanh một người</title>
+  <meta name="description" content="AI OS của Lê Công Hoàng: triết lý người cầm lái, substrate, hook như động cơ, hệ tuần hoàn tri thức, và kho công cụ đã thử thật: Claude, Gemini, NotebookLM, Hermes, OpenRouter, fal, Krea và nhiều nữa.">
+  <link rel="stylesheet" href="ds/styles.css">
+  <style>
+    body{ margin:0; background:var(--paper); color:var(--ink-2);
+      font-family:var(--font-sans, 'Be Vietnam Pro', sans-serif); line-height:1.8; -webkit-font-smoothing:antialiased; }
+    .os-nav{ position:fixed; top:0; left:0; right:0; z-index:100; display:flex; align-items:center; justify-content:space-between;
+      padding:14px clamp(20px,6vw,72px); background:color-mix(in srgb, var(--paper-2) 82%, transparent);
+      backdrop-filter:blur(12px); border-bottom:1px solid var(--line); }
+    .os-nav a{ text-decoration:none; }
+    .os-brand{ font-size:14px; font-weight:600; color:var(--ink); }
+    .os-links{ display:flex; gap:20px; font-size:13px; }
+    .os-links a{ color:var(--muted); }
+    .os-links a:hover{ color:var(--ink); }
+    .os-links a.hot{ color:var(--turq-glow); font-weight:600; }
+    .wrap-o{ max-width:860px; margin:0 auto; padding:0 clamp(20px,5vw,40px); }
+
+    .os-hero{ padding:150px 0 64px; background:var(--paper-2); position:relative; overflow:hidden; }
+    .os-hero::before{ content:''; position:absolute; inset:0; pointer-events:none;
+      background:radial-gradient(ellipse 65% 55% at 80% 15%, rgba(52,181,166,0.10), transparent 65%); }
+    .os-stamp{ font-family:var(--font-mono, monospace); font-size:12px; letter-spacing:0.14em; text-transform:uppercase; color:var(--turq-glow); margin-bottom:22px; }
+    .os-hero h1{ margin:0 0 22px; font-family:var(--font-display, inherit); font-weight:700;
+      font-size:clamp(32px,5.6vw,58px); line-height:1.14; letter-spacing:-0.02em; color:var(--ink); max-width:16ch; position:relative; }
+    .os-hero p{ font-size:clamp(16px,1.8vw,19px); max-width:56ch; margin:0; position:relative; }
+
+    .blk{ padding:clamp(52px,7vw,88px) 0 8px; }
+    .blk + .blk{ border-top:1px solid var(--line); }
+    .blk-tag{ font-family:var(--font-mono, monospace); font-size:12px; letter-spacing:0.14em; text-transform:uppercase; color:var(--turq-glow); margin-bottom:14px; }
+    .blk h2{ margin:0 0 18px; font-family:var(--font-display, inherit); font-weight:700; font-size:clamp(23px,3vw,32px); line-height:1.22; color:var(--ink); }
+    .blk p{ font-size:16.5px; margin:0 0 20px; max-width:62ch; }
+
+    .pillars3{ display:grid; grid-template-columns:repeat(3,1fr); gap:12px; margin:28px 0; }
+    .pillar3{ background:var(--surface); border:1px solid var(--line); border-radius:12px; padding:20px; }
+    .pillar3 h3{ margin:0 0 8px; font-size:15.5px; color:var(--ink); }
+    .pillar3 p{ margin:0; font-size:13.5px; color:var(--muted); line-height:1.6; }
+
+    .gen-list{ margin:24px 0; display:grid; gap:6px; }
+    .gen-row{ display:flex; gap:12px; align-items:baseline; font-size:14px; padding:9px 14px;
+      background:var(--surface); border:1px solid var(--line); border-radius:8px; }
+    .gen-row b{ color:var(--ink); font-weight:600; white-space:nowrap; }
+    .gen-row span{ color:var(--muted); font-size:13px; }
+    .gen-n{ font-family:var(--font-mono, monospace); font-size:11px; color:var(--faint); }
+
+    .engine{ margin:26px 0; display:grid; gap:6px; }
+    .eng-row{ font-family:var(--font-mono, monospace); font-size:13px; padding:10px 14px;
+      background:var(--surface); border-left:3px solid var(--turq-glow); border-radius:0 8px 8px 0; color:var(--ink-2); }
+    .eng-row b{ color:var(--turq-glow); font-weight:600; }
+
+    .base4{ display:grid; grid-template-columns:repeat(4,1fr); gap:2px; margin:28px 0; border-radius:14px; overflow:hidden; }
+    .base-c{ background:var(--surface); padding:20px 12px; text-align:center; }
+    .base-num{ display:block; font-family:var(--font-display, inherit); font-weight:700; font-size:clamp(24px,3vw,40px); line-height:1; color:var(--turq-glow); margin-bottom:8px; }
+    .base-lbl{ font-size:11.5px; color:var(--muted); line-height:1.45; }
+
+    .tier{ margin:28px 0; }
+    .tier-h{ display:flex; align-items:center; gap:12px; margin-bottom:14px; }
+    .tier-h h3{ margin:0; font-size:16.5px; color:var(--ink); }
+    .tier-h span{ font-family:var(--font-mono, monospace); font-size:11px; letter-spacing:0.1em; text-transform:uppercase; color:var(--muted); }
+    .chips{ display:flex; flex-wrap:wrap; gap:8px; }
+    .chip{ padding:7px 14px; border-radius:999px; font-size:13px; border:1px solid var(--line-2); color:var(--ink-2); }
+    .chip small{ color:var(--muted); font-size:11.5px; }
+    .tier-song .chip{ border-color:var(--turq-line); background:var(--turq-soft); color:var(--turq-text); }
+    [data-theme="dark"] .tier-song .chip{ color:var(--turq-glow); }
+    .tier-note{ font-size:13px; color:var(--muted); margin-top:12px; max-width:60ch; }
+
+    .os-close{ text-align:center; padding:clamp(64px,9vw,110px) 0; background:var(--paper-2); border-top:1px solid var(--line); margin-top:70px; }
+    .os-close p.big{ font-family:var(--font-display, inherit); font-weight:700; font-size:clamp(21px,3.2vw,32px); line-height:1.35; color:var(--ink); max-width:26ch; margin:0 auto 18px; }
+    .os-close p.sub{ font-size:15px; color:var(--muted); max-width:52ch; margin:0 auto 34px; }
+    .os-cta{ display:inline-flex; align-items:center; gap:10px; background:var(--turq); color:var(--on-turq);
+      padding:15px 28px; border-radius:10px; font-size:15px; font-weight:600; text-decoration:none; }
+    .os-cta:hover{ background:var(--turq-strong); }
+
+    .os-foot{ padding:28px clamp(20px,6vw,72px); border-top:1px solid var(--line); display:flex;
+      justify-content:space-between; flex-wrap:wrap; gap:12px; font-size:13px; color:var(--muted); }
+    .os-foot a{ color:var(--turq-glow); text-decoration:none; }
+
+    @media (max-width:680px){
+      .pillars3{ grid-template-columns:1fr; }
+      .base4{ grid-template-columns:1fr 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<nav class="os-nav">
+  <a href="index.html" class="os-brand">Lê Công Hoàng</a>
+  <div class="os-links">
+    <a href="ve-lch.html">Về mình</a>
+    <a href="ai-journey.html">Hành trình</a>
+    <a href="index.html" class="hot">Lớp học →</a>
+  </div>
+</nav>
+
+<section class="os-hero">
+  <div class="wrap-o">
+    <div class="os-stamp">LCH's AI OS · hệ đang chạy, không phải ý tưởng</div>
+    <h1>Hệ điều hành làm việc xây quanh đúng một người.</h1>
+    <p>Mình không phải kỹ sư, và hệ này không viết bằng code. Nó viết bằng tiếng Việt: từng kỷ luật có tên, từng file máy đọc trước khi làm, từng cái van an toàn. Trang này mở cửa phòng máy cho bạn xem: triết lý, kiến trúc, và toàn bộ đồ nghề đã thử qua tay, không giấu món nào.</p>
+  </div>
+</section>
+
+<!-- TRIET LY -->
+<section class="blk">
+  <div class="wrap-o">
+    <div class="blk-tag">01 · Triết lý</div>
+    <h2>Ba trụ, chín generator nền</h2>
+    <div class="pillars3">
+      <div class="pillar3"><h3>Người cầm lái</h3><p>AI là đòn bẩy, không phải người quyết. Mọi cổng quyết định cuối cùng là mắt người. Hệ giao khoán cho máy tự chạy là hệ rỗng.</p></div>
+      <div class="pillar3"><h3>Đặt tên là quyền của người</h3><p>AI được đào, gom, trừu xuất, nhưng cái tên để trống cho mình đặt. Tên gọi đúng cái gốc người thì phủ được cả trường hợp chưa gặp.</p></div>
+      <div class="pillar3"><h3>Không tin lời tự khai</h3><p>Xác tín mọi khẳng định bằng nguồn thật, kể cả lời của chính hệ. Luật nào chịu lực thì phải kiểm được bằng code, không tin văn xuôi.</p></div>
+    </div>
+    <p>Dưới ba trụ là chín generator nền, những thứ sinh ra hành vi từ bên trong thay vì luật áp từ ngoài:</p>
+    <div class="gen-list">
+      <div class="gen-row"><span class="gen-n">#1</span><b>Xác tín</b><span>kiểm nguồn thật trước khi nói chắc, cộng đồng trước, không lấy trí nhớ máy tự xác nhận</span></div>
+      <div class="gen-row"><span class="gen-n">#2</span><b>Giao tiếp trắc ẩn</b><span>nói cho người nghe theo kịp, viết bằng tiếng người</span></div>
+      <div class="gen-row"><span class="gen-n">#3</span><b>Cộng sự phản chiếu</b><span>kháng cự đúng chỗ, không vuốt ve, chừa chỗ cho dấu tay người</span></div>
+      <div class="gen-row"><span class="gen-n">#4</span><b>Ý nghĩa trước hành động</b><span>hỏi để làm gì tới đáy rồi mới làm</span></div>
+      <div class="gen-row"><span class="gen-n">#5</span><b>Context có địa chỉ</b><span>mỗi output biết nó trả lời ai, cho quyết định nào</span></div>
+      <div class="gen-row"><span class="gen-n">#6</span><b>Hoàn vốn hệ thống</b><span>mỗi phiên để lại thứ làm phiên sau khôn hơn</span></div>
+      <div class="gen-row"><span class="gen-n">#7</span><b>Không tự vệ, không nhai lại</b><span>bị chỉnh thì nhận đúng điểm, sửa, đi tiếp</span></div>
+      <div class="gen-row"><span class="gen-n">#8</span><b>Session bootstrap</b><span>mở phiên đúng trạng thái, đóng phiên không mất ghi nhận</span></div>
+      <div class="gen-row"><span class="gen-n">#9</span><b>Ngân sách chú ý</b><span>thêm một luật là cấu trúc lại cả hệ, không chất đống</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- KIEN TRUC -->
+<section class="blk">
+  <div class="wrap-o">
+    <div class="blk-tag">02 · Kiến trúc</div>
+    <h2>Substrate, hệ tuần hoàn, và hook như động cơ</h2>
+    <p><b style="color:var(--ink);">Substrate</b> là lớp file AI đọc trước khi làm bất cứ việc gì: nó biết mình là ai, làm việc theo kỷ luật nào, được đụng gì và không được đụng gì. AI có thể quên sạch sau mỗi phiên, không sao, vì trí nhớ không nằm trong AI. Nó nằm trong dòng chảy: kho tri thức Obsidian là tim, mở phiên là hít vào, đóng phiên là thở ra, cái học được chảy ngược về kho.</p>
+    <p>Còn <b style="color:var(--ink);">hook</b> là phần cơ khí của hệ, những cái chốt chạy tự động không cần ai nhớ:</p>
+    <div class="engine">
+      <div class="eng-row"><b>SessionStart</b> · thì hút: kéo tri thức từ kho vào đầu máy lúc mở phiên</div>
+      <div class="eng-row"><b>emdash-block</b> · van an toàn: chặn cứng ký tự ngoại lai ngay tầng ghi file, không tin lời tự khai</div>
+      <div class="eng-row"><b>premise-gate</b> · phanh: chưa viết tiền đề bằng chữ của người thì chưa được mở dàn agent</div>
+      <div class="eng-row"><b>/luu</b> · thì xả: đóng phiên là quyết định, trạng thái, bài học chảy về kho, có kiểm từ đĩa</div>
+      <div class="eng-row"><b>Kaizen</b> · bánh đà: đào lại log làm việc, tìm mẫu lặp, đặt tên generator mới</div>
+    </div>
+  </div>
+</section>
+
+<!-- CHAN DE -->
+<section class="blk">
+  <div class="wrap-o">
+    <div class="blk-tag">03 · Chân đế, số thật từ log</div>
+    <h2>Hệ này đo được, không phải kể cho hay</h2>
+    <div class="base4">
+      <div class="base-c"><span class="base-num">706</span><div class="base-lbl">skill từng cài, 18 thành thói quen thật</div></div>
+      <div class="base-c"><span class="base-num">332</span><div class="base-lbl">repo giữ lại từ 1307 kho quét về, 36 agent chấm chéo</div></div>
+      <div class="base-c"><span class="base-num">160</span><div class="base-lbl">notebook nghiên cứu trong một năm trên NotebookLM</div></div>
+      <div class="base-c"><span class="base-num">2</span><div class="base-lbl">kỷ luật đã thành kho mã nguồn mở trên GitHub</div></div>
+    </div>
+    <p>Con số 706 cài mà chỉ 18 thành thói quen chính là bài học đắt nhất của cả hệ: cài thêm không làm mình mạnh lên, dùng tới nơi mới làm mình mạnh lên. Toàn bộ triết lý chọn đồ bên dưới sinh ra từ vết sẹo đó.</p>
+  </div>
+</section>
+
+<!-- KHO CONG CU -->
+<section class="blk">
+  <div class="wrap-o">
+    <div class="blk-tag">04 · Kho đồ nghề, kể hết không giấu</div>
+    <h2>Đã thử qua tay hết, và đây là chỗ đứng của từng món</h2>
+
+    <div class="tier tier-song">
+      <div class="tier-h"><h3>Đang sống mỗi ngày</h3><span>xương sống</span></div>
+      <div class="chips">
+        <span class="chip">Claude Code <small>· trung tâm điều hành, nơi hệ này được xây</small></span>
+        <span class="chip">Obsidian <small>· second brain, tim của hệ tuần hoàn</small></span>
+        <span class="chip">Claude <small>· model đối thoại chính</small></span>
+        <span class="chip">Claude Design <small>· đẻ ra bộ nhận diện của chính trang này</small></span>
+        <span class="chip">NotebookLM <small>· 160 sổ nghiên cứu</small></span>
+        <span class="chip">Gemini API <small>· ảnh Imagen, video Veo, giọng đọc</small></span>
+        <span class="chip">Exa <small>· tìm web cho kỷ luật xác tín</small></span>
+        <span class="chip">Hermes Agent <small>· cổng đa model tự dựng, chạy nền</small></span>
+        <span class="chip">GitHub <small>· nhà của skill mở và trang này</small></span>
+      </div>
+    </div>
+
+    <div class="tier">
+      <div class="tier-h"><h3>Trong xưởng, gọi theo việc</h3><span>đúng việc mới gọi</span></div>
+      <div class="chips">
+        <span class="chip">ChatGPT <small>· nghiên cứu, ảnh minh hoạ</small></span>
+        <span class="chip">OpenRouter <small>· một cửa gọi trăm model</small></span>
+        <span class="chip">fal.ai <small>· ảnh, video qua API</small></span>
+        <span class="chip">Krea <small>· video API, dùng ví trả trước tách riêng</small></span>
+        <span class="chip">Google Flow <small>· dựng video AI</small></span>
+        <span class="chip">Descript <small>· dựng video bằng cách sửa chữ</small></span>
+        <span class="chip">VietVoice-TTS <small>· giọng Việt local, 0 đồng</small></span>
+        <span class="chip">PhoWhisper <small>· phụ đề Việt local, 0 đồng</small></span>
+        <span class="chip">Serena <small>· đọc code theo ngữ nghĩa</small></span>
+        <span class="chip">context7 <small>· tra tài liệu thư viện</small></span>
+        <span class="chip">SkillSpector <small>· quét an ninh skill trước khi cài</small></span>
+        <span class="chip">Tavily <small>· tìm kiếm cho agent</small></span>
+        <span class="chip">Firecrawl <small>· cào web sạch</small></span>
+        <span class="chip">Supabase <small>· cơ sở dữ liệu</small></span>
+        <span class="chip">Render <small>· chỗ app Huyền Học đang chạy</small></span>
+        <span class="chip">Netlify · GitHub Pages <small>· nhà của web tĩnh</small></span>
+        <span class="chip">paperclip <small>· điều phối agent như một công ty, chạy local</small></span>
+        <span class="chip">agentmemory <small>· trí nhớ cho agent</small></span>
+      </div>
+    </div>
+
+    <div class="tier">
+      <div class="tier-h"><h3>Đã thử, xếp lại có lý do</h3><span>bỏ cũng là một quyết định</span></div>
+      <div class="chips">
+        <span class="chip">OpenClaw <small>· ngủ đông, chưa tới việc cần nó</small></span>
+        <span class="chip">Higgsfield AI <small>· thử rồi chọn đường API khác</small></span>
+        <span class="chip">Genspark <small>· thử một thời gian rồi xếp lại</small></span>
+        <span class="chip">edge-tts <small>· hạ xuống dự phòng vì hay lỗi</small></span>
+        <span class="chip">Pollinations <small>· bất ổn, bỏ</small></span>
+      </div>
+      <p class="tier-note">Danh sách này quan trọng ngang danh sách đang dùng. Một hệ khoẻ không phải hệ cài nhiều nhất, mà là hệ dám xếp đồ lại khi nó không phục vụ việc thật, và nhớ được vì sao.</p>
+    </div>
+  </div>
+</section>
+
+<!-- NGUYEN TAC CHI TIEN -->
+<section class="blk">
+  <div class="wrap-o">
+    <div class="blk-tag">05 · Nguyên tắc chi tiền</div>
+    <h2>Thử trước bằng tiền của mình</h2>
+    <p>Mỗi gói trả phí trong kho trên đều đi qua một quy trình: đem một việc thật ra thử, đo giờ tiết kiệm được, tính ra đồng trên giờ, rồi mới kết luận đáng hay không. Kết luận nào cũng có ngày kiểm, vì giá gói AI đổi liên tục.</p>
+    <p>Đó cũng chính là món quà mình tặng học viên của lớp: 3 đến 6 tháng sau lớp, cần mua gói nào cứ hỏi, mình đã thử trước bằng tiền của mình rồi mới chỉ bạn mua. Kể cả khi câu trả lời là: khỏi mua, gói miễn phí đủ rồi.</p>
+  </div>
+</section>
+
+<section class="os-close">
+  <div class="wrap-o">
+    <p class="big">Hệ này không xây để khoe. Nó xây để mua lại thời gian, trước tiên là của chính mình.</p>
+    <p class="sub">Muốn xem nó ra đời thế nào, đọc trang hành trình. Muốn nó mua lại thời gian cho bạn, vào lớp.</p>
+    <a href="index.html" class="os-cta">Xem lớp học: Mua lại thời gian của chính bạn <span aria-hidden="true">→</span></a>
+  </div>
+</section>
+
+<footer class="os-foot">
+  <div>© 2026 Lê Công Hoàng · marillCreative · TP. Hồ Chí Minh</div>
+  <div><a href="ve-lch.html">Về mình</a> · <a href="ai-journey.html">Hành trình</a> · <a href="index.html">Trang chủ</a></div>
+</footer>
+
+</body>
+</html>
