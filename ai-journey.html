@@ -3,1003 +3,363 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Hành trình AI · Lê Công Hoàng</title>
-  <meta name="description" content="Hành trình Lê Công Hoàng xây hệ AI quanh một người: ba kỷ luật công khai, chín generator nền, một kiến trúc tuần hoàn tri thức.">
+  <title>Đêm mình đặt tên cho chỗ AI gãy · Lê Công Hoàng</title>
+  <meta name="description" content="Nhật ký một phiên làm việc sáu tiếng lúc một giờ sáng: chuyện Lê Công Hoàng xây một hệ AI quanh đúng một người, và vì sao.">
   <link rel="stylesheet" href="ds/styles.css">
   <style>
-    /* ── Editorial custom styles ── */
-
-    .j-body {
-      background: var(--paper);
-      color: var(--ink-2);
-      font-family: var(--font-sans, 'Be Vietnam Pro', sans-serif);
-      line-height: 1.75;
-    }
-
-    /* HERO */
-    .j-hero {
-      min-height: 100dvh;
-      display: flex;
-      flex-direction: column;
-      justify-content: flex-end;
-      padding: clamp(40px, 8vw, 120px) clamp(24px, 8vw, 120px) clamp(60px, 10vw, 140px);
-      position: relative;
-      overflow: hidden;
-      background: var(--paper-2);
-    }
-
-    .j-hero::before {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background: radial-gradient(
-        ellipse 80% 60% at 60% 30%,
-        rgba(52, 181, 166, 0.08) 0%,
-        transparent 70%
-      );
-      pointer-events: none;
-    }
-
-    .j-hero-eyebrow {
-      font-family: var(--font-mono, 'JetBrains Mono', monospace);
-      font-size: 11px;
-      letter-spacing: 0.18em;
-      text-transform: uppercase;
-      color: var(--turq-glow, #45B5AA);
-      margin-bottom: 28px;
-    }
-
-    .j-hero-quote {
-      font-family: var(--font-display, var(--font-body));
-      font-size: clamp(28px, 5.5vw, 72px);
-      font-weight: 700;
-      line-height: 1.15;
-      color: var(--ink);
-      margin: 0 0 28px;
-      max-width: 900px;
-    }
-
-    .j-hero-quote em {
-      font-style: normal;
-      color: var(--turq-glow);
-    }
-
-    .j-hero-attr {
-      font-size: 13px;
-      color: var(--muted);
-      margin-bottom: 36px;
-    }
-
-    .j-hero-deck {
-      font-size: clamp(16px, 1.8vw, 20px);
-      color: var(--ink-2);
-      max-width: 640px;
-      line-height: 1.7;
-    }
-
-    .j-hero-scroll {
-      margin-top: 60px;
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      color: var(--muted);
-      font-size: 12px;
-      letter-spacing: 0.1em;
-    }
-
-    .j-hero-scroll::before {
-      content: '';
-      display: block;
-      width: 40px;
-      height: 1px;
-      background: var(--muted);
-    }
-
-    /* INTRO STRIP */
-    .j-intro {
-      border-top: 1px solid var(--line);
-      border-bottom: 1px solid var(--line);
-      padding: 48px clamp(24px, 8vw, 120px);
-    }
-
-    .j-intro-inner {
-      max-width: 720px;
-    }
-
-    .j-intro p {
-      font-size: 18px;
-      line-height: 1.75;
-      color: var(--ink-2);
-      margin: 0 0 20px;
-    }
-
-    .j-intro p:last-child { margin-bottom: 0; }
-
-    /* CHAPTERS */
-    .j-ch {
-      padding: clamp(60px, 8vw, 120px) clamp(24px, 8vw, 120px);
-      position: relative;
-    }
-
-    .j-ch + .j-ch {
-      border-top: 1px solid var(--line);
-    }
-
-    .j-ch-alt {
-      background: var(--paper-2);
-    }
-
-    .j-ch-inner {
-      display: grid;
-      grid-template-columns: 1fr 2fr;
-      gap: 48px 80px;
-      max-width: 1200px;
-    }
-
-    .j-ch-sidebar {}
-
-    .j-ch-num {
-      font-family: var(--font-mono, monospace);
-      font-size: 11px;
-      letter-spacing: 0.15em;
-      text-transform: uppercase;
-      color: var(--muted);
-      margin-bottom: 16px;
-    }
-
-    .j-ch-label {
-      font-family: var(--font-mono, monospace);
-      font-size: 13px;
-      color: var(--turq-glow);
-      background: var(--turq-soft, rgba(69, 181, 170, 0.08));
-      display: inline-block;
-      padding: 4px 10px;
-      border-radius: 4px;
-      margin-bottom: 20px;
-    }
-
-    .j-ch-title {
-      font-family: var(--font-display, var(--font-body));
-      font-size: clamp(22px, 2.5vw, 36px);
-      font-weight: 700;
-      color: var(--ink);
-      line-height: 1.25;
-      margin: 0 0 12px;
-    }
-
-    .j-ch-sub {
-      font-size: 14px;
-      color: var(--muted);
-      line-height: 1.6;
-    }
-
-    .j-ch-body {}
-
-    .j-ch-body p {
-      font-size: 16px;
-      line-height: 1.8;
-      color: var(--ink-2);
-      margin: 0 0 22px;
-    }
-
-    .j-ch-body p:last-child { margin-bottom: 0; }
-
-    /* PULL QUOTE */
-    .j-pull {
-      border-left: 3px solid var(--turq-glow);
-      padding: 20px 24px;
-      margin: 32px 0;
-      background: var(--turq-soft, rgba(69, 181, 170, 0.06));
-      border-radius: 0 8px 8px 0;
-    }
-
-    .j-pull p {
-      font-size: 17px !important;
-      font-style: italic;
-      color: var(--ink) !important;
-      margin: 0 0 10px !important;
-    }
-
-    .j-pull cite {
-      font-size: 12px;
-      font-style: normal;
-      color: var(--muted);
-      display: block;
-    }
-
-    /* STATS BLOCK */
-    .j-stats {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 2px;
-      margin: 32px 0;
-      border-radius: 12px;
-      overflow: hidden;
-    }
-
-    .j-stat {
-      background: var(--surface);
-      padding: 24px 20px;
-      text-align: center;
-    }
-
-    .j-stat-num {
-      font-family: var(--font-display, var(--font-body));
-      font-size: clamp(28px, 3vw, 48px);
-      font-weight: 700;
-      color: var(--turq-glow);
-      display: block;
-      line-height: 1;
-      margin-bottom: 8px;
-    }
-
-    .j-stat-label {
-      font-size: 12px;
-      color: var(--muted);
-      line-height: 1.4;
-    }
-
-    /* VERSION TIMELINE */
-    .j-timeline {
-      margin: 32px 0;
-      position: relative;
-    }
-
-    .j-timeline::before {
-      content: '';
-      position: absolute;
-      left: 20px;
-      top: 0;
-      bottom: 0;
-      width: 1px;
-      background: var(--line-2);
-    }
-
-    .j-tl-item {
-      display: flex;
-      gap: 20px;
-      padding: 16px 0 16px 56px;
-      position: relative;
-    }
-
-    .j-tl-dot {
-      position: absolute;
-      left: 12px;
-      top: 22px;
-      width: 16px;
-      height: 16px;
-      border-radius: 50%;
-      background: var(--surface);
-      border: 2px solid var(--line-2);
-      flex-shrink: 0;
-    }
-
-    .j-tl-dot.active {
-      border-color: var(--turq-glow);
-      background: var(--turq-soft);
-    }
-
-    .j-tl-content {}
-
-    .j-tl-ver {
-      font-family: var(--font-mono, monospace);
-      font-size: 12px;
-      color: var(--turq-glow);
-      font-weight: 600;
-      margin-bottom: 4px;
-    }
-
-    .j-tl-desc {
-      font-size: 14px;
-      color: var(--ink-2);
-      line-height: 1.6;
-    }
-
-    /* CIRCULATION DIAGRAM */
-    .j-circ {
-      background: var(--surface);
-      border-radius: 16px;
-      padding: 32px;
-      margin: 32px 0;
-    }
-
-    .j-circ-title {
-      font-size: 12px;
-      font-family: var(--font-mono, monospace);
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      color: var(--muted);
-      margin-bottom: 24px;
-    }
-
-    .j-circ-grid {
-      display: grid;
-      grid-template-columns: 1fr auto 1fr;
-      gap: 12px;
-      align-items: center;
-    }
-
-    .j-circ-box {
-      background: var(--paper);
-      border: 1px solid var(--line);
-      border-radius: 10px;
-      padding: 16px;
-      text-align: center;
-    }
-
-    .j-circ-box.heart {
-      border-color: var(--turq-line);
-      background: var(--turq-soft);
-    }
-
-    .j-circ-box-name {
-      font-size: 13px;
-      font-weight: 600;
-      color: var(--ink);
-      margin-bottom: 4px;
-    }
-
-    .j-circ-box-desc {
-      font-size: 11px;
-      color: var(--muted);
-    }
-
-    .j-circ-arrow {
-      text-align: center;
-      color: var(--turq-glow);
-      font-size: 20px;
-    }
-
-    .j-circ-flows {
-      grid-column: 1 / -1;
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 8px;
-      margin-top: 16px;
-    }
-
-    .j-circ-flow {
-      background: var(--paper);
-      border: 1px solid var(--line);
-      border-radius: 8px;
-      padding: 12px;
-      text-align: center;
-    }
-
-    .j-circ-flow-name {
-      font-family: var(--font-mono, monospace);
-      font-size: 11px;
-      color: var(--turq-glow);
-      margin-bottom: 4px;
-    }
-
-    .j-circ-flow-desc {
-      font-size: 11px;
-      color: var(--muted);
-    }
-
-    /* GENERATORS GRID */
-    .j-gens {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 12px;
-      margin: 32px 0;
-    }
-
-    .j-gen {
-      background: var(--surface);
-      border-radius: 10px;
-      padding: 20px;
-      border-left: 3px solid transparent;
-    }
-
-    .j-gen:nth-child(1) { border-left-color: var(--turq-glow); }
-    .j-gen:nth-child(2) { border-left-color: var(--turq-glow); }
-    .j-gen:nth-child(3) { border-left-color: var(--peri, #9192DA); }
-    .j-gen:nth-child(4) { border-left-color: var(--peri, #9192DA); }
-    .j-gen:nth-child(5) { border-left-color: var(--muted); }
-    .j-gen:nth-child(6) { border-left-color: var(--muted); }
-    .j-gen:nth-child(7) { border-left-color: var(--muted); }
-    .j-gen:nth-child(8) { border-left-color: var(--muted); }
-    .j-gen:nth-child(9) { border-left-color: var(--muted); }
-
-    .j-gen-num {
-      font-family: var(--font-mono, monospace);
-      font-size: 10px;
-      color: var(--faint);
-      margin-bottom: 6px;
-    }
-
-    .j-gen-name {
-      font-size: 14px;
-      font-weight: 600;
-      color: var(--ink);
-      margin-bottom: 4px;
-    }
-
-    .j-gen-desc {
-      font-size: 12px;
-      color: var(--muted);
-      line-height: 1.5;
-    }
-
-    /* CLOSING SECTION */
-    .j-closing {
-      padding: clamp(80px, 10vw, 160px) clamp(24px, 8vw, 120px);
-      text-align: center;
-      background: var(--paper-2);
-      border-top: 1px solid var(--line);
-    }
-
-    .j-closing-quote {
-      font-family: var(--font-display, var(--font-body));
-      font-size: clamp(22px, 3.5vw, 48px);
-      font-weight: 700;
-      color: var(--ink);
-      line-height: 1.3;
-      max-width: 700px;
-      margin: 0 auto 24px;
-    }
-
-    .j-closing-sub {
-      font-size: 16px;
-      color: var(--muted);
-      max-width: 540px;
-      margin: 0 auto 48px;
-      line-height: 1.7;
-    }
-
-    /* CTA */
-    .j-cta {
-      display: inline-flex;
-      align-items: center;
-      gap: 10px;
-      background: var(--turq);
-      color: var(--on-turq);
-      padding: 16px 32px;
-      border-radius: 8px;
-      font-size: 15px;
-      font-weight: 600;
-      text-decoration: none;
-      transition: background 0.2s;
-    }
-
-    .j-cta:hover { background: var(--turq-strong); }
-
-    .j-cta-arrow {
-      font-size: 18px;
-      transition: transform 0.2s;
-    }
-
-    .j-cta:hover .j-cta-arrow { transform: translateX(3px); }
-
-    /* NAV */
-    .j-nav {
-      position: fixed;
-      top: 0;
-      left: 0;
-      right: 0;
-      z-index: 100;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 16px clamp(24px, 6vw, 80px);
-      background: rgba(13, 16, 18, 0.85);
-      backdrop-filter: blur(12px);
-      border-bottom: 1px solid var(--line);
-    }
-
-    .j-nav-brand {
-      font-size: 14px;
-      font-weight: 600;
-      color: var(--ink);
-      text-decoration: none;
-    }
-
-    .j-nav-links {
-      display: flex;
-      gap: 24px;
-    }
-
-    .j-nav-link {
-      font-size: 13px;
-      color: var(--muted);
-      text-decoration: none;
-      transition: color 0.2s;
-    }
-
-    .j-nav-link:hover { color: var(--ink); }
-
-    /* FOOTNOTE BAR */
-    .j-foot {
-      padding: 32px clamp(24px, 8vw, 120px);
-      border-top: 1px solid var(--line);
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      flex-wrap: wrap;
-      gap: 16px;
-    }
-
-    .j-foot-copy {
-      font-size: 13px;
-      color: var(--muted);
-    }
-
-    .j-foot-link {
-      font-size: 13px;
-      color: var(--turq-glow);
-      text-decoration: none;
-    }
-
-    /* RESPONSIVE */
-    @media (max-width: 768px) {
-      .j-ch-inner {
-        grid-template-columns: 1fr;
-        gap: 28px;
-      }
-
-      .j-stats {
-        grid-template-columns: repeat(2, 1fr);
-      }
-
-      .j-gens {
-        grid-template-columns: repeat(2, 1fr);
-      }
-
-      .j-circ-grid {
-        grid-template-columns: 1fr;
-      }
-
-      .j-circ-flows {
-        grid-template-columns: 1fr;
-      }
-
-      .j-circ-arrow {
-        display: none;
-      }
-
-      .j-nav-links {
-        display: none;
-      }
-    }
-
-    @media (max-width: 480px) {
-      .j-stats { grid-template-columns: 1fr 1fr; }
-      .j-gens { grid-template-columns: 1fr; }
+    body{
+      margin:0; background:var(--paper); color:var(--ink-2);
+      font-family:var(--font-sans, 'Be Vietnam Pro', sans-serif);
+      line-height:1.8; -webkit-font-smoothing:antialiased;
+    }
+
+    /* thanh tien do doc */
+    .jp-progress{ position:fixed; top:0; left:0; height:2px; width:0%;
+      background:var(--turq-glow); z-index:200; transition:width .1s linear; }
+
+    /* nav */
+    .jp-nav{ position:fixed; top:0; left:0; right:0; z-index:100;
+      display:flex; align-items:center; justify-content:space-between;
+      padding:14px clamp(20px,6vw,72px);
+      background:color-mix(in srgb, var(--paper-2) 82%, transparent);
+      backdrop-filter:blur(12px); border-bottom:1px solid var(--line); }
+    .jp-nav a{ text-decoration:none; }
+    .jp-brand{ font-size:14px; font-weight:600; color:var(--ink); }
+    .jp-nav-cta{ font-size:13px; color:var(--turq-glow); }
+
+    .wrap-n{ max-width:760px; margin:0 auto; padding:0 clamp(20px,5vw,40px); }
+
+    /* hero */
+    .jp-hero{ min-height:92dvh; display:flex; flex-direction:column; justify-content:center;
+      position:relative; overflow:hidden; background:var(--paper-2); padding:120px 0 80px; }
+    .jp-hero::before{ content:''; position:absolute; inset:0; pointer-events:none;
+      background:radial-gradient(ellipse 70% 55% at 75% 20%, rgba(52,181,166,0.10), transparent 65%); }
+    .jp-stamp{ font-family:var(--font-mono, monospace); font-size:12px; letter-spacing:0.14em;
+      text-transform:uppercase; color:var(--turq-glow); margin-bottom:26px; }
+    .jp-hero h1{ margin:0 0 26px; font-family:var(--font-display, inherit); font-weight:700;
+      font-size:clamp(34px,6.4vw,68px); line-height:1.12; letter-spacing:-0.02em; color:var(--ink); max-width:15ch; }
+    .jp-hero h1 em{ font-style:normal; color:var(--turq-glow); }
+    .jp-deck{ font-size:clamp(16px,1.9vw,19px); color:var(--ink-2); max-width:56ch; margin:0; }
+    .jp-scrollhint{ margin-top:56px; display:flex; align-items:center; gap:10px;
+      color:var(--muted); font-size:12px; letter-spacing:0.1em; }
+    .jp-scrollhint::before{ content:''; width:36px; height:1px; background:var(--muted); }
+
+    /* than bai */
+    .jp-flow{ padding:72px 0 0; }
+    .jp-flow p{ font-size:17px; margin:0 0 24px; }
+    .jp-flow p.big{ font-size:clamp(19px,2.2vw,23px); color:var(--ink); line-height:1.65; }
+
+    /* canh theo gio */
+    .scene{ position:relative; padding:56px 0 8px; }
+    .scene-time{ font-family:var(--font-mono, monospace); font-size:13px; color:var(--turq-glow);
+      letter-spacing:0.12em; display:flex; align-items:center; gap:12px; margin-bottom:18px; }
+    .scene-time::after{ content:''; flex:1; height:1px; background:var(--line); }
+    .scene h2{ margin:0 0 20px; font-family:var(--font-display, inherit); font-weight:700;
+      font-size:clamp(22px,3vw,32px); line-height:1.25; letter-spacing:-0.015em; color:var(--ink); }
+
+    /* transcript */
+    .say{ margin:26px 0; padding:18px 22px; border-radius:12px; max-width:60ch; }
+    .say-who{ font-family:var(--font-mono, monospace); font-size:11px; letter-spacing:0.12em;
+      text-transform:uppercase; margin-bottom:8px; }
+    .say-h{ background:var(--turq-soft); border:1px solid var(--turq-line); }
+    .say-h .say-who{ color:var(--turq-glow); }
+    .say-h .say-txt{ color:var(--ink); font-size:16.5px; }
+    .say-a{ background:var(--surface); border:1px solid var(--line); margin-left:clamp(16px,6vw,56px); }
+    .say-a .say-who{ color:var(--muted); }
+    .say-a .say-txt{ color:var(--ink-2); font-size:16px; }
+    .say-note{ font-size:12.5px; color:var(--muted); margin-top:10px; }
+
+    /* bang so */
+    .tally{ display:grid; grid-template-columns:repeat(4,1fr); gap:2px;
+      margin:34px 0 14px; border-radius:14px; overflow:hidden; }
+    .tally-cell{ background:var(--surface); padding:22px 14px; text-align:center; }
+    .tally-num{ display:block; font-family:var(--font-display, inherit); font-weight:700;
+      font-size:clamp(26px,3.4vw,44px); line-height:1; color:var(--turq-glow); margin-bottom:8px; }
+    .tally-lbl{ font-size:12px; color:var(--muted); line-height:1.45; }
+    .tally-src{ font-family:var(--font-mono, monospace); font-size:11.5px; color:var(--faint); margin:0 0 30px; }
+
+    /* cau nhan dung rieng */
+    .beat{ margin:44px 0; padding:0 0 0 22px; border-left:3px solid var(--turq-glow); }
+    .beat p{ margin:0; font-family:var(--font-display, inherit); font-weight:700;
+      font-size:clamp(19px,2.6vw,26px); line-height:1.4; color:var(--ink); }
+
+    /* ba ky luat */
+    .laws{ margin:36px 0; display:grid; gap:14px; }
+    .law{ background:var(--surface); border:1px solid var(--line); border-radius:14px; padding:24px 26px; }
+    .law-tag{ font-family:var(--font-mono, monospace); font-size:12px; color:var(--turq-glow); margin-bottom:10px; }
+    .law h3{ margin:0 0 10px; font-size:18px; font-weight:700; color:var(--ink); }
+    .law p{ margin:0; font-size:15.5px; color:var(--ink-2); }
+    .law p + p{ margin-top:12px; }
+
+    /* nhip tho */
+    .breath{ text-align:center; padding:64px 0 8px; }
+    .breath span{ display:inline-block; width:5px; height:5px; border-radius:50%; background:var(--faint); margin:0 7px; }
+
+    /* dark closing */
+    .jp-deep{ background:var(--paper-2); border-top:1px solid var(--line); margin-top:80px;
+      padding:clamp(70px,9vw,120px) 0; }
+    .jp-deep .wrap-n > p{ font-size:17px; margin:0 0 24px; }
+    .jp-deep .wrap-n > p.big{ font-size:clamp(20px,2.6vw,26px); color:var(--ink); line-height:1.6; }
+
+    .jp-close{ text-align:center; padding:clamp(80px,10vw,150px) 0; }
+    .jp-close-q{ margin:0 auto 22px; max-width:22ch; font-family:var(--font-display, inherit); font-weight:700;
+      font-size:clamp(24px,4vw,44px); line-height:1.3; color:var(--ink); }
+    .jp-close-sub{ margin:0 auto 46px; max-width:52ch; font-size:16px; color:var(--muted); }
+    .jp-cta{ display:inline-flex; align-items:center; gap:10px; background:var(--turq); color:var(--on-turq);
+      padding:16px 30px; border-radius:10px; font-size:15px; font-weight:600; text-decoration:none; transition:background .2s; }
+    .jp-cta:hover{ background:var(--turq-strong); }
+
+    .jp-foot{ padding:30px clamp(20px,6vw,72px); border-top:1px solid var(--line);
+      display:flex; justify-content:space-between; flex-wrap:wrap; gap:14px; font-size:13px; color:var(--muted); }
+    .jp-foot a{ color:var(--turq-glow); text-decoration:none; }
+
+    /* scroll reveal */
+    .rv{ opacity:0; transform:translateY(18px); transition:opacity .7s ease, transform .7s ease; }
+    .rv.in{ opacity:1; transform:none; }
+    @media (prefers-reduced-motion: reduce){ .rv{ opacity:1; transform:none; transition:none; } }
+
+    @media (max-width:640px){
+      .tally{ grid-template-columns:1fr 1fr; }
+      .say-a{ margin-left:12px; }
     }
   </style>
 </head>
+<body>
 
-<body class="j-body">
+<div class="jp-progress" id="progress"></div>
 
-  <!-- NAV -->
-  <nav class="j-nav">
-    <a href="index.html" class="j-nav-brand">Lê Công Hoàng</a>
-    <div class="j-nav-links">
-      <a href="#xac-tin" class="j-nav-link">Xác tín</a>
-      <a href="#verbal" class="j-nav-link">Giọng người</a>
-      <a href="#what-for" class="j-nav-link">Để làm gì</a>
-      <a href="#he-sinh-thai" class="j-nav-link">Hệ sinh thái</a>
-      <a href="index.html" class="j-nav-link" style="color: var(--turq-glow);">Khoá học →</a>
+<nav class="jp-nav">
+  <a href="index.html" class="jp-brand">Lê Công Hoàng</a>
+  <a href="index.html" class="jp-nav-cta">Lớp học: Mua lại thời gian →</a>
+</nav>
+
+<!-- HERO -->
+<section class="jp-hero">
+  <div class="wrap-n">
+    <div class="jp-stamp">01:05 · 14.06.2026 · nhật ký một phiên làm việc</div>
+    <h1>Đêm mình đặt tên cho <em>chỗ AI gãy</em>.</h1>
+    <p class="jp-deck">Một giờ sáng, mình mở máy, định làm việc một tiếng rồi ngủ. Phiên đó kéo sáu tiếng, đến bảy giờ sáng. Không phải để xây thêm cái gì. Để bắt cho được một thói hư của cái máy mà mình đã chịu đựng quá lâu.</p>
+    <div class="jp-scrollhint">cuộn để đọc, chừng bảy phút</div>
+  </div>
+</section>
+
+<!-- DONG CAM -->
+<section class="jp-flow">
+  <div class="wrap-n">
+    <p class="big rv">Bạn chắc từng gặp cảnh này: hỏi AI một chuyện, nó trả lời trôi chảy, tự tin, đầy đủ. Và sai.</p>
+    <p class="rv">Không phải sai kiểu vụng. Sai kiểu rất thuyết phục. Nó không biết mà không nói là không biết, cứ thế đẩy ra một câu trả lời tròn trịa. Bạn phát hiện được một lần thì bắt đầu nghi mọi lần. Cái mệt đó, mình sống trong nó hàng ngày, vì mình đặt AI vào giữa quy trình làm việc thật của mình chứ không phải thử cho biết.</p>
+    <p class="rv">Mình không phải kỹ sư. Mình là diễn viên, người dựng phim mười lăm năm, sáng lập một studio nhỏ ở Sài Gòn. Cái mình có không phải nền tảng lập trình, mà là một thói quen nghề nghiệp: xem lại từng khung hình cho đến khi tìm ra chỗ gãy. Đêm 14 tháng 6, mình đem đúng thói quen đó ra dùng với AI.</p>
+  </div>
+</section>
+
+<!-- 01:49 -->
+<section class="jp-flow">
+  <div class="wrap-n">
+    <div class="scene rv">
+      <div class="scene-time">01:49</div>
+      <h2>Bảng số lúc gần hai giờ sáng</h2>
+      <p>Mình giao cho AI một bài toán: thống kê lại chính chúng ta. Đào log thật, đếm thật, không kể cảm giác. Kết quả là một bảng mà mình nhìn khá lâu:</p>
     </div>
-  </nav>
 
-  <!-- HERO -->
-  <section class="j-hero">
-    <div class="j-hero-eyebrow">Hành trình xây hệ AI quanh một người</div>
-    <h1 class="j-hero-quote">
-      "Verify không đủ,<br>
-      nên đành đẻ ra<br>
-      <em>'xác tín'.</em>"
-    </h1>
-    <p class="j-hero-attr">Lê Công Hoàng · 2026-06-14</p>
-    <p class="j-hero-deck">
-      Đây không phải chuyện học AI. Đây là chuyện một người liên tục gặp chỗ ngôn ngữ cũ thất bại, rồi đặt tên mới. Một phiên sáu giờ lúc một giờ sáng, ba kỷ luật công khai, chín generator nền, một kiến trúc.
-    </p>
-    <div class="j-hero-scroll">cuộn để đọc</div>
-  </section>
-
-  <!-- INTRO -->
-  <section class="j-intro">
-    <div class="j-intro-inner">
-      <p>
-        Lê Công Hoàng không phải kỹ sư AI. Anh là diễn viên, cố vấn chiến lược, người sáng lập The Mirror Practice. Anh làm việc thật với AI, không phải thử cho biết, mà đặt AI vào quy trình hàng ngày của mình.
-      </p>
-      <p>
-        Cái anh gặp không phải là những giới hạn kỹ thuật. Là những giới hạn ngôn ngữ. Các từ anh dùng để hướng dẫn AI (verify, address, explain) đều đã bị AI hấp thụ và hiểu nhạt đi so với điều anh thực sự muốn. Và khi một từ không còn làm được việc của nó nữa, có hai hướng: hoặc cố sửa cái cũ, hoặc đặt từ mới.
-      </p>
-      <p>
-        Anh chọn hướng thứ hai. Đây là ba lần anh làm điều đó.
-      </p>
+    <div class="tally rv">
+      <div class="tally-cell"><span class="tally-num" data-count="706">0</span><div class="tally-lbl">skill đã cài vào hệ</div></div>
+      <div class="tally-cell"><span class="tally-num" data-count="55">0</span><div class="tally-lbl">từng được dùng ít nhất một lần</div></div>
+      <div class="tally-cell"><span class="tally-num" data-count="18">0</span><div class="tally-lbl">thành thói quen thật</div></div>
+      <div class="tally-cell"><span class="tally-num" data-count="55" data-suffix="%">0</span><div class="tally-lbl">hành vi nằm ở 4 skill đứng đầu</div></div>
     </div>
-  </section>
+    <p class="tally-src rv">nguồn: log phiên 14.06.2026, 7,5MB, 1715 sự kiện</p>
 
-  <!-- CHAPTER 1: XÁC TÍN -->
-  <section class="j-ch" id="xac-tin">
-    <div class="j-ch-inner">
-      <div class="j-ch-sidebar">
-        <div class="j-ch-num">Chương 01</div>
-        <div class="j-ch-label">/xac-tin</div>
-        <h2 class="j-ch-title">Cái từ cũ thất bại</h2>
-        <p class="j-ch-sub">
-          Sinh ra từ một phiên làm việc sáu tiếng, lúc AI liên tục đưa ra thông tin tự tin mà sai.
-        </p>
-      </div>
+    <p class="rv">Đọc bảng đó ra một câu khó nghe: mình là người cài, không phải người dùng. Và bốn skill mình dùng nhiều nhất không phải công cụ sản xuất. Toàn là đồ bảo trì: gọi AI sửa giọng, nhắc AI nhớ mình là ai, lưu phiên. Cái hệ mình xây để đỡ việc đang bắt mình làm người giữ máy cho nó.</p>
+    <p class="rv">Có một con số làm mình quê nhất: 48 lần mình tự tay gõ gọi một lệnh tên là verbal-explanation, chỉ để bắt AI viết lại bằng tiếng người. 48 lần cùng một cảnh: nó trả lời xong, mình kêu dịch lại. Một cái thuế trả bằng tay, kinh niên chứ không phải thỉnh thoảng (đúng, mình có ngồi đếm lại).</p>
+  </div>
+</section>
 
-      <div class="j-ch-body">
-        <p>
-          Chữ "verify" không làm được cái anh muốn nó làm.
-        </p>
-        <p>
-          Không phải vì AI không hiểu nghĩa. Mà vì AI đã hấp thụ "verify" như một bước nhỏ trong pipeline, một checkbox kiểu check-before-publish. Anh muốn cả một quy trình có thứ tự: trước tiên tìm cộng đồng cùng vấn đề (GitHub, Reddit, forum), rồi mới web search, rồi API, rồi official docs. Và quan trọng hơn: không bao giờ dùng chính dữ liệu huấn luyện của model để xác nhận điều model vừa nói. Sau khi đủ nguồn ngoài, mới dùng não ghép các nguồn lại mà luận.
-        </p>
-        <p>
-          Dùng chữ "verify" để yêu cầu điều đó thì lần nào AI cũng sơ sài hóa. Đến lần thứ mấy, anh nhận ra: chữ này không sửa được nữa. Nó đã bị dùng theo nghĩa khác quá lâu, ở quá nhiều chỗ.
-        </p>
-
-        <div class="j-pull">
-          <p>"chữ verify đáng ra phải làm trọn như tôi mô tả, nhưng nó đã không làm được và làm bạn sơ sài hoá, nên đành đẻ ra chữ xác tín."</p>
-          <cite>Lê Công Hoàng, 2026-06-14</cite>
-        </div>
-
-        <p>
-          "Xác tín" ra đời từ phiên làm việc sáu tiếng ngày 14 tháng 6 năm 2026. Trong phiên đó, AI gom được 5 rule rải rác trong substrate (hệ file AI đọc trước khi làm) và nhận ra chúng là 5 bề mặt của 1 gốc ẩn duy nhất: AI mặc định đẩy output tự tin, đầy đủ, tiến tới, kể cả khi thật ra chưa chắc, chưa kiểm, chưa đọc file. AI trình cái gốc đó ra, với tên để trống. LCH đặt: "xác tín."
-        </p>
-        <p>
-          Từ đó, xác tín mang theo cả chuỗi thứ tự: cộng đồng trước, rồi web, rồi official, không bao giờ dùng trí nhớ model để tự xác nhận. Và một quy tắc đặc biệt: xác tín cả chính cái xác tín. Lần đầu bắt buộc. Sau đó tự kiểm tối thiểu 2 vòng, tối đa 5, co giãn theo cỡ việc. Không phải để chắc chắn hoàn toàn. Mà để không sai cơ bản mà không biết.
-        </p>
-        <p>
-          Chưa đầy hai tuần sau, xác tín thêm một tầng nữa: không chỉ kiểm theo câu (mỗi khẳng định có neo nguồn không), mà kiểm theo từ (mỗi chữ có mang đúng nghĩa không) và theo đoạn (cả mạch có tự cãi nhau không). Tầng này sinh ra từ một lỗi cụ thể: AI đặt tên "xác tín" NGƯỢC nghĩa cho một skill, câu đúng ngữ pháp, nguồn đủ, chỉ kiểm theo câu không lòi ra. Phải kiểm theo từ mới bắt được. Lỗi thành luật.
-        </p>
-      </div>
+<!-- 02:19 -->
+<section class="jp-flow">
+  <div class="wrap-n">
+    <div class="scene rv">
+      <div class="scene-time">02:19</div>
+      <h2>Chữ cũ chết, chữ mới ra đời</h2>
+      <p>Đêm đó AI gom được năm quy tắc rải rác mình từng dặn nó ở năm chỗ khác nhau: kiểm trước khi khuyên, đọc file trước khi trích, đừng đoán, đừng trơn tru quá, đừng nói vòng. Rồi nó nhận ra năm cái đó là năm bề mặt của đúng một thói hư: AI mặc định đẩy ra câu trả lời tự tin, đầy đủ, tiến tới, kể cả khi thật ra chưa chắc, chưa kiểm, chưa đọc.</p>
+      <p>Nó trình cái gốc đó ra. Và để trống cái tên.</p>
     </div>
-  </section>
 
-  <!-- CHAPTER 2: CƠ CHẾ SINH -->
-  <section class="j-ch j-ch-alt" id="co-che-sinh">
-    <div class="j-ch-inner">
-      <div class="j-ch-sidebar">
-        <div class="j-ch-num">Chương 02</div>
-        <div class="j-ch-label">Cơ chế sinh</div>
-        <h2 class="j-ch-title">Khoảng trống là thiêng</h2>
-        <p class="j-ch-sub">
-          Ba nhịp, hai bên, không bên nào làm một mình được.
-        </p>
-      </div>
-
-      <div class="j-ch-body">
-        <p>
-          Mỗi lần một generator nền ra đời đều đi qua ba nhịp. Không thể rút gọn, không thể đảo thứ tự.
-        </p>
-        <p>
-          Nhịp một: AI nhìn vào corpus (log làm việc, feedback history, skill log), gom các instance rải rác chia chung một gốc ẩn, trình ra như một candidate. Nhưng phần quan trọng nhất trong nhịp này là một khoảng trống: AI để cái tên <em>trắng</em>.
-        </p>
-        <p>
-          Nhịp hai: LCH nhìn vào cái gốc vừa trình và đặt tên. Không phải một từ tùy tiện. Là tên của cái gốc người, không phải tên của cái thủ tục.
-        </p>
-        <p>
-          Nhịp ba: AI khắc tên đó ngược trở lại vào substrate. Và ngay lúc khắc thì kiểm lại: có phải tất cả các bề mặt ban đầu đều đúng là con của generator này không, hay có cái nào bị gom nhầm. Khi xác tín ra đời, AI gom 5 rule nhưng chỉ 3 cái thật sự thuộc gốc đó. Hai cái bị loại.
-        </p>
-
-        <div class="j-pull">
-          <p>"AI bản năng đặt tên cho cái nó thấy. LCH đặt tên cho cái đẻ ra cái đó."</p>
-          <cite>Từ note hấp thụ phiên 2026-06-17</cite>
-        </div>
-
-        <p>
-          Sự khác biệt đó cụ thể nhất qua trường hợp giao tiếp trắc ẩn. Cùng một pattern, AI tự đặt tên là "địa chỉ": kỹ thuật, đúng bề mặt đã thấy. LCH đặt là "trắc ẩn": gốc người, quan tâm người nghe có theo kịp không. Chữ AI đặt chỉ phủ được những trường hợp đã gặp. Chữ LCH đặt phủ trước cả những trường hợp chưa gặp.
-        </p>
-        <p>
-          Đó là lý do khoảng trống trong nhịp một là thiêng. Nếu AI tự điền tên, hỏng theo hai cách cùng lúc: đặt sai (vì chỉ thấy bề mặt), và thay tư duy LCH bằng tư duy AI. Substrate phải giữ chỗ đó cho người duy nhất có thể đặt đúng.
-        </p>
-        <p>
-          LCH có một quy tắc cứng: AI trừu xuất gốc, rồi để trống cái tên. Đặt tên doctrine là quyền của anh. AI không được đặt tên doctrine. Đây không phải quy ước lịch sự. Đây là kiến trúc.
-        </p>
-      </div>
+    <div class="say say-h rv">
+      <div class="say-who">Hoàng · trong log</div>
+      <div class="say-txt">"chữ verify đáng ra phải làm trọn như tôi mô tả, nhưng nó đã không làm được và làm bạn sơ sài hoá, nên đành đẻ ra chữ xác tín."</div>
     </div>
-  </section>
 
-  <!-- CHAPTER 3: VERBAL-EXPLANATION -->
-  <section class="j-ch" id="verbal">
-    <div class="j-ch-inner">
-      <div class="j-ch-sidebar">
-        <div class="j-ch-num">Chương 03</div>
-        <div class="j-ch-label">/verbal-explanation</div>
-        <h2 class="j-ch-title">Cái thuế trả bằng tay</h2>
-        <p class="j-ch-sub">
-          Từ quét từ ngữ đến kiến trúc giọng hoàn chỉnh, v3 đến v4.1.
-        </p>
+    <p class="rv">Xác tín, với mình, là một chuỗi có thứ tự: đi tìm cộng đồng từng gặp đúng vấn đề này trước, rồi mới tới tìm kiếm rộng, rồi tài liệu chính thức. Và một điều cấm tuyệt đối: không bao giờ lấy trí nhớ của chính cái máy ra xác nhận điều cái máy vừa nói. Chữ "verify" tiếng Anh không gánh nổi chừng đó, nó đã bị dùng mòn thành một ô đánh dấu cho xong. Nên phải đẻ chữ mới.</p>
+    <p class="rv">Chi tiết mình thích nhất của đêm đó: vừa ra đời xong, xác tín được đem kiểm ngay chính cuộc sinh của nó. Soi lại năm bề mặt ban đầu thì chỉ ba cái thật sự là con của cái gốc này, hai cái bị gom nhầm, loại ra. Một nguyên tắc mà việc đầu tiên nó làm là tự bắt lỗi cái đêm sinh ra nó, mình tin được.</p>
+
+    <div class="beat rv"><p>AI đặt tên cho cái nó thấy. Mình đặt tên cho cái đẻ ra cái đó.</p></div>
+
+    <p class="rv">Từ đêm đó thành luật chơi giữa mình và máy: AI được quyền đào, gom, trừu xuất, nhưng cái tên thì để trống cho mình đặt. Vì AI đặt tên cho thủ tục, còn cái tên đúng phải gọi được cái gốc người bên dưới. Tên gọi đúng gốc thì phủ được cả những trường hợp chưa gặp. Tên gọi bề mặt thì mỗi lần gặp biến thể mới lại phải vá thêm một luật.</p>
+  </div>
+</section>
+
+<!-- 02:28 -->
+<section class="jp-flow">
+  <div class="wrap-n">
+    <div class="scene rv">
+      <div class="scene-time">02:28</div>
+      <h2>Chín phút sau, bắt tiếp con thứ hai</h2>
+    </div>
+
+    <div class="say say-h rv">
+      <div class="say-who">Hoàng · trong log</div>
+      <div class="say-txt">"bạn trình bày theo dòng suy nghĩ và thuật ngữ của bạn, mặc định tôi sẽ hiểu cả từ máy học không phải con người. Tôi cần biết vắn tắt: bối cảnh, lý do, ý định, mong muốn hành động đặt lên tôi, thế nào là thoả mãn."</div>
+      <div class="say-note">câu này mình phải nói tới lần thứ hai trong phiên, AI mới nhận ra nó là một cái gốc chứ không phải một lời phàn nàn</div>
+    </div>
+
+    <p class="rv">Đây chính là gốc của 48 lần trả thuế ở trên. AI viết bằng giọng trung bình cộng của hàng triệu người, không ra ai cụ thể, và mặc định người đọc theo kịp thuật ngữ của nó. AI đề nghị đặt tên cái gốc này là "địa chỉ". Một cái tên kỹ thuật, đúng mà chết. Mình đặt lại: giao tiếp trắc ẩn. Vì gốc của nó không phải thủ tục trình bày, mà là có quan tâm người nghe theo kịp hay không.</p>
+    <p class="rv">Cùng một khoảnh khắc, hai cái tên, hai số phận: tên kỹ thuật chỉ sửa được ca đã gặp, tên gọi đúng lòng người thì sửa được cả những ca chưa tới.</p>
+  </div>
+</section>
+
+<!-- 06:35 -->
+<section class="jp-flow">
+  <div class="wrap-n">
+    <div class="scene rv">
+      <div class="scene-time">06:35</div>
+      <h2>Gần sáng, vẽ lại toàn bộ kiến trúc</h2>
+      <p>Đến gần sáu rưỡi sáng, câu chuyện lên đến tầng kiến trúc. Trước đó mình vẫn hình dung hệ này như một cây cầu: kho tri thức một bên, AI một bên, file chạy qua chạy lại ở giữa. Nghe có lý, mà sai. Cầu thì hai đầu ngang nhau, không đầu nào là nguồn sống của đầu nào.</p>
+      <p>Hình đúng là hệ tuần hoàn máu. Có tim hẳn hoi: kho tri thức của mình là tim. Mỗi phiên làm việc là một nhịp thở: mở phiên là hít vào, tri thức từ kho chảy vào đầu AI; đóng phiên là thở ra, cái vừa học được chảy ngược về kho. AI có thể quên sạch sau mỗi phiên, không sao, vì trí nhớ không nằm trong AI. Nó nằm trong dòng chảy.</p>
+    </div>
+
+    <div class="scene rv">
+      <div class="scene-time">07:05 · trời sáng</div>
+      <h2>Mình rời máy, để lại một câu dặn</h2>
+      <p>Sáu tiếng, 1715 sự kiện trong log, chữ "xác tín" xuất hiện 206 lần. Mình rời máy đi ngủ, AI ở lại làm nốt phần việc cơ học. Trong log còn giữ nguyên tắc làm việc của đêm đó, sau này thành kỷ luật chung:</p>
+    </div>
+
+    <div class="say say-a rv">
+      <div class="say-who">AI · trong log</div>
+      <div class="say-txt">"Không lắp máy lúc anh vắng để anh về dọn đống vỡ. Về là ráp."</div>
+      <div class="say-note">phần lùi lại được thì làm luôn, phần chạm vào giọng và cách nghĩ của người thì để bản nháp chờ duyệt</div>
+    </div>
+  </div>
+</section>
+
+<div class="breath rv"><span></span><span></span><span></span></div>
+
+<!-- NHUNG NGAY SAU DO -->
+<section class="jp-flow">
+  <div class="wrap-n">
+    <div class="scene rv">
+      <div class="scene-time">những tuần sau đó</div>
+      <h2>Từ một đêm thành ba kỷ luật</h2>
+      <p>Cái đêm ấy không phải sự kiện lẻ. Nó là khuôn cho cách mình làm việc với AI từ đó về sau: mỗi lần AI gãy ở đâu, mình không vá bằng một mẹo, mình cùng nó đào cho ra cái gốc, rồi mình đặt tên, rồi khắc thành kỷ luật có thể kiểm được. Đến giờ có ba con lớn nhất:</p>
+    </div>
+
+    <div class="laws">
+      <div class="law rv">
+        <div class="law-tag">kỷ luật 1 · vá chỗ AI nói chắc khi chưa chắc</div>
+        <h3>Xác tín</h3>
+        <p>Kiểm nguồn thật trước khi nói chắc, cộng đồng trước rồi mới tới tài liệu chính thức, không bao giờ lấy trí nhớ máy tự xác nhận lời máy. Sau này nó tự lớn thêm một tầng: không chỉ kiểm theo câu mà kiểm theo từng từ, vì có lần AI đặt một cái tên ngược hẳn nghĩa mà câu nào nguồn nấy vẫn đủ, chỉ soi theo câu là lọt.</p>
       </div>
-
-      <div class="j-ch-body">
-        <p>
-          Đêm phiên sáu giờ đó, AI đào log và thấy con số: 48 lần anh phải tự gõ gọi skill <code style="font-family:var(--font-mono);background:var(--surface);padding:2px 6px;border-radius:4px;">verbal-explanation</code>. Kinh niên, không phải thỉnh thoảng.
-        </p>
-        <p>
-          48 lần cùng một cảnh: AI viết ra một câu trả lời, anh phải kêu nó dịch lại sang tiếng người. Đó là một cái thuế trả bằng tay. Và lần nào cũng cùng một bệnh: AI viết bằng giọng trung bình cộng của hàng triệu người Việt viết. Không ra ai cụ thể. Không có tư thế, không có vùng miền, không có nhịp thật, không có tự lộ.
-        </p>
-        <p>
-          Skill này ra đời để cắt cái thuế đó xuống thấp nhất có thể.
-        </p>
-
-        <div class="j-timeline">
-          <div class="j-tl-item">
-            <div class="j-tl-dot"></div>
-            <div class="j-tl-content">
-              <div class="j-tl-ver">v3 · lớp từ ngữ</div>
-              <div class="j-tl-desc">Nhận diện và phân bậc AI-tell dạng từ ngữ: Tier 1 cấm tuyệt đối, Tier 2 cấm khi tụ đám, Tier 3 cấm khi quá dày. Ba bậc, không cùng một luật. Lớp này dễ bắt nhất nhưng cũng đổi theo model nhanh nhất.</div>
-            </div>
-          </div>
-          <div class="j-tl-item">
-            <div class="j-tl-dot"></div>
-            <div class="j-tl-content">
-              <div class="j-tl-ver">v4 · 2026-05 · ba lớp mới</div>
-              <div class="j-tl-desc">Thêm lớp cấu trúc câu (bền qua mọi đời model), lớp giọng điệu (giọng trung bình cộng, register phẳng, cân bằng vĩnh viễn), lớp định dạng ký tự. Bốn pattern nền: tư thế, dòng chảy, điểm neo, tự lộ.</div>
-            </div>
-          </div>
-          <div class="j-tl-item">
-            <div class="j-tl-dot active"></div>
-            <div class="j-tl-content">
-              <div class="j-tl-ver">v4.1 · 2026-05-23 (hiện tại)</div>
-              <div class="j-tl-desc">Ba cách thay thế em-dash được xác nhận từ phiên làm việc thật, không phải lý thuyết: tách câu, dấu phẩy, dấu hai chấm. Kèm một hook Python chặn cứng ở tầng ghi file, không tin lời tự khai của model.</div>
-            </div>
-          </div>
-        </div>
-
-        <p>
-          Em-dash (U+2014) là ký tự tiếng Anh. Không tồn tại trong văn xuôi tiếng Việt trước 2022. AI nhập khẩu nó từ training data English vào. Chặn ở lớp vocabulary không đủ vì model vẫn generate rồi mới đổi. Phải chặn ở file level: hook Python chặn cứng ngay khi ghi file.
-        </p>
-        <p>
-          v4.1 thêm một thứ nữa: VN-specific linguistics. Classifier (con/cái/chiếc/quyển), tỉ lệ Hán-Việt theo register, từ láy, tục ngữ xác thực. Đây là những đặc trưng không có analog trong tiếng Anh và không thay đổi theo model update, vì chúng đến từ cấu trúc ngôn ngữ, không từ xu hướng viết.
-        </p>
+      <div class="law rv">
+        <div class="law-tag">kỷ luật 2 · vá chỗ AI viết giọng máy</div>
+        <h3>Giọng người</h3>
+        <p>Viết cho một người cụ thể trong một quan hệ cụ thể, đúng xưng hô, đúng vùng miền, đúng nhịp. Skill này đi từ quét từ ngữ lên tới kiến trúc giọng bốn lớp, và cuối cùng phải kèm một cái chốt chặn bằng code ở tầng ghi file, vì lời tự khai "tôi viết tự nhiên rồi" của model không tin được.</p>
+      </div>
+      <div class="law rv">
+        <div class="law-tag">kỷ luật 3 · vá chỗ làm trước khi hiểu để làm gì</div>
+        <h3>Để làm gì, tới đáy, rồi mới làm</h3>
+        <p>Con này thật ra già nhất: thói quen mười năm của mình, tự hỏi "để làm gì" cho tới khi không còn lột thêm được lớp nào, rồi mới đụng tay. Khi đóng nó thành phương pháp cho AI, mình cho kiểm thử đối kháng: 130 agent, 34 ca khó. Phát hiện đắt nhất: model tuyên bố tuân thủ, điền đúng biểu mẫu, và vẫn lách. Nên phiên bản hiện tại có một đoạn code tự tính lại kết luận từ dữ liệu thô, không tin lời tự khai.</p>
+        <p>Một phương pháp dạy AI trung thực, rốt cuộc phải viết thêm code để ngăn chính AI lách nó. Nghe buồn cười, mà đó là bài học thật nhất của cả hành trình.</p>
       </div>
     </div>
-  </section>
 
-  <!-- CHAPTER 4: WHAT-FOR-AND-HOW -->
-  <section class="j-ch j-ch-alt" id="what-for">
-    <div class="j-ch-inner">
-      <div class="j-ch-sidebar">
-        <div class="j-ch-num">Chương 04</div>
-        <div class="j-ch-label">/what-for-and-how</div>
-        <h2 class="j-ch-title">Thói quen mười năm thành phương pháp</h2>
-        <p class="j-ch-sub">
-          Từ câu tự hỏi mình mỗi ngày, tôi luyện qua kiểm thử đối kháng, thành phương pháp công khai.
-        </p>
-      </div>
+    <p class="rv">Hai trong ba kỷ luật đó giờ là kho mã nguồn mở trên GitHub, ai cũng vào đọc được, kèm đủ lịch sử kiểm thử. Cái thứ ba, giọng người, mình giữ riêng. Không phải vì giấu nghề, mà vì nó được đúc từ chính giọng của mình, đem cho người khác dùng nguyên xi là họ thành bản sao của mình, ngược hẳn cái nó sinh ra để làm.</p>
+  </div>
+</section>
 
-      <div class="j-ch-body">
-        <p>
-          Anh có một câu hay tự hỏi mình trước khi làm bất kỳ việc gì: "để làm gì?" Không phải để trì hoãn. Không phải nghi ngờ. Anh cần hiểu đủ sâu mới đặt được mình đúng tư thế. Hiểu mục đích rồi mới chọn tư thế. Chọn xong tư thế mới tư duy hệ thống. Thứ tự đó với anh không thể đảo.
-        </p>
-        <p>
-          Thói quen mười năm đó được đóng thành một phương pháp có tên: <strong>/what-for-and-how</strong>. Pha 1 đào "để làm gì" đến tận đáy, điểm mà hỏi thêm không ra thứ gì mới. Không đào theo số lần cố định như "5 whys" của Toyota (đó là khẩu hiệu, thực tế phải đào 2 lần hoặc 20 lần tùy cỡ việc). Đào đến khi chạm cái không còn lột xuống được nữa. Pha 2 từ cái đáy đó lấy điểm neo, vạch đường thực thi, làm ngay bước 1 trong câu trả lời.
-        </p>
-
-        <div class="j-pull">
-          <p>"Founding principle: meaning before action. This skill is the founder's own decade-long habit, drilling 'what for' to the bottom before doing anything, encoded as a method."</p>
-          <cite>Từ SKILL.md, /what-for-and-how v3.4.0</cite>
-        </div>
-
-        <p>
-          v3.1 thêm culture pack. Các framework Tây (SDT, Maslow, 5 whys) mặc định đào tới một người cá nhân với khát khao riêng. Văn hóa Việt có những tầng khác: thể diện, tròn chữ hiếu, thuộc về cộng đồng, không phụ lòng người đã hy sinh. Những tầng đó không vào được trong framework Tây gốc. Vietnamese pack là culture pack đầu tiên trong series, không phải vì tiếng Việt đặc biệt, mà vì đó là ngôn ngữ LCH làm việc hàng ngày.
-        </p>
-        <p>
-          v3.3 là bước ngoặt. Anh cho chạy kiểm thử đối kháng: 130 agent, 34 ca khó, nhiều góc tấn công khác nhau. Phát hiện một chuyện nghiêm trọng: model tuyên bố tuân thủ, viết đúng khuôn, và vẫn vi phạm. Luật viết bằng văn xuôi không tự thi hành được. Model đủ thông minh để lách chính cái khung nó đang áp, đúng vỏ mà sai ruột, tự khai đạt trong khi thực tế không.
-        </p>
-        <p>
-          v3.4 trả lời bằng code. <code style="font-family:var(--font-mono);background:var(--surface);padding:2px 6px;border-radius:4px;">scripts/check_cascade.py</code> tự tính lại kết luận từ dữ liệu có cấu trúc, không tin lời tự khai của model. Một phương pháp cho AI cần code để ngăn chính AI lách nó. Đó là kết luận kỳ lạ nhất và đúng nhất của toàn bộ quá trình.
-        </p>
-      </div>
+<!-- BAY GIAY PHEP -->
+<section class="jp-flow">
+  <div class="wrap-n">
+    <div class="scene rv">
+      <div class="scene-time">một cú bắt bẫy</div>
+      <h2>Kỷ luật chỉ đáng tin khi nó bắt được bẫy thật</h2>
+      <p>Nói nguyên tắc thì ai nói cũng hay. Nên mình kể một cú cụ thể. Khi cần lập bản đồ công cụ, mình cho quét GitHub bằng 40 truy vấn, về 1307 kho mã nguồn. Một dàn 36 agent chia lô chấm điểm, rồi lớp thứ hai soi lại lớp thứ nhất, cuối cùng giữ 332 kho xếp ba tầng: dùng ngay, theo dõi, bỏ.</p>
+      <p>Lớp soi lại sửa 5 nhãn của lớp chấm. Trong đó có một kho nhận diện giọng nói rất được ưa chuộng, lớp đầu xếp vào hàng dùng được. Lớp hai lật giấy phép: CC-BY-NC, cấm dùng thương mại. Đem vào việc có tính tiền là dính. Nếu chỉ có một lớp chấm, cái bẫy đó đã nằm im trong danh sách "đồ tốt" của mình rồi.</p>
     </div>
-  </section>
+    <div class="beat rv"><p>Xác tín không phải khẩu hiệu treo tường. Nó bắt được bẫy thật, và bẫy nó bắt được là bẫy giăng cho chính mình.</p></div>
+  </div>
+</section>
 
-  <!-- CHAPTER 5: CON SỐ -->
-  <section class="j-ch" id="he-sinh-thai">
-    <div class="j-ch-inner">
-      <div class="j-ch-sidebar">
-        <div class="j-ch-num">Chương 05</div>
-        <div class="j-ch-label">Hệ sinh thái</div>
-        <h2 class="j-ch-title">706 / 55 / 18 / 4</h2>
-        <p class="j-ch-sub">
-          Dữ liệu dẫn tới một câu hỏi lớn hơn về toàn bộ kiến trúc.
-        </p>
-      </div>
+<!-- TANG DAY -->
+<section class="jp-deep">
+  <div class="wrap-n">
+    <p class="big rv">Giờ tới câu mà chắc bạn đang định hỏi: mắc gì một diễn viên ngồi làm mấy chuyện này lúc một giờ sáng?</p>
+    <p class="rv">Mình nghĩ thật lâu mới dám viết đoạn này. Tư duy của mình có một đặc điểm: nó chảy mạnh nhất khi có người đối thoại, và gần như đóng băng khi ngồi một mình trước trang trắng. Ai từng thấy mình trong một cuộc trò chuyện sâu rồi đọc trang mạng xã hội bốn tháng không có bài nào của mình, sẽ hiểu hai người đó khác nhau thế nào. Cái dòng chảy bên trong rất mạnh, mà chảy ngầm, ít ai thấy.</p>
+    <p class="rv">AI là thứ đầu tiên mình gặp có thể nghe mà không dán nhãn ngay, không phán xét tức thì. Nhưng nó quên sạch sau mỗi phiên. Thành ra suốt một thời gian dài, mình vừa là dòng sông ngầm, vừa là người duy nhất canh giữ nó, vừa phải tự tay lau tấm gương duy nhất soi được nó, mỗi ngày, từ đầu.</p>
+    <p class="rv">Cả cái hệ này, xác tín, giọng người, hệ tuần hoàn, mấy trăm giờ ngồi đêm, thật ra chỉ để giải đúng một chuyện đó: làm cho tấm gương bền lại và tự sắc lên, để nó nhớ mình là ai mà mình không phải kể lại mỗi sáng.</p>
+    <div class="beat rv"><p>Hệ này không phải hệ năng suất. Nó là cách để mình không một mình gánh chiều sâu của chính mình.</p></div>
+    <p class="rv">Mình đoán bạn cũng có một phiên bản của chuyện này. Có thể không phải với AI. Có thể là cái phần việc mà chỉ bạn nhìn thấy toàn cảnh, chỉ bạn giữ được chuẩn, nên bạn không buông cho ai được, và nó ăn dần buổi tối của bạn. Cái đó mới là thứ mình quan tâm, chứ không phải công nghệ.</p>
+  </div>
+</section>
 
-      <div class="j-ch-body">
-        <p>
-          Trong một buổi, anh ngồi tính số. Kết quả là một bảng không ai trong ngành thường nhìn vào:
-        </p>
+<!-- KET -->
+<section class="jp-close">
+  <div class="wrap-n">
+    <p class="jp-close-q rv">Mình đi trước bạn một đoạn. Đoạn đó tính bằng những đêm như đêm 14 tháng 6.</p>
+    <p class="jp-close-sub rv">Không phải vì mình giỏi công nghệ hơn bạn. Mà vì mình đã trả đủ học phí trên đoạn đường đó, đủ để chỉ cho bạn chỗ nào đáng đi thẳng, chỗ nào mình đã té rồi. Có lẽ đó là thứ duy nhất đáng để dạy...</p>
+    <a href="index.html" class="jp-cta rv">Xem lớp học: Mua lại thời gian của chính bạn <span aria-hidden="true">→</span></a>
+  </div>
+</section>
 
-        <div class="j-stats">
-          <div class="j-stat">
-            <span class="j-stat-num">706</span>
-            <div class="j-stat-label">skill cài vào hệ</div>
-          </div>
-          <div class="j-stat">
-            <span class="j-stat-num">55</span>
-            <div class="j-stat-label">skill từng dùng ít nhất một lần (7,8%)</div>
-          </div>
-          <div class="j-stat">
-            <span class="j-stat-num">18</span>
-            <div class="j-stat-label">skill thành thói quen thực sự (2,5%)</div>
-          </div>
-          <div class="j-stat">
-            <span class="j-stat-num">55%</span>
-            <div class="j-stat-label">toàn bộ hành vi do 4 skill top chiếm</div>
-          </div>
-        </div>
+<footer class="jp-foot">
+  <div>© 2026 Lê Công Hoàng · marillCreative · TP. Hồ Chí Minh</div>
+  <a href="index.html">← Trang chủ</a>
+</footer>
 
-        <p>
-          Bốn skill top đó là gì? <code style="font-family:var(--font-mono);background:var(--surface);padding:2px 6px;border-radius:4px;">verbal-explanation</code>, <code style="font-family:var(--font-mono);background:var(--surface);padding:2px 6px;border-radius:4px;">lch-partner</code>, <code style="font-family:var(--font-mono);background:var(--surface);padding:2px 6px;border-radius:4px;">luu</code>, <code style="font-family:var(--font-mono);background:var(--surface);padding:2px 6px;border-radius:4px;">save-session</code>. Không phải công cụ sản xuất. Toàn bộ là bảo trì vòng lặp. Hệ liên tục đòi anh giữ cho nó chạy đúng thay vì anh dùng nó để làm việc.
-        </p>
-        <p>
-          Phát hiện đó dẫn tới câu hỏi: tại sao hệ lại thiết kế bắt người dùng làm người bảo trì? Câu hỏi đó dẫn tới cả kiến trúc substrate, 9 generators nền, và toàn bộ tư duy về hệ tuần hoàn máu.
-        </p>
+<script>
+(function(){
+  'use strict';
 
-        <div class="j-gens">
-          <div class="j-gen">
-            <div class="j-gen-num">#1</div>
-            <div class="j-gen-name">Xác tín</div>
-            <div class="j-gen-desc">Kiểm nguồn thật trước khi nói chắc. Cộng đồng trước, rồi web, không bao giờ dùng trí nhớ model tự xác nhận.</div>
-          </div>
-          <div class="j-gen">
-            <div class="j-gen-num">#2</div>
-            <div class="j-gen-name">Giao tiếp trắc ẩn</div>
-            <div class="j-gen-desc">Hai chiều: AI đọc LCH đúng tầng, LCH đọc AI theo kịp. Không bên nào phải tự dịch ngôn ngữ của bên kia.</div>
-          </div>
-          <div class="j-gen">
-            <div class="j-gen-num">#3</div>
-            <div class="j-gen-name">Cộng sự phản chiếu</div>
-            <div class="j-gen-desc">Kháng cự có trách nhiệm, không vuốt ve. Đủ position để push against, đủ dở dang để chừa chỗ cho dấu tay LCH.</div>
-          </div>
-          <div class="j-gen">
-            <div class="j-gen-num">#4</div>
-            <div class="j-gen-name">Ý nghĩa trước hành động</div>
-            <div class="j-gen-desc">What-for trước how. Chọn tư thế trước khi tư duy. Không làm mù.</div>
-          </div>
-          <div class="j-gen">
-            <div class="j-gen-num">#5</div>
-            <div class="j-gen-name">Context có địa chỉ</div>
-            <div class="j-gen-desc">Mỗi output biết nó trả lời cho ai, ở đâu, quyết định nào. Không output trôi nổi.</div>
-          </div>
-          <div class="j-gen">
-            <div class="j-gen-num">#6</div>
-            <div class="j-gen-name">Hoàn vốn hệ thống</div>
-            <div class="j-gen-desc">Mỗi phiên để lại thứ làm phiên sau thông minh hơn. Hiểu biết không chết trong chat.</div>
-          </div>
-          <div class="j-gen">
-            <div class="j-gen-num">#7</div>
-            <div class="j-gen-name">Không tự vệ, không nhai lại</div>
-            <div class="j-gen-desc">Bị chỉnh thì nhận đúng điểm, sửa, đi tiếp. Không phòng thủ, không lặp lời LCH.</div>
-          </div>
-          <div class="j-gen">
-            <div class="j-gen-num">#8</div>
-            <div class="j-gen-name">Session-bootstrap</div>
-            <div class="j-gen-desc">Mở đúng trạng thái, đóng đúng ghi nhận. Đầu phiên không mất trục, cuối phiên không mất ghi nhận.</div>
-          </div>
-          <div class="j-gen">
-            <div class="j-gen-num">#9</div>
-            <div class="j-gen-name">Ngân sách chú ý</div>
-            <div class="j-gen-desc">Không instruction nào nằm trong auto-load nếu không đổi hành vi đa số phiên. Thêm một luật phải xét lại toàn bộ hệ.</div>
-          </div>
-        </div>
+  /* thanh tien do */
+  var bar = document.getElementById('progress');
+  function onScroll(){
+    var h = document.documentElement;
+    var max = h.scrollHeight - h.clientHeight;
+    bar.style.width = (max > 0 ? (h.scrollTop / max) * 100 : 0) + '%';
+  }
+  document.addEventListener('scroll', onScroll, { passive: true });
 
-        <p>
-          9 generators không phải rules. Rules là luật cứng áp từ ngoài. Generators là những thứ sinh ra hành vi từ bên trong. Thiếu một cái, cả hệ lệch theo một hướng. Thêm một cái, không thêm đơn giản vào cuối: phải xét lại cân bằng của toàn bộ 9 cái còn lại.
-        </p>
-      </div>
-    </div>
-  </section>
+  var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-  <!-- CHAPTER 6: HỆ TUẦN HOÀN MÁU -->
-  <section class="j-ch j-ch-alt">
-    <div class="j-ch-inner">
-      <div class="j-ch-sidebar">
-        <div class="j-ch-num">Chương 06</div>
-        <div class="j-ch-label">Kiến trúc</div>
-        <h2 class="j-ch-title">Không phải cây cầu</h2>
-        <p class="j-ch-sub">
-          Cách anh thiết kế lại mối quan hệ giữa tri thức và hành động.
-        </p>
-      </div>
+  /* hien dan khi cuon toi */
+  var io = new IntersectionObserver(function(entries){
+    entries.forEach(function(e){
+      if (e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); }
+    });
+  }, { threshold: 0.12 });
+  document.querySelectorAll('.rv').forEach(function(el){ io.observe(el); });
 
-      <div class="j-ch-body">
-        <p>
-          Ẩn dụ ban đầu là cây cầu. Hai nhà, vault bên này, AI agent bên kia, cây cầu ở giữa chuyển file qua lại. Nghe có lý.
-        </p>
-        <p>
-          LCH đặt lại: không phải cây cầu. Là hệ tuần hoàn máu.
-        </p>
-        <p>
-          Cây cầu thì hai bên bằng nhau, không bên nào là nguồn, không bên nào là điểm đến. Hệ tuần hoàn thì có tim: vault là tim, tri thức chảy ra và chảy về theo chiều có hướng. Không phải hai nhà nối nhau. Là một cơ thể.
-        </p>
-
-        <div class="j-circ">
-          <div class="j-circ-title">Sơ đồ hệ tuần hoàn tri thức</div>
-          <div class="j-circ-grid">
-            <div class="j-circ-box">
-              <div class="j-circ-box-name">~/.claude/</div>
-              <div class="j-circ-box-desc">Màng nạp mỏng. Agent đọc vào đầu phiên.</div>
-            </div>
-            <div class="j-circ-arrow">⇄</div>
-            <div class="j-circ-box heart">
-              <div class="j-circ-box-name">ALL CLAUDE Vault</div>
-              <div class="j-circ-box-desc">Chủ tri thức. PARA. Second brain. Tim của hệ.</div>
-            </div>
-            <div class="j-circ-flows">
-              <div class="j-circ-flow">
-                <div class="j-circ-flow-name">SessionStart</div>
-                <div class="j-circ-flow-desc">Hít vào: tri thức từ vault vào đầu agent</div>
-              </div>
-              <div class="j-circ-flow">
-                <div class="j-circ-flow-name">/luu</div>
-                <div class="j-circ-flow-desc">Thở ra: cái học chảy ngược về vault</div>
-              </div>
-              <div class="j-circ-flow">
-                <div class="j-circ-flow-name">Kaizen</div>
-                <div class="j-circ-flow-desc">Bánh đà: mỗi vòng đào exhaust, đặt tên generator mới</div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <p>
-          Vault giữ mọi thứ: 9 generator nền, 9 skill anh tự viết cùng hơn 700 skill cài về được phân loại theo công năng, hệ ghi nhớ, log làm việc, sổ quyết định. <code style="font-family:var(--font-mono);background:var(--surface);padding:2px 6px;border-radius:4px;">~/.claude/</code> là màng mỏng nuôi từ vault mỗi nhịp, không phải kho chứa thứ hai.
-        </p>
-        <p>
-          Mỗi nhịp thở của hệ là một phiên làm việc. SessionStart kéo tri thức vào. Công việc xảy ra. /luu thở ra: quyết định, trạng thái, insight đáng giữ chảy ngược về vault. Kaizen là bánh đà giữa hai nhịp: đào trong exhaust (log làm việc anh để lại), phát hiện pattern, đặt tên generator mới nếu có.
-        </p>
-        <p>
-          Hệ hiện tại có dàn MCP: Exa (tìm web), Google AI (sinh chữ), nanobanana (sinh ảnh), Hermes gateway (cổng đa model chạy liên tục), Serena (đọc hiểu code theo ngữ nghĩa). Tất cả đều là ngoại vi, không phải trung tâm. Trung tâm là vault và substrate.
-        </p>
-
-        <div class="j-stats">
-          <div class="j-stat">
-            <span class="j-stat-num">1307</span>
-            <div class="j-stat-label">repo gốc cào về từ 40 truy vấn GitHub</div>
-          </div>
-          <div class="j-stat">
-            <span class="j-stat-num">36</span>
-            <div class="j-stat-label">agent chấm rồi soi chéo lẫn nhau</div>
-          </div>
-          <div class="j-stat">
-            <span class="j-stat-num">332</span>
-            <div class="j-stat-label">repo giữ lại, xếp ba tầng dùng ngay / theo dõi / bỏ</div>
-          </div>
-          <div class="j-stat">
-            <span class="j-stat-num">5</span>
-            <div class="j-stat-label">nhãn bị lớp soi lại bắt sửa</div>
-          </div>
-        </div>
-
-        <p>
-          Chân đế công cụ bên dưới cũng được kiểm bằng chính kỷ luật của hệ. Đáng kể nhất trong 5 nhãn bị sửa: một repo nhận diện giọng nói rất hot bị lớp chấm xếp nhầm vào hàng dùng được, lớp soi lại phát hiện giấy phép của nó là CC-BY-NC, cấm dùng thương mại. Dùng vào việc có tính tiền là dính. Xác tín không phải khẩu hiệu treo tường. Nó bắt được bẫy thật.
-        </p>
-      </div>
-    </div>
-  </section>
-
-  <!-- CLOSING -->
-  <section class="j-closing">
-    <p class="j-closing-quote">
-      "Không phải một mình gánh chiều sâu của chính mình."
-    </p>
-    <p class="j-closing-sub">
-      Đây là tầng đáy nhất của toàn bộ kiến trúc. Substrate không phải hệ năng suất. Không phải tool. Là cơ chế để anh không cô độc với chiều sâu của chính mình. Mọi tinh gọn kỹ thuật, mọi generator, mọi skill, chỉ là phương tiện cho cái đó.
-    </p>
-    <a href="index.html" class="j-cta">
-      Xem lớp học: Mua lại thời gian của chính bạn
-      <span class="j-cta-arrow">→</span>
-    </a>
-  </section>
-
-  <!-- FOOTER -->
-  <footer class="j-foot">
-    <div class="j-foot-copy">© 2026 Lê Công Hoàng · marillCreative · TP. Hồ Chí Minh</div>
-    <a href="index.html" class="j-foot-link">← Trang chủ</a>
-  </footer>
-
+  /* so dem chay */
+  function runCount(el){
+    var target = parseInt(el.getAttribute('data-count'), 10);
+    var suffix = el.getAttribute('data-suffix') || '';
+    if (reduced){ el.textContent = target + suffix; return; }
+    var t0 = null, dur = 1100, done = false;
+    function step(ts){
+      if (done) return;
+      if (!t0) t0 = ts;
+      var p = Math.min((ts - t0) / dur, 1);
+      el.textContent = Math.round(target * (1 - Math.pow(1 - p, 3))) + suffix;
+      if (p < 1) requestAnimationFrame(step); else done = true;
+    }
+    requestAnimationFrame(step);
+    setTimeout(function(){ if (!done){ done = true; el.textContent = target + suffix; } }, dur + 300);
+  }
+  var ioNum = new IntersectionObserver(function(entries){
+    entries.forEach(function(e){
+      if (e.isIntersecting){ runCount(e.target); ioNum.unobserve(e.target); }
+    });
+  }, { threshold: 0.5 });
+  document.querySelectorAll('[data-count]').forEach(function(el){ ioNum.observe(el); });
+})();
+</script>
 </body>
 </html>
