@@ -94,6 +94,16 @@
     }
   }
 
+  /* ---------- nút liên hệ: bấm ra chữ thật, không mở app ngay ---------- */
+  document.querySelectorAll('.js-reveal').forEach(function(btn){
+    btn.addEventListener('click', function(e){
+      e.preventDefault();
+      var value = btn.getAttribute('data-reveal');
+      btn.textContent = value;
+      try{ navigator.clipboard.writeText(value); }catch(err){}
+    });
+  });
+
   /* ---------- thanh tiến độ đọc (ai-journey) ---------- */
   var bar = document.getElementById('progress');
   if (bar){
