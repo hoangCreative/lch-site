@@ -49,9 +49,26 @@
     if (e.key === 'Escape' && dialog && !dialog.hidden) closeBooking();
   });
 
-  /* ---- booking submit -> mo email khach voi noi dung dien san ----------- */
+  /* ---- booking submit: thu gui that (Netlify Forms), rot ve email ------- */
   var BOOKING_EMAIL = 'leconghoangstudio@gmail.com';
   var form = document.getElementById('booking-form');
+
+  function guiQuaEmail(name, email, job, why) {
+    var subject = 'Giu mot cho trong lop: ' + name;
+    var body = 'Ten: ' + name +
+      '\nEmail: ' + email +
+      (job ? '\nNghe: ' + job : '') +
+      (why ? '\nCho dang ngon nhieu gio nhat: ' + why : '') +
+      '\n\n(Gui tu trang khoa hoc, chua thu phi o buoc nay)';
+    window.location.href = 'mailto:' + BOOKING_EMAIL +
+      '?subject=' + encodeURIComponent(subject) +
+      '&body=' + encodeURIComponent(body);
+    closeBooking();
+    form.reset();
+    showToast('Một bước nữa là xong',
+      'Ứng dụng email của bạn đang mở với nội dung điền sẵn, bấm Gửi là xong. Không thấy gì mở ra? Nhắn Zalo 0906 300 191 hoặc gửi về ' + BOOKING_EMAIL + ' nhé.');
+  }
+
   if (form) {
     form.addEventListener('submit', function (e) {
       e.preventDefault();
@@ -59,26 +76,32 @@
       var email = (form.elements.email.value || '').trim();
       var job = (form.elements.job.value || '').trim();
       var why = (form.elements.why.value || '').trim();
-      var subject = 'Giu mot cho trong lop: ' + name;
-      var body = 'Ten: ' + name +
-        '\nEmail: ' + email +
-        (job ? '\nNghe: ' + job : '') +
-        (why ? '\nCho dang ngon nhieu gio nhat: ' + why : '') +
-        '\n\n(Gui tu trang khoa hoc, chua thu phi o buoc nay)';
-      window.location.href = 'mailto:' + BOOKING_EMAIL +
-        '?subject=' + encodeURIComponent(subject) +
-        '&body=' + encodeURIComponent(body);
-      closeBooking();
-      form.reset();
-      showToast();
+      var fields = { 'form-name': 'giu-cho', name: name, email: email, job: job, why: why };
+      var body = Object.keys(fields).map(function (k) {
+        return encodeURIComponent(k) + '=' + encodeURIComponent(fields[k]);
+      }).join('&');
+      fetch('/', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        body: body
+      }).then(function (r) {
+        if (!r.ok) throw new Error('no form backend');
+        closeBooking();
+        form.reset();
+        showToast('Đã ghi nhận', 'Đăng ký của bạn đã tới nơi. Mình sẽ liên hệ lại sớm nhé.');
+      }).catch(function () {
+        guiQuaEmail(name, email, job, why);
+      });
     });
   }
   var toastTimer = null;
-  function showToast() {
+  function showToast(title, msg) {
     if (!toast) return;
+    if (title) toast.querySelector('.toast-title').textContent = title;
+    if (msg) toast.querySelector('.toast-msg').textContent = msg;
     toast.hidden = false;
     clearTimeout(toastTimer);
-    toastTimer = setTimeout(function () { toast.hidden = true; }, 3200);
+    toastTimer = setTimeout(function () { toast.hidden = true; }, 4200);
   }
   document.querySelectorAll('.js-close-toast').forEach(function (b) {
     b.addEventListener('click', function () {
