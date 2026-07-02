@@ -1,0 +1,53 @@
+/* LCH Podcast — Typography
+ * One workhorse family: Be Vietnam Pro (purpose-built Vietnamese, geometric humanist).
+ * Echoes the heavy geometric grotesk of the "PODCAST" wordmark — display = the same family
+ * at 800, usually uppercase with tight tracking. JetBrains Mono carries episode/metadata labels.
+ * No serif: the brand voice is bold, spoken, geometric — not editorial. */
+
+:root {
+  /* ---- Families ---- */
+  --font-display: 'Be Vietnam Pro', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --font-sans:    'Be Vietnam Pro', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --font-mono:    'JetBrains Mono', ui-monospace, 'SF Mono', Menlo, monospace;
+
+  /* ---- Type scale (1.250 major third on a 16px base) ---- */
+  --text-xs:    0.75rem;   /* 12px — micro labels */
+  --text-sm:    0.875rem;  /* 14px — captions, meta */
+  --text-base:  1rem;      /* 16px — UI body */
+  --text-md:    1.125rem;  /* 18px — comfortable reading body */
+  --text-lg:    1.375rem;  /* 22px */
+  --text-xl:    1.75rem;   /* 28px */
+  --text-2xl:   2.25rem;   /* 36px */
+  --text-3xl:   3rem;      /* 48px */
+  --text-4xl:   3.75rem;   /* 60px */
+  --text-5xl:   4.75rem;   /* 76px — hero display */
+
+  /* ---- Weights ---- */
+  --weight-light:    300;
+  --weight-regular:  400;
+  --weight-medium:   500;
+  --weight-semibold: 600;
+  --weight-bold:     700;
+  --weight-black:    800;  /* display headlines, wordmark weight */
+
+  /* ---- Line heights ---- */
+  --leading-tight:   1.04;  /* display headlines */
+  --leading-snug:    1.18;  /* subheads */
+  --leading-normal:  1.5;   /* UI text */
+  --leading-relaxed: 1.65;  /* long-form reading */
+
+  /* ---- Letter spacing ---- */
+  --tracking-tight:  -0.03em; /* large display, like the wordmark */
+  --tracking-snug:   -0.015em;
+  --tracking-normal: 0;
+  --tracking-wide:   0.04em;  /* small caps */
+  --tracking-wider:  0.16em;  /* mono eyebrow labels, episode tags */
+
+  /* ---- Semantic roles ---- */
+  --role-display:  var(--weight-black) var(--text-5xl)/var(--leading-tight) var(--font-display);
+  --role-title:    var(--weight-bold) var(--text-2xl)/var(--leading-snug) var(--font-display);
+  --role-body:     var(--weight-regular) var(--text-md)/var(--leading-relaxed) var(--font-sans);
+  --role-ui:       var(--weight-regular) var(--text-base)/var(--leading-normal) var(--font-sans);
+  --role-label:    var(--weight-medium) var(--text-sm)/var(--leading-normal) var(--font-sans);
+  --role-eyebrow:  var(--weight-medium) var(--text-xs)/var(--leading-normal) var(--font-mono);
+}

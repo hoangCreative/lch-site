@@ -1,0 +1,149 @@
+/* LCH Podcast — Accent SCHEMES (the diversity rule)
+ * ------------------------------------------------------------------
+ * The brand's colour source is Pantone Color of the Year. Turquoise (2010)
+ * is the DEFAULT lead, but the lead accent can be swapped to any COTY hue
+ * WITHOUT touching components — every component reads the semantic accent
+ * interface only:
+ *     --accent · --accent-hover · --accent-soft · --accent-line
+ *     --accent-glow · --on-accent · --text-accent
+ *
+ * THE RULE
+ *   • Swap the lead hue freely; keep the cool neutral ramp, type, spacing
+ *     and status colours fixed. One accent leads at a time.
+ *   • Each scheme is tuned for BOTH themes: white-on-accent in light,
+ *     dark-on-bright-accent in dark (mirrors the turquoise dark pattern).
+ *   • Light accents clear ~4.5:1 with white text; soft/line tints keep the
+ *     airy hue even when the lead is deepened for contrast.
+ *
+ * USAGE  (two orthogonal axes — combine at will)
+ *     <body data-theme="dark" data-accent="magenta">
+ *   data-theme  = light (default) | dark
+ *   data-accent = turquoise (default) | blue | periwinkle | magenta | peach | mocha
+ *
+ * Imported LAST in styles.css so [data-accent] overrides the :root accent.
+ * ------------------------------------------------------------------ */
+
+/* ===================== LIGHT THEME ACCENTS ===================== */
+
+[data-accent="turquoise"] {
+  --accent:       #157E72;
+  --accent-hover: #0E5F55;
+  --accent-soft:  #E1F2EF;
+  --accent-line:  #BBE0DA;
+  --accent-glow:  #45B5AA;
+  --on-accent:    #FFFFFF;
+  --text-accent:  #0F6E64;
+}
+
+[data-accent="blue"] {
+  --accent:       #1C6AA0; /* Classic Blue 2020, deepened for white text */
+  --accent-hover: #154E78;
+  --accent-soft:  #E3EFF8;
+  --accent-line:  #BAD6EC;
+  --accent-glow:  #4E9AD2;
+  --on-accent:    #FFFFFF;
+  --text-accent:  #195F92;
+}
+
+[data-accent="periwinkle"] {
+  --accent:       #5556B0; /* Very Peri 2022, deepened for white text */
+  --accent-hover: #42438C;
+  --accent-soft:  #EAEAF8;
+  --accent-line:  #CBCCEC;
+  --accent-glow:  #8485D6;
+  --on-accent:    #FFFFFF;
+  --text-accent:  #4C4DA6;
+}
+
+[data-accent="magenta"] {
+  --accent:       #C8284E; /* Viva Magenta 2023 */
+  --accent-hover: #9F1F3E;
+  --accent-soft:  #FBE4EA;
+  --accent-line:  #F1C4D0;
+  --accent-glow:  #E8607E;
+  --on-accent:    #FFFFFF;
+  --text-accent:  #B22344;
+}
+
+[data-accent="peach"] {
+  --accent:       #B5652F; /* Peach Fuzz 2024 → terracotta lead for contrast */
+  --accent-hover: #97501F;
+  --accent-soft:  #FBEADD;
+  --accent-line:  #F2D3B8;
+  --accent-glow:  #ED9A5E;
+  --on-accent:    #FFFFFF;
+  --text-accent:  #A85B29;
+}
+
+[data-accent="mocha"] {
+  --accent:       #8A5E4A; /* Mocha Mousse 2025, deepened for white text */
+  --accent-hover: #6E4A39;
+  --accent-soft:  #F1EAE4;
+  --accent-line:  #DEC9BB;
+  --accent-glow:  #B08B77;
+  --on-accent:    #FFFFFF;
+  --text-accent:  #7C523F;
+}
+
+/* ===================== DARK THEME ACCENTS ===================== */
+/* Brighter lead on charcoal; near-black text sits on the accent. */
+
+[data-theme="dark"][data-accent="turquoise"] {
+  --accent:       #34B5A6;
+  --accent-hover: #4FC4B6;
+  --accent-soft:  #0E2522;
+  --accent-line:  #1E4641;
+  --accent-glow:  #5FCBBF;
+  --on-accent:    #0C1413;
+  --text-accent:  #45C2B4;
+}
+
+[data-theme="dark"][data-accent="blue"] {
+  --accent:       #5AA6DC;
+  --accent-hover: #74B5E2;
+  --accent-soft:  #112230;
+  --accent-line:  #20405A;
+  --accent-glow:  #7FBDE7;
+  --on-accent:    #07131C;
+  --text-accent:  #6FB2E0;
+}
+
+[data-theme="dark"][data-accent="periwinkle"] {
+  --accent:       #9495DE;
+  --accent-hover: #A8A9E6;
+  --accent-soft:  #181826;
+  --accent-line:  #303052;
+  --accent-glow:  #ADADEB;
+  --on-accent:    #0D0D16;
+  --text-accent:  #A1A2E4;
+}
+
+[data-theme="dark"][data-accent="magenta"] {
+  --accent:       #E8718B;
+  --accent-hover: #ED8A9F;
+  --accent-soft:  #2A141A;
+  --accent-line:  #4C2533;
+  --accent-glow:  #F09BAC;
+  --on-accent:    #1E0A11;
+  --text-accent:  #ED93A4;
+}
+
+[data-theme="dark"][data-accent="peach"] {
+  --accent:       #ED9A5E;
+  --accent-hover: #F2AE7A;
+  --accent-soft:  #241A10;
+  --accent-line:  #45321E;
+  --accent-glow:  #F4BC91;
+  --on-accent:    #271405;
+  --text-accent:  #EDA978;
+}
+
+[data-theme="dark"][data-accent="mocha"] {
+  --accent:       #C39A85;
+  --accent-hover: #D0AC99;
+  --accent-soft:  #241C16;
+  --accent-line:  #45362C;
+  --accent-glow:  #D6B6A4;
+  --on-accent:    #1A120C;
+  --text-accent:  #C8A491;
+}

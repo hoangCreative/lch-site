@@ -1,0 +1,24 @@
+/* LCH Podcast — Expressive palette (Pantone Color of the Year 2010 + 2020–2026)
+ * Cool-led and fresh. Turquoise (2010) is the lead accent; the cool hues carry energy.
+ * Raw hues here; tokens/colors.css gives them roles. */
+
+:root {
+  --coty-turquoise: #2AA89B; /* 2010 Turquoise 15-5519 — the lead accent (deepened a touch) */
+  --coty-blue:      #1E73B0; /* 2020 Classic Blue */
+  --coty-yellow:    #E8C13C; /* 2021 Illuminating */
+  --coty-gray:      #8E9094; /* 2021 Ultimate Gray — cool neutral */
+  --coty-periwinkle:#6A6BC4; /* 2022 Very Peri */
+  --coty-magenta:   #C8284E; /* 2023 Viva Magenta */
+  --coty-peach:     #ED9A5E; /* 2024 Peach Fuzz */
+  --coty-mocha:     #A87C68; /* 2025 Mocha Mousse */
+  --coty-cloud:     #ECEEEF; /* 2026 Cloud Dancer — cooled toward white */
+
+  /* tints for soft fills / chips */
+  --coty-turquoise-soft:  #E1F2EF;
+  --coty-blue-soft:       #E3EFF8;
+  --coty-yellow-soft:     #FBF3D6;
+  --coty-periwinkle-soft: #EAEAF8;
+  --coty-magenta-soft:    #FBE4EA;
+  --coty-peach-soft:      #FBEADD;
+  --coty-mocha-soft:      #F1EAE4;
+}

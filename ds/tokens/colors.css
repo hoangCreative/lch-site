@@ -1,0 +1,199 @@
+/* LCH Design System — Color
+ * ============================================================================
+ * ONE SOURCE: Pantone Color of the Year (2010 + 2020–2026). Cool-led, anti-beige.
+ *
+ * THE MODEL — every hue has exactly ONE job, on one of two axes that never mix:
+ *
+ *   A. BRAND HIERARCHY (expressive — chosen by visual weight)
+ *        Primary    Turquoise (2010)   lead: actions, links, active, key accents
+ *        Secondary  Very Peri (2022)   cool support: emphasis, categories, info UI
+ *        Tertiary   Peach (2024)       the single warm note — used sparingly
+ *
+ *   B. STATUS (functional — chosen by meaning, RESERVED for system state)
+ *        Success    Classic Blue (2020)   positive (no green in the palette)
+ *        Warning    Illuminating (2021)    caution
+ *        Danger     Viva Magenta (2023)    error / destructive
+ *
+ *   Neutral ramp (Ultimate Gray + Cloud Dancer → cool charcoal) carries ~70%.
+ *
+ * THE RULE: never use a STATUS colour decoratively, and never use a BRAND hue to
+ * signal state. That one-to-one mapping is what keeps magenta = error (always
+ * trusted) and turquoise = brand (never alarming). Distribution ≈ 70 neutral /
+ * 20 primary / 8 secondary / 2 tertiary; status appears only when there IS state.
+ *
+ * Components consume the SEMANTIC aliases at the bottom (--primary, --secondary,
+ * --tertiary, --success…). Raw hues live in tokens/palette-coty.css.
+ * The lead (primary) is re-skinnable per campaign via [data-accent] (schemes.css);
+ * secondary & tertiary stay fixed as stable brand support.
+ * ============================================================================ */
+
+:root {
+  /* ---- Neutral ramp — crisp + cool (anti-beige) ---- */
+  --paper:        #F4F6F6; /* page — clean cool off-white, faint teal cast */
+  --paper-2:      #EAEEEE; /* sunken / secondary surface */
+  --surface:      #FFFFFF; /* raised card — pure white */
+  --surface-2:    #FAFCFC;
+
+  --ink:          #16191B; /* near-black, faintly cool — primary text */
+  --ink-2:        #3A4044; /* strong secondary text */
+  --muted:        #676E72; /* cool gray — muted text */
+  --faint:        #A0A6AA; /* placeholder / disabled */
+
+  --line:         #E4E8E9; /* hairline */
+  --line-2:       #D2D8D9; /* stronger border */
+  --overlay:      rgba(18, 24, 25, 0.5); /* scrim */
+
+  /* ======================================================================
+   * BRAND HIERARCHY — raw families. Components read --primary/--secondary/
+   * --tertiary aliases (bottom). White text sits on each base (≥4.5:1).
+   * ====================================================================== */
+
+  /* Primary — Turquoise (2010) */
+  --turq:        #157E72; /* base (white text ~4.6:1) */
+  --turq-bright: #2AA89B;
+  --turq-glow:   #45B5AA;
+  --turq-strong: #0E5F55; /* hover / pressed */
+  --turq-soft:   #E1F2EF; /* tinted background */
+  --turq-line:   #BBE0DA; /* tinted border */
+  --turq-text:   #0F6E64; /* legible accent text on light */
+  --on-turq:     #FFFFFF;
+
+  /* Secondary — Very Peri (2022) */
+  --peri:        #5A5BB8; /* base (white text ~4.5:1) */
+  --peri-strong: #46479A; /* hover */
+  --peri-soft:   #EAEAF8;
+  --peri-line:   #CBCCEC;
+  --peri-text:   #4C4DA6;
+  --on-peri:     #FFFFFF;
+
+  /* Tertiary — Peach / terracotta (2024) */
+  --terra:       #B5652F; /* base (white text ~4.5:1) */
+  --terra-strong:#97501F; /* hover */
+  --terra-soft:  #FBEADD;
+  --terra-line:  #F2D3B8;
+  --terra-text:  #A85B29;
+  --on-terra:    #FFFFFF;
+
+  /* ======================================================================
+   * STATUS — reserved for system state only, never decorative.
+   * ====================================================================== */
+  --success:      #1C6AA0; /* Classic Blue (white text ~4.5:1) */
+  --success-soft: #E3EFF8;
+  --warning:      #8C6F12; /* Illuminating, deepened (white text ~4.6:1) */
+  --warning-soft: #FBF3D6;
+  --danger:       #C8284E; /* Viva Magenta */
+  --danger-soft:  #FBE4EA;
+
+  /* ======================================================================
+   * SEMANTIC ALIASES — use THESE in components.
+   * ====================================================================== */
+
+  /* Surfaces & text */
+  --bg:            var(--paper);
+  --bg-sunken:     var(--paper-2);
+  --surface-card:  var(--surface);
+  --surface-raised:var(--surface-2);
+
+  --text-strong:   var(--ink);
+  --text-body:     var(--ink-2);
+  --text-muted:    var(--muted);
+  --text-faint:    var(--faint);
+
+  --border:        var(--line);
+  --border-strong: var(--line-2);
+
+  /* Brand — Primary (the swappable lead; schemes.css re-points --accent*) */
+  --accent:        var(--turq);
+  --accent-hover:  var(--turq-strong);
+  --accent-soft:   var(--turq-soft);
+  --accent-line:   var(--turq-line);
+  --on-accent:     var(--on-turq);
+  --text-accent:   var(--turq-text);
+
+  --primary:       var(--accent);
+  --primary-hover: var(--accent-hover);
+  --primary-soft:  var(--accent-soft);
+  --primary-line:  var(--accent-line);
+  --primary-text:  var(--text-accent);
+  --on-primary:    var(--on-accent);
+
+  /* Brand — Secondary (fixed support hue) */
+  --secondary:      var(--peri);
+  --secondary-hover:var(--peri-strong);
+  --secondary-soft: var(--peri-soft);
+  --secondary-line: var(--peri-line);
+  --secondary-text: var(--peri-text);
+  --on-secondary:   var(--on-peri);
+
+  /* Brand — Tertiary (fixed warm accent) */
+  --tertiary:       var(--terra);
+  --tertiary-hover: var(--terra-strong);
+  --tertiary-soft:  var(--terra-soft);
+  --tertiary-line:  var(--terra-line);
+  --tertiary-text:  var(--terra-text);
+  --on-tertiary:    var(--on-terra);
+
+  /* Back-compat aliases — info = secondary (emphasis, not alarm); peach = tertiary.
+     Kept so existing components keep working; prefer the names above. */
+  --info:          var(--secondary);
+  --info-soft:     var(--secondary-soft);
+  --peach:         var(--tertiary);
+  --peach-soft:    var(--tertiary-soft);
+  --peach-line:    var(--tertiary-line);
+  --peach-text:    var(--tertiary-text);
+
+  color-scheme: light;
+}
+
+[data-theme="dark"] {
+  /* Cool charcoal companion; brand hues glow on top. */
+  --paper:        #121618;
+  --paper-2:      #0D1012;
+  --surface:      #1B2123;
+  --surface-2:    #232A2C;
+
+  --ink:          #F1F4F4;
+  --ink-2:        #CBD2D2;
+  --muted:        #97A0A1;
+  --faint:        #66706F;
+
+  --line:         #2A3133;
+  --line-2:       #394143;
+  --overlay:      rgba(0, 0, 0, 0.66);
+
+  /* Primary — Turquoise on dark */
+  --turq:        #34B5A6;
+  --turq-bright: #45B5AA;
+  --turq-glow:   #5FCBBF;
+  --turq-strong: #4FC4B6;
+  --turq-soft:   #0E2522;
+  --turq-line:   #1E4641;
+  --turq-text:   #45C2B4;
+  --on-turq:     #0C1413;
+
+  /* Secondary — Very Peri on dark */
+  --peri:        #9192DA;
+  --peri-strong: #A8A9E6;
+  --peri-soft:   #181826;
+  --peri-line:   #303052;
+  --peri-text:   #A1A2E4;
+  --on-peri:     #0D0D16;
+
+  /* Tertiary — Peach on dark */
+  --terra:       #ED9A5E;
+  --terra-strong:#F2AE7A;
+  --terra-soft:  #241A10;
+  --terra-line:  #45321E;
+  --terra-text:  #EDA978;
+  --on-terra:    #271405;
+
+  /* Status on dark */
+  --success:      #4E9AD2;
+  --success-soft: #112230;
+  --warning:      #D8B85A;
+  --warning-soft: #241F10;
+  --danger:       #E16A85;
+  --danger-soft:  #2A141A;
+
+  color-scheme: dark;
+}

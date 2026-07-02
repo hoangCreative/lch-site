@@ -1,0 +1,41 @@
+/* LCH Design System — Radius, border, shadow, motion
+ * Subtle corners, soft warm shadows, restrained motion. */
+
+:root {
+  /* ---- Corner radius (subtle — refined, not pill-y) ---- */
+  --radius-xs:   3px;
+  --radius-sm:   5px;   /* default control radius */
+  --radius-md:   8px;   /* cards */
+  --radius-lg:   12px;  /* large panels */
+  --radius-xl:   18px;  /* soft cards */
+  --radius-2xl:  26px;  /* hero / feature cards (notched) */
+  --radius-full: 999px; /* avatars, pills */
+
+  /* ---- Borders ---- */
+  --border-width: 1px;
+  --border-hairline: 1px solid var(--line);
+
+  /* ---- Shadows (warm-tinted, low & soft) ---- */
+  --shadow-xs: 0 1px 2px rgba(26, 23, 20, 0.05);
+  --shadow-sm: 0 1px 3px rgba(26, 23, 20, 0.07), 0 1px 2px rgba(26, 23, 20, 0.04);
+  --shadow-md: 0 4px 12px rgba(26, 23, 20, 0.08), 0 2px 4px rgba(26, 23, 20, 0.05);
+  --shadow-lg: 0 12px 32px rgba(26, 23, 20, 0.12), 0 4px 8px rgba(26, 23, 20, 0.06);
+  --shadow-xl: 0 24px 60px rgba(26, 23, 20, 0.18);
+  --ring-accent: 0 0 0 3px rgba(21, 126, 114, 0.28); /* focus ring (turquoise) */
+
+  /* ---- Motion (calm, cinematic; no bounce) ---- */
+  --ease-out:   cubic-bezier(0.22, 0.61, 0.36, 1); /* @kind other */
+  --ease-in-out:cubic-bezier(0.45, 0, 0.55, 1); /* @kind other */
+  --dur-fast:   120ms; /* @kind other */
+  --dur-base:   200ms; /* @kind other */
+  --dur-slow:   360ms; /* @kind other */
+}
+
+[data-theme="dark"] {
+  --shadow-xs: 0 1px 2px rgba(0, 0, 0, 0.4);
+  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.5), 0 1px 2px rgba(0, 0, 0, 0.4);
+  --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.55), 0 2px 4px rgba(0, 0, 0, 0.4);
+  --shadow-lg: 0 12px 32px rgba(0, 0, 0, 0.6), 0 4px 8px rgba(0, 0, 0, 0.45);
+  --shadow-xl: 0 24px 60px rgba(0, 0, 0, 0.7);
+  --ring-accent: 0 0 0 3px rgba(52, 181, 166, 0.34);
+}
