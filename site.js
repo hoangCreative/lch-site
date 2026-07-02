@@ -148,4 +148,35 @@
       counters.forEach(runCount);
     }
   }
+
+  /* ---------- email/zalo: luon cho thay dia chi that, khong im lang neu may khong mo duoc app ---------- */
+  var miniToastTimer = null;
+  function miniToast(msg){
+    var t = document.getElementById('mini-toast');
+    if (!t){
+      t = document.createElement('div');
+      t.id = 'mini-toast';
+      t.style.cssText = 'position:fixed;left:50%;bottom:22px;transform:translateX(-50%);max-width:90vw;background:#1f1d18;color:#fff;padding:11px 20px;border-radius:999px;font-size:13.5px;line-height:1.4;z-index:9999;box-shadow:0 8px 28px rgba(0,0,0,.28);opacity:0;transition:opacity .2s;text-align:center;font-family:inherit;';
+      document.body.appendChild(t);
+    }
+    t.textContent = msg;
+    t.style.opacity = '1';
+    clearTimeout(miniToastTimer);
+    miniToastTimer = setTimeout(function(){ t.style.opacity = '0'; }, 5000);
+  }
+  document.querySelectorAll('a[href^="mailto:"]').forEach(function(a){
+    a.addEventListener('click', function(){
+      var email = a.getAttribute('href').replace('mailto:', '').split('?')[0];
+      try{ navigator.clipboard.writeText(email); }catch(e){}
+      miniToast('Email: ' + email + ' (đã copy, dán vào nếu ứng dụng mail không tự mở)');
+    });
+  });
+  document.querySelectorAll('a[href*="zalo.me/"]').forEach(function(a){
+    a.addEventListener('click', function(){
+      var m = a.getAttribute('href').match(/zalo\.me\/(\d+)/);
+      var phone = m ? m[1] : a.textContent.trim();
+      try{ navigator.clipboard.writeText(phone); }catch(e){}
+      miniToast('Zalo: ' + phone + ' (đã copy, dán vào nếu app Zalo không tự mở)');
+    });
+  });
 })();
