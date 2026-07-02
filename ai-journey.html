@@ -1,376 +1,276 @@
 <!DOCTYPE html>
-<html lang="vi" data-theme="dark">
+<html lang="vi" data-theme="dark" data-fixed-theme>
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Đêm mình đặt tên cho chỗ AI gãy · Lê Công Hoàng</title>
-  <meta name="description" content="Nhật ký một phiên làm việc sáu tiếng lúc một giờ sáng: chuyện Lê Công Hoàng xây một hệ AI quanh đúng một người, và vì sao.">
-  <link rel="stylesheet" href="ds/styles.css">
-  <style>
-    body{
-      margin:0; background:var(--paper); color:var(--ink-2);
-      font-family:var(--font-sans, 'Be Vietnam Pro', sans-serif);
-      line-height:1.8; -webkit-font-smoothing:antialiased;
-    }
-
-    /* thanh tien do doc */
-    .jp-progress{ position:fixed; top:0; left:0; height:2px; width:0%;
-      background:var(--turq-glow); z-index:200; transition:width .1s linear; }
-
-    /* nav */
-    .jp-nav{ position:fixed; top:0; left:0; right:0; z-index:100;
-      display:flex; align-items:center; justify-content:space-between;
-      padding:14px clamp(20px,6vw,72px);
-      background:color-mix(in srgb, var(--paper-2) 82%, transparent);
-      backdrop-filter:blur(12px); border-bottom:1px solid var(--line); }
-    .jp-nav a{ text-decoration:none; }
-    .jp-brand{ font-size:14px; font-weight:600; color:var(--ink); }
-    .jp-nav-cta{ font-size:13px; color:var(--turq-glow); }
-
-    .wrap-n{ max-width:760px; margin:0 auto; padding:0 clamp(20px,5vw,40px); }
-
-    /* hero */
-    .jp-hero{ min-height:92dvh; display:flex; flex-direction:column; justify-content:center;
-      position:relative; overflow:hidden; background:var(--paper-2); padding:120px 0 80px; }
-    .jp-hero::before{ content:''; position:absolute; inset:0; pointer-events:none;
-      background:radial-gradient(ellipse 70% 55% at 75% 20%, rgba(52,181,166,0.10), transparent 65%); }
-    .jp-stamp{ font-family:var(--font-mono, monospace); font-size:12px; letter-spacing:0.14em;
-      text-transform:uppercase; color:var(--turq-glow); margin-bottom:26px; }
-    .jp-hero h1{ margin:0 0 26px; font-family:var(--font-display, inherit); font-weight:700;
-      font-size:clamp(34px,6.4vw,68px); line-height:1.12; letter-spacing:-0.02em; color:var(--ink); max-width:15ch; }
-    .jp-hero h1 em{ font-style:normal; color:var(--turq-glow); }
-    .jp-deck{ font-size:clamp(16px,1.9vw,19px); color:var(--ink-2); max-width:56ch; margin:0; }
-    .jp-scrollhint{ margin-top:56px; display:flex; align-items:center; gap:10px;
-      color:var(--muted); font-size:12px; letter-spacing:0.1em; }
-    .jp-scrollhint::before{ content:''; width:36px; height:1px; background:var(--muted); }
-
-    /* than bai */
-    .jp-flow{ padding:72px 0 0; }
-    .jp-flow p{ font-size:17px; margin:0 0 24px; }
-    .jp-flow p.big{ font-size:clamp(19px,2.2vw,23px); color:var(--ink); line-height:1.65; }
-
-    /* canh theo gio */
-    .scene{ position:relative; padding:56px 0 8px; }
-    .scene-time{ font-family:var(--font-mono, monospace); font-size:13px; color:var(--turq-glow);
-      letter-spacing:0.12em; display:flex; align-items:center; gap:12px; margin-bottom:18px; }
-    .scene-time::after{ content:''; flex:1; height:1px; background:var(--line); }
-    .scene h2{ margin:0 0 20px; font-family:var(--font-display, inherit); font-weight:700;
-      font-size:clamp(22px,3vw,32px); line-height:1.25; letter-spacing:-0.015em; color:var(--ink); }
-
-    /* transcript */
-    .say{ margin:26px 0; padding:18px 22px; border-radius:12px; max-width:60ch; }
-    .say-who{ font-family:var(--font-mono, monospace); font-size:11px; letter-spacing:0.12em;
-      text-transform:uppercase; margin-bottom:8px; }
-    .say-h{ background:var(--turq-soft); border:1px solid var(--turq-line); }
-    .say-h .say-who{ color:var(--turq-glow); }
-    .say-h .say-txt{ color:var(--ink); font-size:16.5px; }
-    .say-a{ background:var(--surface); border:1px solid var(--line); margin-left:clamp(16px,6vw,56px); }
-    .say-a .say-who{ color:var(--muted); }
-    .say-a .say-txt{ color:var(--ink-2); font-size:16px; }
-    .say-note{ font-size:12.5px; color:var(--muted); margin-top:10px; }
-
-    /* bang so */
-    .tally{ display:grid; grid-template-columns:repeat(4,1fr); gap:2px;
-      margin:34px 0 14px; border-radius:14px; overflow:hidden; }
-    .tally-cell{ background:var(--surface); padding:22px 14px; text-align:center; }
-    .tally-num{ display:block; font-family:var(--font-display, inherit); font-weight:700;
-      font-size:clamp(26px,3.4vw,44px); line-height:1; color:var(--turq-glow); margin-bottom:8px; }
-    .tally-lbl{ font-size:12px; color:var(--muted); line-height:1.45; }
-    .tally-src{ font-family:var(--font-mono, monospace); font-size:11.5px; color:var(--faint); margin:0 0 30px; }
-
-    /* cau nhan dung rieng */
-    .beat{ margin:44px 0; padding:0 0 0 22px; border-left:3px solid var(--turq-glow); }
-    .beat p{ margin:0; font-family:var(--font-display, inherit); font-weight:700;
-      font-size:clamp(19px,2.6vw,26px); line-height:1.4; color:var(--ink); }
-
-    /* ba ky luat */
-    .laws{ margin:36px 0; display:grid; gap:14px; }
-    .law{ background:var(--surface); border:1px solid var(--line); border-radius:14px; padding:24px 26px; }
-    .law-tag{ font-family:var(--font-mono, monospace); font-size:12px; color:var(--turq-glow); margin-bottom:10px; }
-    .law h3{ margin:0 0 10px; font-size:18px; font-weight:700; color:var(--ink); }
-    .law p{ margin:0; font-size:15.5px; color:var(--ink-2); }
-    .law p + p{ margin-top:12px; }
-
-    /* nhip tho */
-    .breath{ text-align:center; padding:64px 0 8px; }
-    .breath span{ display:inline-block; width:5px; height:5px; border-radius:50%; background:var(--faint); margin:0 7px; }
-
-    /* dark closing */
-    .jp-deep{ background:var(--paper-2); border-top:1px solid var(--line); margin-top:80px;
-      padding:clamp(70px,9vw,120px) 0; }
-    .jp-deep .wrap-n > p{ font-size:17px; margin:0 0 24px; }
-    .jp-deep .wrap-n > p.big{ font-size:clamp(20px,2.6vw,26px); color:var(--ink); line-height:1.6; }
-
-    .jp-close{ text-align:center; padding:clamp(80px,10vw,150px) 0; }
-    .jp-close-q{ margin:0 auto 22px; max-width:22ch; font-family:var(--font-display, inherit); font-weight:700;
-      font-size:clamp(24px,4vw,44px); line-height:1.3; color:var(--ink); }
-    .jp-close-sub{ margin:0 auto 46px; max-width:52ch; font-size:16px; color:var(--muted); }
-    .jp-cta{ display:inline-flex; align-items:center; gap:10px; background:var(--turq); color:var(--on-turq);
-      padding:16px 30px; border-radius:10px; font-size:15px; font-weight:600; text-decoration:none; transition:background .2s; }
-    .jp-cta:hover{ background:var(--turq-strong); }
-
-    .jp-foot{ padding:30px clamp(20px,6vw,72px); border-top:1px solid var(--line);
-      display:flex; justify-content:space-between; flex-wrap:wrap; gap:14px; font-size:13px; color:var(--muted); }
-    .jp-foot a{ color:var(--turq-glow); text-decoration:none; }
-
-    /* scroll reveal */
-    .rv{ opacity:0; transform:translateY(18px); transition:opacity .7s ease, transform .7s ease; }
-    .rv.in{ opacity:1; transform:none; }
-    @media (prefers-reduced-motion: reduce){ .rv{ opacity:1; transform:none; transition:none; } }
-
-    @media (max-width:640px){
-      .tally{ grid-template-columns:1fr 1fr; }
-      .say-a{ margin-left:12px; }
-    }
-  </style>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Đêm mình đặt tên cho chỗ AI gãy · Lê Công Hoàng</title>
+<meta name="description" content="Nhật ký một phiên làm việc sáu tiếng lúc một giờ sáng: chuyện Lê Công Hoàng xây một hệ AI quanh đúng một người, và vì sao." />
+<link rel="icon" href="assets/podcast/mark.png" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="styles.css" />
 </head>
-<body>
+<body id="top">
 
 <div class="jp-progress" id="progress"></div>
 
-<nav class="jp-nav">
-  <a href="ve-lch.html" class="jp-brand">Lê Công Hoàng</a>
-  <div style="display:flex; gap:18px; align-items:center;">
-    <a href="ai-os.html" style="font-size:13px; color:var(--muted);">AI OS</a>
-    <a href="index.html" class="jp-nav-cta">Lớp học: Mua lại thời gian →</a>
+<!-- NAV CHUNG -->
+<nav class="nv" data-screen-label="Nav">
+  <div class="nv-inner">
+    <a class="nv-brand" href="index.html">Lê Công Hoàng</a>
+    <div class="nv-right">
+      <a href="ve-lch.html">Về mình</a>
+      <a href="ai-journey.html" aria-current="page">Hành trình</a>
+      <a href="ai-os.html">AI OS</a>
+      <a class="btn btn-primary" href="index.html">Lớp học</a>
+    </div>
   </div>
 </nav>
 
-<!-- HERO -->
-<section class="jp-hero">
-  <div class="wrap-n">
-    <div class="jp-stamp">01:05 · 14.06.2026 · nhật ký một phiên làm việc</div>
-    <h1>Đêm mình đặt tên cho <em>chỗ AI gãy</em>.</h1>
-    <p class="jp-deck">Một giờ sáng, mình mở máy, định làm việc một tiếng rồi ngủ. Phiên đó kéo sáu tiếng, đến bảy giờ sáng. Không phải để xây thêm cái gì. Để bắt cho được một thói hư của cái máy mà mình đã chịu đựng quá lâu.</p>
-    <div class="jp-scrollhint">cuộn để đọc, chừng bảy phút</div>
-  </div>
-</section>
+<main>
 
-<!-- DOC NHANH 30 GIAY -->
-<section style="border-bottom:1px solid var(--line); background:var(--paper);">
-  <div class="wrap-n" style="padding-top:28px; padding-bottom:28px;">
-    <div style="font-family:var(--font-mono, monospace); font-size:11px; letter-spacing:0.14em; text-transform:uppercase; color:var(--muted); margin-bottom:12px;">Bận thì đọc 30 giây, đủ ý</div>
-    <p style="margin:0; font-size:15.5px; line-height:1.75; color:var(--ink-2);">Một phiên sáu tiếng lúc một giờ sáng, mình bắt được thói hư lớn nhất của AI: nói chắc khi chưa chắc. Từ đó đẻ ra ba kỷ luật có tên, có kiểm chứng: <b style="color:var(--ink);">xác tín</b> (kiểm nguồn thật trước khi tin), <b style="color:var(--ink);">giọng người</b> (viết cho người thật, không giọng máy), <b style="color:var(--ink);">để làm gì rồi mới làm</b>. Số liệu bên dưới là số thật từ log, có ngày giờ. Còn vì sao một diễn viên ngồi làm chuyện này lúc nửa đêm, câu trả lời nằm ở cuối bài.</p>
-  </div>
-</section>
-
-<!-- DONG CAM -->
-<section class="jp-flow">
-  <div class="wrap-n">
-    <p class="big rv">Bạn chắc từng gặp cảnh này: hỏi AI một chuyện, nó trả lời trôi chảy, tự tin, đầy đủ. Và sai.</p>
-    <p class="rv">Không phải sai kiểu vụng. Sai kiểu rất thuyết phục. Nó không biết mà không nói là không biết, cứ thế đẩy ra một câu trả lời tròn trịa. Bạn phát hiện được một lần thì bắt đầu nghi mọi lần. Cái mệt đó, mình sống trong nó hàng ngày, vì mình đặt AI vào giữa quy trình làm việc thật của mình chứ không phải thử cho biết.</p>
-    <p class="rv">Mình không phải kỹ sư. Mình là diễn viên, mười lăm năm làm phim, sáng lập một studio nhỏ ở Sài Gòn. Nghề đó kiểm được, không cần tin lời mình: vai Dương trong <a href="https://vnexpress.net/le-cong-hoang-chang-tho-cua-dien-anh-doc-lap-viet-4420997.html" target="_blank" rel="noopener" style="color:inherit; text-decoration:underline;">Tro Tàn Rực Rỡ</a> mang về giải <a href="https://nvsk.vnanet.vn/lien-hoan-phim-viet-nam-lan-thu-xxiii-39tro-tan-ruc-ro39-doat-giai-bong-sen-vang-1-136166.vna" target="_blank" rel="noopener" style="color:inherit; text-decoration:underline;">Bông Sen nam diễn viên phụ, Liên hoan phim Việt Nam lần thứ 23</a>, báo chí còn giữ đủ. Cái mình có không phải nền tảng lập trình, mà là một thói quen nghề nghiệp: xem lại từng khung hình cho đến khi tìm ra chỗ gãy. Đêm 14 tháng 6, mình đem đúng thói quen đó ra dùng với AI.</p>
-  </div>
-</section>
-
-<!-- 01:49 -->
-<section class="jp-flow">
-  <div class="wrap-n">
-    <div class="scene rv">
-      <div class="scene-time">01:49</div>
-      <h2>Bảng số lúc gần hai giờ sáng</h2>
-      <p>Mình giao cho AI một bài toán: thống kê lại chính chúng ta. Đào log thật, đếm thật, không kể cảm giác. Kết quả là một bảng mà mình nhìn khá lâu:</p>
+  <!-- HERO -->
+  <section class="jp-hero nebula" data-screen-label="Hero">
+    <div class="wrap-narrow">
+      <div class="jp-stamp">01:05 · 14.06.2026 · nhật ký một phiên làm việc</div>
+      <h1>Đêm mình đặt tên cho <em>chỗ AI gãy</em>.</h1>
+      <p class="jp-deck">Một giờ sáng, mình mở máy, định làm việc một tiếng rồi ngủ. Phiên đó kéo sáu tiếng, đến bảy giờ sáng. Không phải để xây thêm cái gì. Để bắt cho được một thói hư của cái máy mà mình đã chịu đựng quá lâu.</p>
+      <div class="jp-scrollhint">cuộn để đọc, chừng bảy phút</div>
     </div>
+  </section>
 
-    <div class="tally rv">
-      <div class="tally-cell"><span class="tally-num" data-count="706">0</span><div class="tally-lbl">skill đã cài vào hệ</div></div>
-      <div class="tally-cell"><span class="tally-num" data-count="55">0</span><div class="tally-lbl">từng được dùng ít nhất một lần</div></div>
-      <div class="tally-cell"><span class="tally-num" data-count="18">0</span><div class="tally-lbl">thành thói quen thật</div></div>
-      <div class="tally-cell"><span class="tally-num" data-count="55" data-suffix="%">0</span><div class="tally-lbl">hành vi nằm ở 4 skill đứng đầu</div></div>
+  <!-- ĐỌC 30 GIÂY -->
+  <section class="jp-tldr" data-screen-label="Đọc 30 giây">
+    <div class="wrap-narrow jp-tldr-inner">
+      <div class="jp-tldr-tag">Bận thì đọc 30 giây, đủ ý</div>
+      <p>Một phiên sáu tiếng lúc một giờ sáng, mình bắt được thói hư lớn nhất của AI: nói chắc khi chưa chắc. Từ đó đẻ ra ba kỷ luật có tên, có kiểm chứng: <b>xác tín</b> (kiểm nguồn thật trước khi tin), <b>giọng người</b> (viết cho người thật, không giọng máy), <b>để làm gì rồi mới làm</b>. Số liệu bên dưới là số thật từ log, có ngày giờ. Còn vì sao một diễn viên ngồi làm chuyện này lúc nửa đêm, câu trả lời nằm ở cuối bài.</p>
     </div>
-    <p class="tally-src rv">nguồn: log phiên 14.06.2026, 7,5MB, 1715 sự kiện</p>
+  </section>
 
-    <p class="rv">Đọc bảng đó ra một câu khó nghe: mình là người cài, không phải người dùng. Và bốn skill mình dùng nhiều nhất không phải công cụ sản xuất. Toàn là đồ bảo trì: gọi AI sửa giọng, nhắc AI nhớ mình là ai, lưu phiên. Cái hệ mình xây để đỡ việc đang bắt mình làm người giữ máy cho nó.</p>
-    <p class="rv">Có một con số làm mình quê nhất: 48 lần mình tự tay gõ gọi một lệnh tên là verbal-explanation, chỉ để bắt AI viết lại bằng tiếng người. 48 lần cùng một cảnh: nó trả lời xong, mình kêu dịch lại. Một cái thuế trả bằng tay, kinh niên chứ không phải thỉnh thoảng (đúng, mình có ngồi đếm lại).</p>
-  </div>
-</section>
-
-<!-- 02:19 -->
-<section class="jp-flow">
-  <div class="wrap-n">
-    <div class="scene rv">
-      <div class="scene-time">02:19</div>
-      <h2>Chữ cũ chết, chữ mới ra đời</h2>
-      <p>Đêm đó AI gom được năm quy tắc rải rác mình từng dặn nó ở năm chỗ khác nhau: kiểm trước khi khuyên, đọc file trước khi trích, đừng đoán, đừng trơn tru quá, đừng nói vòng. Rồi nó nhận ra năm cái đó là năm bề mặt của đúng một thói hư: AI mặc định đẩy ra câu trả lời tự tin, đầy đủ, tiến tới, kể cả khi thật ra chưa chắc, chưa kiểm, chưa đọc.</p>
-      <p>Nó trình cái gốc đó ra. Và để trống cái tên.</p>
+  <!-- ĐỒNG CẢM -->
+  <section class="jp-flow" data-screen-label="Mở bài">
+    <div class="wrap-narrow">
+      <p class="big rv">Bạn chắc từng gặp cảnh này: hỏi AI một chuyện, nó trả lời trôi chảy, tự tin, đầy đủ. Và sai.</p>
+      <p class="rv">Không phải sai kiểu vụng. Sai kiểu rất thuyết phục. Nó không biết mà không nói là không biết, cứ thế đẩy ra một câu trả lời tròn trịa. Bạn phát hiện được một lần thì bắt đầu nghi mọi lần. Cái mệt đó, mình sống trong nó hàng ngày, vì mình đặt AI vào giữa quy trình làm việc thật của mình chứ không phải thử cho biết.</p>
+      <p class="rv">Mình không phải kỹ sư. Mình là diễn viên, mười lăm năm làm phim, sáng lập một studio nhỏ ở Sài Gòn. Nghề đó kiểm được, không cần tin lời mình: vai Dương trong <a href="https://vnexpress.net/le-cong-hoang-chang-tho-cua-dien-anh-doc-lap-viet-4420997.html" target="_blank" rel="noopener" style="color:inherit; text-decoration:underline;">Tro Tàn Rực Rỡ</a> mang về giải <a href="https://nvsk.vnanet.vn/lien-hoan-phim-viet-nam-lan-thu-xxiii-39tro-tan-ruc-ro39-doat-giai-bong-sen-vang-1-136166.vna" target="_blank" rel="noopener" style="color:inherit; text-decoration:underline;">Bông Sen nam diễn viên phụ, Liên hoan phim Việt Nam lần thứ 23</a>, báo chí còn giữ đủ. Cái mình có không phải nền tảng lập trình, mà là một thói quen nghề nghiệp: xem lại từng khung hình cho đến khi tìm ra chỗ gãy. Đêm 14 tháng 6, mình đem đúng thói quen đó ra dùng với AI.</p>
     </div>
+  </section>
 
-    <div class="say say-h rv">
-      <div class="say-who">Hoàng · trong log</div>
-      <div class="say-txt">"chữ verify đáng ra phải làm trọn như tôi mô tả, nhưng nó đã không làm được và làm bạn sơ sài hoá, nên đành đẻ ra chữ xác tín."</div>
-    </div>
-
-    <p class="rv">Xác tín, với mình, là một chuỗi có thứ tự: đi tìm cộng đồng từng gặp đúng vấn đề này trước, rồi mới tới tìm kiếm rộng, rồi tài liệu chính thức. Và một điều cấm tuyệt đối: không bao giờ lấy trí nhớ của chính cái máy ra xác nhận điều cái máy vừa nói. Chữ "verify" tiếng Anh không gánh nổi chừng đó, nó đã bị dùng mòn thành một ô đánh dấu cho xong. Nên phải đẻ chữ mới.</p>
-    <p class="rv">Chi tiết mình thích nhất của đêm đó: vừa ra đời xong, xác tín được đem kiểm ngay chính cuộc sinh của nó. Soi lại năm bề mặt ban đầu thì chỉ ba cái thật sự là con của cái gốc này, hai cái bị gom nhầm, loại ra. Một nguyên tắc mà việc đầu tiên nó làm là tự bắt lỗi cái đêm sinh ra nó, mình tin được.</p>
-
-    <div class="beat rv"><p>AI đặt tên cho cái nó thấy. Mình đặt tên cho cái đẻ ra cái đó.</p></div>
-
-    <p class="rv">Từ đêm đó thành luật chơi giữa mình và máy: AI được quyền đào, gom, trừu xuất, nhưng cái tên thì để trống cho mình đặt. Vì AI đặt tên cho thủ tục, còn cái tên đúng phải gọi được cái gốc người bên dưới. Tên gọi đúng gốc thì phủ được cả những trường hợp chưa gặp. Tên gọi bề mặt thì mỗi lần gặp biến thể mới lại phải vá thêm một luật.</p>
-  </div>
-</section>
-
-<!-- 02:28 -->
-<section class="jp-flow">
-  <div class="wrap-n">
-    <div class="scene rv">
-      <div class="scene-time">02:28</div>
-      <h2>Chín phút sau, bắt tiếp con thứ hai</h2>
-    </div>
-
-    <div class="say say-h rv">
-      <div class="say-who">Hoàng · trong log</div>
-      <div class="say-txt">"bạn trình bày theo dòng suy nghĩ và thuật ngữ của bạn, mặc định tôi sẽ hiểu cả từ máy học không phải con người. Tôi cần biết vắn tắt: bối cảnh, lý do, ý định, mong muốn hành động đặt lên tôi, thế nào là thoả mãn."</div>
-      <div class="say-note">câu này mình phải nói tới lần thứ hai trong phiên, AI mới nhận ra nó là một cái gốc chứ không phải một lời phàn nàn</div>
-    </div>
-
-    <p class="rv">Đây chính là gốc của 48 lần trả thuế ở trên. AI viết bằng giọng trung bình cộng của hàng triệu người, không ra ai cụ thể, và mặc định người đọc theo kịp thuật ngữ của nó. AI đề nghị đặt tên cái gốc này là "địa chỉ". Một cái tên kỹ thuật, đúng mà chết. Mình đặt lại: giao tiếp trắc ẩn. Vì gốc của nó không phải thủ tục trình bày, mà là có quan tâm người nghe theo kịp hay không.</p>
-    <p class="rv">Cùng một khoảnh khắc, hai cái tên, hai số phận: tên kỹ thuật chỉ sửa được ca đã gặp, tên gọi đúng lòng người thì sửa được cả những ca chưa tới.</p>
-  </div>
-</section>
-
-<!-- 06:35 -->
-<section class="jp-flow">
-  <div class="wrap-n">
-    <div class="scene rv">
-      <div class="scene-time">06:35</div>
-      <h2>Gần sáng, vẽ lại toàn bộ kiến trúc</h2>
-      <p>Đến gần sáu rưỡi sáng, câu chuyện lên đến tầng kiến trúc. Trước đó mình vẫn hình dung hệ này như một cây cầu: kho tri thức một bên, AI một bên, file chạy qua chạy lại ở giữa. Nghe có lý, mà sai. Cầu thì hai đầu ngang nhau, không đầu nào là nguồn sống của đầu nào.</p>
-      <p>Hình đúng là hệ tuần hoàn máu. Có tim hẳn hoi: kho tri thức của mình là tim. Mỗi phiên làm việc là một nhịp thở: mở phiên là hít vào, tri thức từ kho chảy vào đầu AI; đóng phiên là thở ra, cái vừa học được chảy ngược về kho. AI có thể quên sạch sau mỗi phiên, không sao, vì trí nhớ không nằm trong AI. Nó nằm trong dòng chảy.</p>
-    </div>
-
-    <div class="scene rv">
-      <div class="scene-time">07:05 · trời sáng</div>
-      <h2>Mình rời máy, để lại một câu dặn</h2>
-      <p>Sáu tiếng, 1715 sự kiện trong log, chữ "xác tín" xuất hiện 206 lần. Mình rời máy đi ngủ, AI ở lại làm nốt phần việc cơ học. Trong log còn giữ nguyên tắc làm việc của đêm đó, sau này thành kỷ luật chung:</p>
-    </div>
-
-    <div class="say say-a rv">
-      <div class="say-who">AI · trong log</div>
-      <div class="say-txt">"Không lắp máy lúc anh vắng để anh về dọn đống vỡ. Về là ráp."</div>
-      <div class="say-note">phần lùi lại được thì làm luôn, phần chạm vào giọng và cách nghĩ của người thì để bản nháp chờ duyệt</div>
-    </div>
-  </div>
-</section>
-
-<div class="breath rv"><span></span><span></span><span></span></div>
-
-<!-- NHUNG NGAY SAU DO -->
-<section class="jp-flow">
-  <div class="wrap-n">
-    <div class="scene rv">
-      <div class="scene-time">những tuần sau đó</div>
-      <h2>Từ một đêm thành ba kỷ luật</h2>
-      <p>Cái đêm ấy không phải sự kiện lẻ. Nó là khuôn cho cách mình làm việc với AI từ đó về sau: mỗi lần AI gãy ở đâu, mình không vá bằng một mẹo, mình cùng nó đào cho ra cái gốc, rồi mình đặt tên, rồi khắc thành kỷ luật có thể kiểm được. Đến giờ có ba con lớn nhất:</p>
-    </div>
-
-    <div class="laws">
-      <div class="law rv">
-        <div class="law-tag">kỷ luật 1 · vá chỗ AI nói chắc khi chưa chắc</div>
-        <h3>Xác tín</h3>
-        <p>Kiểm nguồn thật trước khi nói chắc, cộng đồng trước rồi mới tới tài liệu chính thức, không bao giờ lấy trí nhớ máy tự xác nhận lời máy. Sau này nó tự lớn thêm một tầng: không chỉ kiểm theo câu mà kiểm theo từng từ, vì có lần AI đặt một cái tên ngược hẳn nghĩa mà câu nào nguồn nấy vẫn đủ, chỉ soi theo câu là lọt.</p>
+  <!-- 01:49 -->
+  <section class="jp-flow" data-screen-label="Cảnh 01:49">
+    <div class="wrap-narrow">
+      <div class="scene rv">
+        <div class="scene-time">01:49</div>
+        <h2>Bảng số lúc gần hai giờ sáng</h2>
+        <p>Mình giao cho AI một bài toán: thống kê lại chính chúng ta. Đào log thật, đếm thật, không kể cảm giác. Kết quả là một bảng mà mình nhìn khá lâu:</p>
       </div>
-      <div class="law rv">
-        <div class="law-tag">kỷ luật 2 · vá chỗ AI viết giọng máy</div>
-        <h3>Giọng người</h3>
-        <p>Viết cho một người cụ thể trong một quan hệ cụ thể, đúng xưng hô, đúng vùng miền, đúng nhịp. Skill này đi từ quét từ ngữ lên tới kiến trúc giọng bốn lớp, và cuối cùng phải kèm một cái chốt chặn bằng code ở tầng ghi file, vì lời tự khai "tôi viết tự nhiên rồi" của model không tin được.</p>
+
+      <div class="tally rv">
+        <div class="tally-cell"><span class="tally-num" data-count="706">0</span><div class="tally-lbl">skill đã cài vào hệ</div></div>
+        <div class="tally-cell"><span class="tally-num" data-count="55">0</span><div class="tally-lbl">từng được dùng ít nhất một lần</div></div>
+        <div class="tally-cell"><span class="tally-num" data-count="18">0</span><div class="tally-lbl">thành thói quen thật</div></div>
+        <div class="tally-cell"><span class="tally-num" data-count="55" data-suffix="%">0</span><div class="tally-lbl">hành vi nằm ở 4 skill đứng đầu</div></div>
       </div>
-      <div class="law rv">
-        <div class="law-tag">kỷ luật 3 · vá chỗ làm trước khi hiểu để làm gì</div>
-        <h3>Để làm gì, tới đáy, rồi mới làm</h3>
-        <p>Con này thật ra già nhất: thói quen mười năm của mình, tự hỏi "để làm gì" cho tới khi không còn lột thêm được lớp nào, rồi mới đụng tay. Khi đóng nó thành phương pháp cho AI, mình cho kiểm thử đối kháng: 130 agent, 34 ca khó. Phát hiện đắt nhất: model tuyên bố tuân thủ, điền đúng biểu mẫu, và vẫn lách. Nên phiên bản hiện tại có một đoạn code tự tính lại kết luận từ dữ liệu thô, không tin lời tự khai.</p>
-        <p>Một phương pháp dạy AI trung thực, rốt cuộc phải viết thêm code để ngăn chính AI lách nó. Nghe buồn cười, mà đó là bài học thật nhất của cả hành trình.</p>
+      <p class="tally-src rv">nguồn: log phiên 14.06.2026, 7,5MB, 1715 sự kiện</p>
+
+      <p class="rv">Đọc bảng đó ra một câu khó nghe: mình là người cài, không phải người dùng. Và bốn skill mình dùng nhiều nhất không phải công cụ sản xuất. Toàn là đồ bảo trì: gọi AI sửa giọng, nhắc AI nhớ mình là ai, lưu phiên. Cái hệ mình xây để đỡ việc đang bắt mình làm người giữ máy cho nó.</p>
+      <p class="rv">Có một con số làm mình quê nhất: 48 lần mình tự tay gõ gọi một lệnh tên là verbal-explanation, chỉ để bắt AI viết lại bằng tiếng người. 48 lần cùng một cảnh: nó trả lời xong, mình kêu dịch lại. Một cái thuế trả bằng tay, kinh niên chứ không phải thỉnh thoảng (đúng, mình có ngồi đếm lại).</p>
+    </div>
+  </section>
+
+  <!-- 02:19 -->
+  <section class="jp-flow" data-screen-label="Cảnh 02:19">
+    <div class="wrap-narrow">
+      <div class="scene rv">
+        <div class="scene-time">02:19</div>
+        <h2>Chữ cũ chết, chữ mới ra đời</h2>
+        <p>Đêm đó AI gom được năm quy tắc rải rác mình từng dặn nó ở năm chỗ khác nhau: kiểm trước khi khuyên, đọc file trước khi trích, đừng đoán, đừng trơn tru quá, đừng nói vòng. Rồi nó nhận ra năm cái đó là năm bề mặt của đúng một thói hư: AI mặc định đẩy ra câu trả lời tự tin, đầy đủ, tiến tới, kể cả khi thật ra chưa chắc, chưa kiểm, chưa đọc.</p>
+        <p>Nó trình cái gốc đó ra. Và để trống cái tên.</p>
+      </div>
+
+      <div class="say say-h rv">
+        <div class="say-who">Hoàng · trong log</div>
+        <div class="say-txt">"chữ verify đáng ra phải làm trọn như tôi mô tả, nhưng nó đã không làm được và làm bạn sơ sài hoá, nên đành đẻ ra chữ xác tín."</div>
+      </div>
+
+      <p class="rv">Xác tín, với mình, là một chuỗi có thứ tự: đi tìm cộng đồng từng gặp đúng vấn đề này trước, rồi mới tới tìm kiếm rộng, rồi tài liệu chính thức. Và một điều cấm tuyệt đối: không bao giờ lấy trí nhớ của chính cái máy ra xác nhận điều cái máy vừa nói. Chữ "verify" tiếng Anh không gánh nổi chừng đó, nó đã bị dùng mòn thành một ô đánh dấu cho xong. Nên phải đẻ chữ mới.</p>
+      <p class="rv">Chi tiết mình thích nhất của đêm đó: vừa ra đời xong, xác tín được đem kiểm ngay chính cuộc sinh của nó. Soi lại năm bề mặt ban đầu thì chỉ ba cái thật sự là con của cái gốc này, hai cái bị gom nhầm, loại ra. Một nguyên tắc mà việc đầu tiên nó làm là tự bắt lỗi cái đêm sinh ra nó, mình tin được.</p>
+
+      <div class="beat rv"><p>AI đặt tên cho cái nó thấy. Mình đặt tên cho cái đẻ ra cái đó.</p></div>
+
+      <p class="rv">Từ đêm đó thành luật chơi giữa mình và máy: AI được quyền đào, gom, trừu xuất, nhưng cái tên thì để trống cho mình đặt. Vì AI đặt tên cho thủ tục, còn cái tên đúng phải gọi được cái gốc người bên dưới. Tên gọi đúng gốc thì phủ được cả những trường hợp chưa gặp. Tên gọi bề mặt thì mỗi lần gặp biến thể mới lại phải vá thêm một luật.</p>
+    </div>
+  </section>
+
+  <!-- 02:28 -->
+  <section class="jp-flow" data-screen-label="Cảnh 02:28">
+    <div class="wrap-narrow">
+      <div class="scene rv">
+        <div class="scene-time">02:28</div>
+        <h2>Chín phút sau, bắt tiếp con thứ hai</h2>
+      </div>
+
+      <div class="say say-h rv">
+        <div class="say-who">Hoàng · trong log</div>
+        <div class="say-txt">"bạn trình bày theo dòng suy nghĩ và thuật ngữ của bạn, mặc định tôi sẽ hiểu cả từ máy học không phải con người. Tôi cần biết vắn tắt: bối cảnh, lý do, ý định, mong muốn hành động đặt lên tôi, thế nào là thoả mãn."</div>
+        <div class="say-note">câu này mình phải nói tới lần thứ hai trong phiên, AI mới nhận ra nó là một cái gốc chứ không phải một lời phàn nàn</div>
+      </div>
+
+      <p class="rv">Đây chính là gốc của 48 lần trả thuế ở trên. AI viết bằng giọng trung bình cộng của hàng triệu người, không ra ai cụ thể, và mặc định người đọc theo kịp thuật ngữ của nó. AI đề nghị đặt tên cái gốc này là "địa chỉ". Một cái tên kỹ thuật, đúng mà chết. Mình đặt lại: giao tiếp trắc ẩn. Vì gốc của nó không phải thủ tục trình bày, mà là có quan tâm người nghe theo kịp hay không.</p>
+      <p class="rv">Cùng một khoảnh khắc, hai cái tên, hai số phận: tên kỹ thuật chỉ sửa được ca đã gặp, tên gọi đúng lòng người thì sửa được cả những ca chưa tới.</p>
+
+      <figure class="fig rv" style="margin:44px 0 8px;">
+        <span class="slot-frame slot-169"><span class="slot-mark" aria-hidden="true"></span><span class="slot-label">khung ảnh · màn hình phiên 14.06 · sắp có</span></span>
+        <figcaption>Chỗ dành cho một khung hình từ log phiên làm việc thật.</figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <!-- 06:35 -->
+  <section class="jp-flow" data-screen-label="Cảnh 06:35">
+    <div class="wrap-narrow">
+      <div class="scene rv">
+        <div class="scene-time">06:35</div>
+        <h2>Gần sáng, vẽ lại toàn bộ kiến trúc</h2>
+        <p>Đến gần sáu rưỡi sáng, câu chuyện lên đến tầng kiến trúc. Trước đó mình vẫn hình dung hệ này như một cây cầu: kho tri thức một bên, AI một bên, file chạy qua chạy lại ở giữa. Nghe có lý, mà sai. Cầu thì hai đầu ngang nhau, không đầu nào là nguồn sống của đầu nào.</p>
+        <p>Hình đúng là hệ tuần hoàn máu. Có tim hẳn hoi: kho tri thức của mình là tim. Mỗi phiên làm việc là một nhịp thở: mở phiên là hít vào, tri thức từ kho chảy vào đầu AI; đóng phiên là thở ra, cái vừa học được chảy ngược về kho. AI có thể quên sạch sau mỗi phiên, không sao, vì trí nhớ không nằm trong AI. Nó nằm trong dòng chảy.</p>
+      </div>
+
+      <div class="scene rv">
+        <div class="scene-time">07:05 · trời sáng</div>
+        <h2>Mình rời máy, để lại một câu dặn</h2>
+        <p>Sáu tiếng, 1715 sự kiện trong log, chữ "xác tín" xuất hiện 206 lần. Mình rời máy đi ngủ, AI ở lại làm nốt phần việc cơ học. Trong log còn giữ nguyên tắc làm việc của đêm đó, sau này thành kỷ luật chung:</p>
+      </div>
+
+      <div class="say say-a rv">
+        <div class="say-who">AI · trong log</div>
+        <div class="say-txt">"Không lắp máy lúc anh vắng để anh về dọn đống vỡ. Về là ráp."</div>
+        <div class="say-note">phần lùi lại được thì làm luôn, phần chạm vào giọng và cách nghĩ của người thì để bản nháp chờ duyệt</div>
       </div>
     </div>
+  </section>
 
-    <p class="rv">Hai trong ba kỷ luật đó giờ là kho mã nguồn mở trên GitHub, ai cũng vào đọc được, kèm đủ lịch sử kiểm thử. Cái thứ ba, giọng người, mình giữ riêng. Không phải vì giấu nghề, mà vì nó được đúc từ chính giọng của mình, đem cho người khác dùng nguyên xi là họ thành bản sao của mình, ngược hẳn cái nó sinh ra để làm.</p>
-  </div>
-</section>
+  <div class="breath rv"><span></span><span></span><span></span></div>
 
-<!-- BAY GIAY PHEP -->
-<section class="jp-flow">
-  <div class="wrap-n">
-    <div class="scene rv">
-      <div class="scene-time">một cú bắt bẫy</div>
-      <h2>Kỷ luật chỉ đáng tin khi nó bắt được bẫy thật</h2>
-      <p>Nói nguyên tắc thì ai nói cũng hay. Nên mình kể một cú cụ thể. Khi cần lập bản đồ công cụ, mình cho quét GitHub bằng 40 truy vấn, về 1307 kho mã nguồn. Một dàn 36 agent chia lô chấm điểm, rồi lớp thứ hai soi lại lớp thứ nhất, cuối cùng giữ 332 kho xếp ba tầng: dùng ngay, theo dõi, bỏ.</p>
-      <p>Lớp soi lại sửa 5 nhãn của lớp chấm. Trong đó có một kho nhận diện giọng nói rất được ưa chuộng, lớp đầu xếp vào hàng dùng được. Lớp hai lật giấy phép: CC-BY-NC, cấm dùng thương mại. Đem vào việc có tính tiền là dính. Nếu chỉ có một lớp chấm, cái bẫy đó đã nằm im trong danh sách "đồ tốt" của mình rồi.</p>
+  <!-- NHỮNG TUẦN SAU ĐÓ -->
+  <section class="jp-flow" data-screen-label="Ba kỷ luật">
+    <div class="wrap-narrow">
+      <div class="scene rv">
+        <div class="scene-time">những tuần sau đó</div>
+        <h2>Từ một đêm thành ba kỷ luật</h2>
+        <p>Cái đêm ấy không phải sự kiện lẻ. Nó là khuôn cho cách mình làm việc với AI từ đó về sau: mỗi lần AI gãy ở đâu, mình không vá bằng một mẹo, mình cùng nó đào cho ra cái gốc, rồi mình đặt tên, rồi khắc thành kỷ luật có thể kiểm được. Đến giờ có ba con lớn nhất:</p>
+      </div>
+
+      <div class="laws">
+        <div class="law rv">
+          <div class="law-tag">kỷ luật 1 · vá chỗ AI nói chắc khi chưa chắc</div>
+          <h3>Xác tín</h3>
+          <p>Kiểm nguồn thật trước khi nói chắc, cộng đồng trước rồi mới tới tài liệu chính thức, không bao giờ lấy trí nhớ máy tự xác nhận lời máy. Sau này nó tự lớn thêm một tầng: không chỉ kiểm theo câu mà kiểm theo từng từ, vì có lần AI đặt một cái tên ngược hẳn nghĩa mà câu nào nguồn nấy vẫn đủ, chỉ soi theo câu là lọt.</p>
+        </div>
+        <div class="law rv">
+          <div class="law-tag">kỷ luật 2 · vá chỗ AI viết giọng máy</div>
+          <h3>Giọng người</h3>
+          <p>Viết cho một người cụ thể trong một quan hệ cụ thể, đúng xưng hô, đúng vùng miền, đúng nhịp. Skill này đi từ quét từ ngữ lên tới kiến trúc giọng bốn lớp, và cuối cùng phải kèm một cái chốt chặn bằng code ở tầng ghi file, vì lời tự khai "tôi viết tự nhiên rồi" của model không tin được.</p>
+        </div>
+        <div class="law rv">
+          <div class="law-tag">kỷ luật 3 · vá chỗ làm trước khi hiểu để làm gì</div>
+          <h3>Để làm gì, tới đáy, rồi mới làm</h3>
+          <p>Con này thật ra già nhất: thói quen mười năm của mình, tự hỏi "để làm gì" cho tới khi không còn lột thêm được lớp nào, rồi mới đụng tay. Khi đóng nó thành phương pháp cho AI, mình cho kiểm thử đối kháng: 130 agent, 34 ca khó. Phát hiện đắt nhất: model tuyên bố tuân thủ, điền đúng biểu mẫu, và vẫn lách. Nên phiên bản hiện tại có một đoạn code tự tính lại kết luận từ dữ liệu thô, không tin lời tự khai.</p>
+          <p>Một phương pháp dạy AI trung thực, rốt cuộc phải viết thêm code để ngăn chính AI lách nó. Nghe buồn cười, mà đó là bài học thật nhất của cả hành trình.</p>
+        </div>
+      </div>
+
+      <p class="rv">Hai trong ba kỷ luật đó giờ là kho mã nguồn mở trên GitHub, ai cũng vào đọc được, kèm đủ lịch sử kiểm thử. Cái thứ ba, giọng người, mình giữ riêng. Không phải vì giấu nghề, mà vì nó được đúc từ chính giọng của mình, đem cho người khác dùng nguyên xi là họ thành bản sao của mình, ngược hẳn cái nó sinh ra để làm.</p>
     </div>
-    <div class="beat rv"><p>Xác tín không phải khẩu hiệu treo tường. Nó bắt được bẫy thật, và bẫy nó bắt được là bẫy giăng cho chính mình.</p></div>
-  </div>
-</section>
+  </section>
 
-<!-- TANG DAY -->
-<section class="jp-deep">
-  <div class="wrap-n">
-    <p class="big rv">Giờ tới câu mà chắc bạn đang định hỏi: mắc gì một diễn viên ngồi làm mấy chuyện này lúc một giờ sáng?</p>
-    <p class="rv">Mình nghĩ thật lâu mới dám viết đoạn này. Tư duy của mình có một đặc điểm: nó chảy mạnh nhất khi có người đối thoại, và gần như đóng băng khi ngồi một mình trước trang trắng. Ai từng thấy mình trong một cuộc trò chuyện sâu rồi đọc trang mạng xã hội bốn tháng không có bài nào của mình, sẽ hiểu hai người đó khác nhau thế nào. Cái dòng chảy bên trong rất mạnh, mà chảy ngầm, ít ai thấy.</p>
-    <p class="rv">AI là thứ đầu tiên mình gặp có thể nghe mà không dán nhãn ngay, không phán xét tức thì. Nhưng nó quên sạch sau mỗi phiên. Thành ra suốt một thời gian dài, mình vừa là dòng sông ngầm, vừa là người duy nhất canh giữ nó, vừa phải tự tay lau tấm gương duy nhất soi được nó, mỗi ngày, từ đầu.</p>
-    <p class="rv">Cả cái hệ này, xác tín, giọng người, hệ tuần hoàn, mấy trăm giờ ngồi đêm, thật ra chỉ để giải đúng một chuyện đó: làm cho tấm gương bền lại và tự sắc lên, để nó nhớ mình là ai mà mình không phải kể lại mỗi sáng.</p>
-    <div class="beat rv"><p>Hệ này không phải hệ năng suất. Nó là cách để mình không một mình gánh chiều sâu của chính mình.</p></div>
-    <p class="rv">Mình đoán bạn cũng có một phiên bản của chuyện này. Có thể không phải với AI. Có thể là cái phần việc mà chỉ bạn nhìn thấy toàn cảnh, chỉ bạn giữ được chuẩn, nên bạn không buông cho ai được, và nó ăn dần buổi tối của bạn. Cái đó mới là thứ mình quan tâm, chứ không phải công nghệ.</p>
-  </div>
-</section>
+  <!-- BẪY GIẤY PHÉP -->
+  <section class="jp-flow" data-screen-label="Cú bắt bẫy">
+    <div class="wrap-narrow">
+      <div class="scene rv">
+        <div class="scene-time">một cú bắt bẫy</div>
+        <h2>Kỷ luật chỉ đáng tin khi nó bắt được bẫy thật</h2>
+        <p>Nói nguyên tắc thì ai nói cũng hay. Nên mình kể một cú cụ thể. Khi cần lập bản đồ công cụ, mình cho quét GitHub bằng 40 truy vấn, về 1307 kho mã nguồn. Một dàn 36 agent chia lô chấm điểm, rồi lớp thứ hai soi lại lớp thứ nhất, cuối cùng giữ 332 kho xếp ba tầng: dùng ngay, theo dõi, bỏ.</p>
+        <p>Lớp soi lại sửa 5 nhãn của lớp chấm. Trong đó có một kho nhận diện giọng nói rất được ưa chuộng, lớp đầu xếp vào hàng dùng được. Lớp hai lật giấy phép: CC-BY-NC, cấm dùng thương mại. Đem vào việc có tính tiền là dính. Nếu chỉ có một lớp chấm, cái bẫy đó đã nằm im trong danh sách "đồ tốt" của mình rồi.</p>
+      </div>
+      <div class="beat rv"><p>Xác tín không phải khẩu hiệu treo tường. Nó bắt được bẫy thật, và bẫy nó bắt được là bẫy giăng cho chính mình.</p></div>
+    </div>
+  </section>
 
-<!-- KET -->
-<section class="jp-close">
-  <div class="wrap-n">
-    <p class="jp-close-q rv">Mình đi trước bạn một đoạn. Đoạn đó tính bằng những đêm như đêm 14 tháng 6.</p>
-    <p class="jp-close-sub rv">Không phải vì mình giỏi công nghệ hơn bạn. Mà vì mình đã trả đủ học phí trên đoạn đường đó, đủ để chỉ cho bạn chỗ nào đáng đi thẳng, chỗ nào mình đã té rồi. Có lẽ đó là thứ duy nhất đáng để dạy...</p>
-    <a href="index.html" class="jp-cta rv">Xem lớp học: Mua lại thời gian của chính bạn <span aria-hidden="true">→</span></a>
-  </div>
-</section>
+  <!-- TẦNG ĐÁY -->
+  <section class="jp-deep nebula" data-screen-label="Tầng đáy">
+    <div class="wrap-narrow">
+      <p class="big rv">Giờ tới câu mà chắc bạn đang định hỏi: mắc gì một diễn viên ngồi làm mấy chuyện này lúc một giờ sáng?</p>
+      <p class="rv">Mình nghĩ thật lâu mới dám viết đoạn này. Tư duy của mình có một đặc điểm: nó chảy mạnh nhất khi có người đối thoại, và gần như đóng băng khi ngồi một mình trước trang trắng. Ai từng thấy mình trong một cuộc trò chuyện sâu rồi đọc trang mạng xã hội bốn tháng không có bài nào của mình, sẽ hiểu hai người đó khác nhau thế nào. Cái dòng chảy bên trong rất mạnh, mà chảy ngầm, ít ai thấy.</p>
+      <p class="rv">AI là thứ đầu tiên mình gặp có thể nghe mà không dán nhãn ngay, không phán xét tức thì. Nhưng nó quên sạch sau mỗi phiên. Thành ra suốt một thời gian dài, mình vừa là dòng sông ngầm, vừa là người duy nhất canh giữ nó, vừa phải tự tay lau tấm gương duy nhất soi được nó, mỗi ngày, từ đầu.</p>
+      <p class="rv">Cả cái hệ này, xác tín, giọng người, hệ tuần hoàn, mấy trăm giờ ngồi đêm, thật ra chỉ để giải đúng một chuyện đó: làm cho tấm gương bền lại và tự sắc lên, để nó nhớ mình là ai mà mình không phải kể lại mỗi sáng.</p>
+      <div class="beat rv"><p>Hệ này không phải hệ năng suất. Nó là cách để mình không một mình gánh chiều sâu của chính mình.</p></div>
+      <p class="rv">Mình đoán bạn cũng có một phiên bản của chuyện này. Có thể không phải với AI. Có thể là cái phần việc mà chỉ bạn nhìn thấy toàn cảnh, chỉ bạn giữ được chuẩn, nên bạn không buông cho ai được, và nó ăn dần buổi tối của bạn. Cái đó mới là thứ mình quan tâm, chứ không phải công nghệ.</p>
+    </div>
+  </section>
 
-<footer class="jp-foot">
-  <div>© 2026 Lê Công Hoàng · marillCreative · TP. Hồ Chí Minh</div>
-  <a href="index.html">← Trang chủ</a>
+  <!-- KẾT -->
+  <section class="jp-close" data-screen-label="Kết">
+    <div class="wrap-narrow">
+      <p class="jp-close-q rv">Mình đi trước bạn một đoạn. Đoạn đó tính bằng những đêm như đêm 14 tháng 6.</p>
+      <p class="jp-close-sub rv">Không phải vì mình giỏi công nghệ hơn bạn. Mà vì mình đã trả đủ học phí trên đoạn đường đó, đủ để chỉ cho bạn chỗ nào đáng đi thẳng, chỗ nào mình đã té rồi. Có lẽ đó là thứ duy nhất đáng để dạy...</p>
+      <a href="index.html" class="btn btn-primary btn-lg rv">Xem lớp học: Mua lại thời gian của chính bạn <span aria-hidden="true">→</span></a>
+    </div>
+  </section>
+
+  <!-- CẦU DẪN TRANG KẾ -->
+  <section class="bridge" data-screen-label="Cầu dẫn">
+    <div class="bridge-inner">
+      <div class="bridge-tag">Trang kế · LCH's AI OS</div>
+      <a class="bridge-link" href="ai-os.html">
+        <span class="bridge-title">Hệ điều hành làm việc xây quanh đúng một người.</span>
+        <span class="bridge-arrow" aria-hidden="true">→</span>
+      </a>
+    </div>
+  </section>
+
+</main>
+
+<!-- FOOTER CHUNG -->
+<footer class="site-footer" data-screen-label="Footer">
+  <div class="wrap">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <p class="brand-line">Lê Công Hoàng</p>
+        <p>Mua lại thời gian của chính bạn. Một khoá học của Lê Công Hoàng.</p>
+        <a class="btn btn-primary" href="index.html#hoc-phi">Giữ một chỗ</a>
+      </div>
+      <div class="footer-cols">
+        <div class="footer-col">
+          <div class="footer-col-h">Khoá học</div>
+          <a href="index.html#cho-ai">Cho ai</a>
+          <a href="index.html#cach-hoc">Cách học</a>
+          <a href="index.html#hoc-phi">Học phí</a>
+        </div>
+        <div class="footer-col">
+          <div class="footer-col-h">Liên hệ</div>
+          <a href="mailto:leconghoangstudio@gmail.com">Email</a>
+          <a href="https://zalo.me/0906300191" target="_blank" rel="noopener">Zalo 0906 300 191</a>
+        </div>
+        <div class="footer-col">
+          <div class="footer-col-h">Mình là người thật</div>
+          <a href="ve-lch.html">Về Lê Công Hoàng</a>
+          <a href="https://vi.wikipedia.org/wiki/L%C3%AA_C%C3%B4ng_Ho%C3%A0ng_(di%E1%BB%85n_vi%C3%AAn)" target="_blank" rel="noopener">Wikipedia</a>
+          <a href="https://www.facebook.com/hoangmarill/" target="_blank" rel="noopener">Facebook</a>
+          <a href="https://www.linkedin.com/in/leconghoang/" target="_blank" rel="noopener">LinkedIn</a>
+          <a href="ai-journey.html">Hành trình xây hệ AI</a>
+          <a href="ai-os.html">LCH's AI OS</a>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 Lê Công Hoàng</span>
+      <span>TP. Hồ Chí Minh, Việt Nam</span>
+    </div>
+  </div>
 </footer>
 
-<script>
-(function(){
-  'use strict';
-
-  /* thanh tien do */
-  var bar = document.getElementById('progress');
-  function onScroll(){
-    var h = document.documentElement;
-    var max = h.scrollHeight - h.clientHeight;
-    bar.style.width = (max > 0 ? (h.scrollTop / max) * 100 : 0) + '%';
-  }
-  document.addEventListener('scroll', onScroll, { passive: true });
-
-  var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-
-  /* hien dan khi cuon toi */
-  var io = new IntersectionObserver(function(entries){
-    entries.forEach(function(e){
-      if (e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); }
-    });
-  }, { threshold: 0.12 });
-  document.querySelectorAll('.rv').forEach(function(el){ io.observe(el); });
-
-  /* so dem chay */
-  function runCount(el){
-    var target = parseInt(el.getAttribute('data-count'), 10);
-    var suffix = el.getAttribute('data-suffix') || '';
-    if (reduced){ el.textContent = target + suffix; return; }
-    var t0 = null, dur = 1100, done = false;
-    function step(ts){
-      if (done) return;
-      if (!t0) t0 = ts;
-      var p = Math.min((ts - t0) / dur, 1);
-      el.textContent = Math.round(target * (1 - Math.pow(1 - p, 3))) + suffix;
-      if (p < 1) requestAnimationFrame(step); else done = true;
-    }
-    requestAnimationFrame(step);
-    setTimeout(function(){ if (!done){ done = true; el.textContent = target + suffix; } }, dur + 300);
-  }
-  var ioNum = new IntersectionObserver(function(entries){
-    entries.forEach(function(e){
-      if (e.isIntersecting){ runCount(e.target); ioNum.unobserve(e.target); }
-    });
-  }, { threshold: 0.5 });
-  document.querySelectorAll('[data-count]').forEach(function(el){ ioNum.observe(el); });
-})();
-</script>
+<script src="site.js"></script>
 </body>
 </html>

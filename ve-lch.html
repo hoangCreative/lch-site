@@ -1,225 +1,230 @@
 <!DOCTYPE html>
 <html lang="vi" data-theme="light">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Về Lê Công Hoàng · Một người, nhiều mặt, một trục</title>
-  <meta name="description" content="Lê Công Hoàng: diễn viên, người sáng lập marillCreative, người xây hệ AI, người viết, người cố vấn, người dẫn lớp. Mỗi mặt một đường link kiểm chứng được, tất cả cùng một trục.">
-  <link rel="stylesheet" href="ds/styles.css">
-  <style>
-    body{ margin:0; background:var(--paper); color:var(--ink-2);
-      font-family:var(--font-sans, 'Be Vietnam Pro', sans-serif); line-height:1.8; -webkit-font-smoothing:antialiased; }
-    .vn-nav{ position:fixed; top:0; left:0; right:0; z-index:100; display:flex; align-items:center; justify-content:space-between;
-      padding:14px clamp(20px,6vw,72px); background:color-mix(in srgb, var(--paper) 85%, transparent);
-      backdrop-filter:blur(12px); border-bottom:1px solid var(--line); }
-    .vn-nav a{ text-decoration:none; }
-    .vn-brand{ font-size:14px; font-weight:600; color:var(--ink); }
-    .vn-links{ display:flex; gap:20px; font-size:13px; }
-    .vn-links a{ color:var(--muted); }
-    .vn-links a:hover{ color:var(--ink); }
-    .vn-links a.hot{ color:var(--turq-text); font-weight:600; }
-    .wrap-v{ max-width:820px; margin:0 auto; padding:0 clamp(20px,5vw,40px); }
-
-    .vn-hero{ padding:150px 0 70px; }
-    .vn-hero-grid{ display:grid; grid-template-columns:1fr 280px; gap:clamp(28px,5vw,56px); align-items:center; }
-    .vn-portrait img{ width:100%; border-radius:16px; display:block; }
-    .vn-portrait figcaption{ font-size:11.5px; color:var(--faint); margin-top:8px; line-height:1.5; }
-    .vn-portrait figcaption a{ color:inherit; }
-    @media (max-width:720px){ .vn-hero-grid{ grid-template-columns:1fr; } .vn-portrait{ max-width:300px; } }
-    .vn-eyebrow{ font-family:var(--font-mono, monospace); font-size:12px; letter-spacing:0.14em; text-transform:uppercase; color:var(--turq-text); margin-bottom:22px; }
-    .vn-hero h1{ margin:0 0 24px; font-family:var(--font-display, inherit); font-weight:700;
-      font-size:clamp(32px,5.6vw,58px); line-height:1.15; letter-spacing:-0.02em; color:var(--ink); max-width:18ch; }
-    .vn-hero p{ font-size:clamp(16px,1.8vw,19px); max-width:58ch; margin:0 0 14px; }
-
-    .face{ border-top:1px solid var(--line); padding:clamp(48px,7vw,84px) 0; }
-    .face-tag{ font-family:var(--font-mono, monospace); font-size:12px; letter-spacing:0.14em; text-transform:uppercase; color:var(--muted); margin-bottom:14px; }
-    .face h2{ margin:0 0 18px; font-family:var(--font-display, inherit); font-weight:700; font-size:clamp(24px,3.2vw,34px); line-height:1.2; color:var(--ink); }
-    .face p{ font-size:16.5px; margin:0 0 18px; max-width:62ch; }
-    .face-links{ display:flex; flex-wrap:wrap; gap:10px; margin-top:22px; }
-    .face-links a{ display:inline-flex; align-items:center; gap:7px; padding:8px 16px; border-radius:999px;
-      border:1px solid var(--line-2); font-size:13.5px; color:var(--ink-2); text-decoration:none; transition:border-color .2s, background .2s; }
-    .face-links a:hover{ border-color:var(--turq); background:var(--turq-soft); color:var(--turq-text); }
-    .face-links a::after{ content:'↗'; font-size:11px; color:var(--muted); }
-    .face-links a.noext::after{ content:'→'; }
-
-    /* chat rieng tung mat */
-    .face-cinema{ background:#121618; border-top:none; }
-    .face-cinema .face-tag{ color:#5FCBBF; }
-    .face-cinema h2{ color:#F1F4F4; }
-    .face-cinema p{ color:#CBD2D2; }
-    .face-cinema .face-links a{ border-color:#394143; color:#CBD2D2; }
-    .face-cinema .face-links a:hover{ border-color:#5FCBBF; background:#0E2522; color:#5FCBBF; }
-    .face-cinema .quote-film{ font-family:var(--font-display, inherit); font-size:clamp(19px,2.4vw,25px); font-weight:700; color:#F1F4F4; line-height:1.45; max-width:30ch; margin:26px 0; }
-
-    .face-studio .year{ font-family:var(--font-mono, monospace); font-size:13px; color:var(--turq-text); }
-
-    .face-ai{ background:var(--paper-2); }
-    .face-ai .mono-line{ font-family:var(--font-mono, monospace); font-size:13.5px; color:var(--ink-2);
-      background:var(--surface); border:1px solid var(--line); border-radius:8px; padding:12px 16px; margin:8px 0; }
-
-    .face-write p.post-style{ border-left:3px solid var(--terra, #B5652F); padding-left:18px; font-style:italic; color:var(--ink-2); }
-
-    .face-advisor p{ max-width:54ch; }
-
-    .face-teach{ background:var(--turq-soft); }
-    .face-teach .face-tag{ color:var(--turq-text); }
-
-    .vn-close{ border-top:1px solid var(--line); padding:clamp(56px,8vw,96px) 0; text-align:center; }
-    .vn-close p.big{ font-family:var(--font-display, inherit); font-weight:700; font-size:clamp(20px,3vw,30px);
-      line-height:1.4; color:var(--ink); max-width:26ch; margin:0 auto 20px; }
-    .vn-close p.sub{ font-size:15.5px; color:var(--muted); max-width:52ch; margin:0 auto 34px; }
-    .vn-contact{ display:flex; flex-wrap:wrap; gap:12px; justify-content:center; }
-    .vn-contact a{ padding:12px 24px; border-radius:10px; text-decoration:none; font-size:14.5px; font-weight:600; }
-    .vn-contact a.solid{ background:var(--turq); color:var(--on-turq); }
-    .vn-contact a.line{ border:1px solid var(--line-2); color:var(--ink-2); }
-
-    .vn-foot{ padding:28px clamp(20px,6vw,72px); border-top:1px solid var(--line); display:flex;
-      justify-content:space-between; flex-wrap:wrap; gap:12px; font-size:13px; color:var(--muted); }
-    .vn-foot a{ color:var(--turq-text); text-decoration:none; }
-  </style>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Về Lê Công Hoàng · Một người, nhiều mặt, một trục</title>
+<meta name="description" content="Lê Công Hoàng: diễn viên, người sáng lập marillCreative, người xây hệ AI, người viết, người cố vấn, người dẫn lớp. Mỗi mặt một đường link kiểm chứng được, tất cả cùng một trục." />
+<link rel="icon" href="assets/podcast/mark.png" />
+<script>try{var t=localStorage.getItem('lch-theme');if(t!=='dark'&&t!=='light')t=matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light';document.documentElement.setAttribute('data-theme',t);}catch(e){}</script>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="styles.css" />
 </head>
-<body>
+<body id="top">
 
-<nav class="vn-nav">
-  <a href="index.html" class="vn-brand">Lê Công Hoàng</a>
-  <div class="vn-links">
-    <a href="ai-journey.html">Hành trình</a>
-    <a href="ai-os.html">AI OS</a>
-    <a href="index.html" class="hot">Lớp học →</a>
+<!-- NAV CHUNG -->
+<nav class="nv" data-screen-label="Nav">
+  <div class="nv-inner">
+    <a class="nv-brand" href="index.html">Lê Công Hoàng</a>
+    <div class="nv-right">
+      <a href="ve-lch.html" aria-current="page">Về mình</a>
+      <a href="ai-journey.html">Hành trình</a>
+      <a href="ai-os.html">AI OS</a>
+      <button class="theme-toggle" type="button" aria-label="Đổi sáng tối"><span class="glyph moon" aria-hidden="true">◐</span><span class="glyph sun" aria-hidden="true">◑</span></button>
+      <a class="btn btn-primary" href="index.html">Lớp học</a>
+    </div>
   </div>
 </nav>
 
-<section class="vn-hero">
-  <div class="wrap-v">
-    <div class="vn-hero-grid">
-      <div>
-        <div class="vn-eyebrow">Về Lê Công Hoàng · sinh 1991, TP. Hồ Chí Minh</div>
-        <h1>Một người, nhiều mặt, một trục.</h1>
-        <p>Nhìn danh sách nghề của mình, người ta hay hỏi: rốt cuộc anh làm gì? Diễn viên, sáng lập studio, xây hệ AI, viết, cố vấn, dẫn lớp. Nghe như sáu người khác nhau.</p>
-        <p>Thật ra chỉ một việc, lặp lại trong sáu cái áo: <b style="color:var(--ink);">đọc cho ra cái thật, rồi làm cho tới.</b> Máy quay dạy mình đọc người. Studio dạy mình đọc hệ thống. AI dạy mình đọc cái máy, và đọc lại chính mình. Dưới đây là từng mặt, mỗi mặt kèm đường link để bạn tự kiểm, không cần tin lời mình.</p>
+<main>
+
+  <!-- HERO -->
+  <section class="vn-hero" data-screen-label="Hero">
+    <div class="wrap-mid">
+      <div class="vn-hero-grid">
+        <div>
+          <div class="eyebrow">Về Lê Công Hoàng · sinh 1991, TP. Hồ Chí Minh</div>
+          <h1>Một người, nhiều mặt, một trục.</h1>
+          <p>Nhìn danh sách nghề của mình, người ta hay hỏi: rốt cuộc anh làm gì? Diễn viên, sáng lập studio, xây hệ AI, viết, cố vấn, dẫn lớp. Nghe như sáu người khác nhau.</p>
+          <p>Thật ra chỉ một việc, lặp lại trong sáu cái áo: <b style="color:var(--ink);">đọc cho ra cái thật, rồi làm cho tới.</b> Máy quay dạy mình đọc người. Studio dạy mình đọc hệ thống. AI dạy mình đọc cái máy, và đọc lại chính mình. Dưới đây là từng mặt, mỗi mặt kèm đường link để bạn tự kiểm, không cần tin lời mình.</p>
+        </div>
+        <figure class="fig">
+          <span class="fig-frame"><img src="assets/lch-tokyo-2022.jpg" alt="Lê Công Hoàng tại thảm đỏ Liên hoan phim quốc tế Tokyo 2022" width="690" height="900" /></span>
+          <figcaption>Thảm đỏ Tokyo IFF 2022, cùng "Tro Tàn Rực Rỡ". Ảnh: <a href="https://commons.wikimedia.org/wiki/File:Le_Cong_Hoang_from_%22Glorious_Ashes%22_at_Red_Carpet_of_the_Tokyo_International_Film_Festival_2022_(52460466017)_(cropped).jpg" target="_blank" rel="noopener">Dick Thomas Johnson, CC BY 2.0</a></figcaption>
+        </figure>
       </div>
-      <figure class="vn-portrait" style="margin:0;">
-        <img src="assets/lch-tokyo-2022.jpg" alt="Lê Công Hoàng tại thảm đỏ Liên hoan phim quốc tế Tokyo 2022" />
-        <figcaption>Thảm đỏ Tokyo IFF 2022, cùng "Tro Tàn Rực Rỡ". Ảnh: <a href="https://commons.wikimedia.org/wiki/File:Le_Cong_Hoang_from_%22Glorious_Ashes%22_at_Red_Carpet_of_the_Tokyo_International_Film_Festival_2022_(52460466017)_(cropped).jpg" target="_blank" rel="noopener">Dick Thomas Johnson, CC BY 2.0</a></figcaption>
-      </figure>
     </div>
-  </div>
-</section>
+  </section>
 
-<!-- 1. DIEN VIEN -->
-<section class="face face-cinema">
-  <div class="wrap-v">
-    <div class="face-tag">Mặt thứ nhất · Diễn viên · rèn từ 2011</div>
-    <h2>Người sống nhiều đời trong một đời</h2>
-    <p>Mười lăm năm làm phim, từ phim độc lập đi liên hoan quốc tế đến phim chiếu rạp. "Cha và con và..." dự tranh chính thức Berlinale 2015. "Tro Tàn Rực Rỡ" của Bùi Thạc Chuyên dự Tokyo, và vai Dương trong phim đó mang về giải Bông Sen nam diễn viên phụ ở Liên hoan phim Việt Nam lần thứ 23. Gần đây là "Cu Li Không Bao Giờ Khóc", "Ngày Xưa Có Một Chuyện Tình", "Quán Kỳ Nam".</p>
-    <div class="quote-film">Nghề diễn dạy mình một điều không nghề nào dạy: khoảnh khắc thật không diễn lại được. Phải có mặt đúng lúc nó xảy ra.</div>
-    <div class="face-links">
-      <a href="https://vi.wikipedia.org/wiki/L%C3%AA_C%C3%B4ng_Ho%C3%A0ng_(di%E1%BB%85n_vi%C3%AAn)" target="_blank" rel="noopener">Wikipedia</a>
-      <a href="https://www.imdb.com/name/nm7520462/" target="_blank" rel="noopener">IMDb</a>
-      <a href="https://www.berlinale.de/en/2015/programme/201508904.html" target="_blank" rel="noopener">Hồ sơ Berlinale 2015</a>
-      <a href="https://2022.tiff-jp.net/en/lineup/film/3501CMP07" target="_blank" rel="noopener">Hồ sơ Tokyo IFF 2022</a>
-      <a href="https://nvsk.vnanet.vn/lien-hoan-phim-viet-nam-lan-thu-xxiii-39tro-tan-ruc-ro39-doat-giai-bong-sen-vang-1-136166.vna" target="_blank" rel="noopener">TTXVN, giải LHP 23</a>
-      <a href="https://vnexpress.net/le-cong-hoang-chang-tho-cua-dien-anh-doc-lap-viet-4420997.html" target="_blank" rel="noopener">VnExpress viết về mình</a>
+  <!-- MẶT 1 · DIỄN VIÊN -->
+  <section class="face face-cinema nebula" data-screen-label="Mặt 1 Diễn viên">
+    <div class="wrap-mid">
+      <div class="face-tag">Mặt thứ nhất · Diễn viên · rèn từ 2011</div>
+      <h2>Người sống nhiều đời trong một đời</h2>
+      <p>Mười lăm năm làm phim, từ phim độc lập đi liên hoan quốc tế đến phim chiếu rạp. "Cha và con và..." dự tranh chính thức Berlinale 2015. "Tro Tàn Rực Rỡ" của Bùi Thạc Chuyên dự Tokyo, và vai Dương trong phim đó mang về giải Bông Sen nam diễn viên phụ ở Liên hoan phim Việt Nam lần thứ 23. Gần đây là "Cu Li Không Bao Giờ Khóc", "Ngày Xưa Có Một Chuyện Tình", "Quán Kỳ Nam".</p>
+      <div class="quote-film">Nghề diễn dạy mình một điều không nghề nào dạy: khoảnh khắc thật không diễn lại được. Phải có mặt đúng lúc nó xảy ra.</div>
+      <div class="face-links">
+        <a href="https://vi.wikipedia.org/wiki/L%C3%AA_C%C3%B4ng_Ho%C3%A0ng_(di%E1%BB%85n_vi%C3%AAn)" target="_blank" rel="noopener">Wikipedia</a>
+        <a href="https://www.imdb.com/name/nm7520462/" target="_blank" rel="noopener">IMDb</a>
+        <a href="https://www.berlinale.de/en/2015/programme/201508904.html" target="_blank" rel="noopener">Hồ sơ Berlinale 2015</a>
+        <a href="https://2022.tiff-jp.net/en/lineup/film/3501CMP07" target="_blank" rel="noopener">Hồ sơ Tokyo IFF 2022</a>
+        <a href="https://nvsk.vnanet.vn/lien-hoan-phim-viet-nam-lan-thu-xxiii-39tro-tan-ruc-ro39-doat-giai-bong-sen-vang-1-136166.vna" target="_blank" rel="noopener">TTXVN, giải LHP 23</a>
+        <a href="https://vnexpress.net/le-cong-hoang-chang-tho-cua-dien-anh-doc-lap-viet-4420997.html" target="_blank" rel="noopener">VnExpress viết về mình</a>
+      </div>
     </div>
-  </div>
-</section>
+  </section>
 
-<!-- 2. NGUOI SANG LAP -->
-<section class="face face-studio">
-  <div class="wrap-v">
-    <div class="face-tag">Mặt thứ hai · Người sáng lập · từ 08.08.2015</div>
-    <h2>marillCreative, một studio nhỏ sống hơn mười năm</h2>
-    <p><span class="year">2015 → nay.</span> Nghề sáng tạo ở Việt Nam bấp bênh: hôm nay còn dự án, mai có thể không. Một studio nhỏ sống qua mười năm trong nghề đó không phải nhờ may, mà nhờ học được cách uốn cong để không gãy. Mình gọi nó là dễ vỡ nhưng dẻo dai.</p>
-    <p>marillCreative làm phim quảng cáo, sự kiện, sản xuất nội dung. Và từ vài năm nay, nó còn là phòng thí nghiệm nơi mình đưa AI vào dây chuyền sản xuất thật, có khách thật, có deadline thật.</p>
-    <div class="face-links">
-      <a href="https://www.marillcreative.com/" target="_blank" rel="noopener">marillcreative.com</a>
+  <!-- MẶT 2 · NGƯỜI SÁNG LẬP -->
+  <section class="face face-studio" data-screen-label="Mặt 2 marillCreative">
+    <div class="wrap-mid">
+      <div class="face-tag">Mặt thứ hai · Người sáng lập · từ 08.08.2015</div>
+      <h2>marillCreative, một studio nhỏ sống hơn mười năm</h2>
+      <div class="face-studio-grid">
+        <div>
+          <p><span class="year">2015 → nay.</span> Nghề sáng tạo ở Việt Nam bấp bênh: hôm nay còn dự án, mai có thể không. Một studio nhỏ sống qua mười năm trong nghề đó không phải nhờ may, mà nhờ học được cách uốn cong để không gãy. Mình gọi nó là dễ vỡ nhưng dẻo dai.</p>
+          <p>marillCreative làm phim quảng cáo, sự kiện, sản xuất nội dung. Và từ vài năm nay, nó còn là phòng thí nghiệm nơi mình đưa AI vào dây chuyền sản xuất thật, có khách thật, có deadline thật.</p>
+          <div class="face-links">
+            <a href="https://www.marillcreative.com/" target="_blank" rel="noopener">marillcreative.com</a>
+          </div>
+        </div>
+        <figure class="fig">
+          <span class="slot-frame slot-45"><span class="slot-mark" aria-hidden="true"></span><span class="slot-label">ảnh đời thường · sắp có</span></span>
+          <figcaption>Một khoảnh khắc ở xưởng, đang chọn ảnh.</figcaption>
+        </figure>
+      </div>
     </div>
-  </div>
-</section>
+  </section>
 
-<!-- 3. NGUOI XAY HE AI -->
-<section class="face face-ai">
-  <div class="wrap-v">
-    <div class="face-tag">Mặt thứ ba · Người xây hệ AI · từ những đêm 2026</div>
-    <h2>Người không code, xây một hệ AI quanh chính mình</h2>
-    <p>Mình không phải kỹ sư. Hệ AI của mình xây bằng tiếng Việt: bằng cách đặt tên cho từng chỗ máy gãy, rồi khắc thành kỷ luật. Hai trong số đó đã thành kho mã nguồn mở ai cũng đọc được:</p>
-    <div class="mono-line">ground-or-abstain · kỷ luật xác tín: kiểm nguồn thật trước khi nói chắc</div>
-    <div class="mono-line">what-for-and-how · hỏi "để làm gì" tới đáy rồi mới làm, có code chặn AI lách</div>
-    <p>Chuyện dài hơn, cả đêm 14 tháng 6 sinh ra chữ "xác tín", nằm ở trang hành trình. Còn cả phòng máy, triết lý, và kho công cụ đã thử, nằm ở trang AI OS.</p>
-    <div class="face-links">
-      <a href="https://github.com/hoangCreative" target="_blank" rel="noopener">GitHub</a>
-      <a href="ai-journey.html" class="noext">Đêm đặt tên cho chỗ AI gãy</a>
-      <a href="ai-os.html" class="noext">LCH's AI OS</a>
+  <!-- MẶT 3 · NGƯỜI XÂY HỆ AI -->
+  <section class="face face-ai" data-screen-label="Mặt 3 Xây hệ AI">
+    <div class="wrap-mid">
+      <div class="face-tag">Mặt thứ ba · Người xây hệ AI · từ những đêm 2026</div>
+      <h2>Người không code, xây một hệ AI quanh chính mình</h2>
+      <p>Mình không phải kỹ sư. Hệ AI của mình xây bằng tiếng Việt: bằng cách đặt tên cho từng chỗ máy gãy, rồi khắc thành kỷ luật. Hai trong số đó đã thành kho mã nguồn mở ai cũng đọc được:</p>
+      <div class="mono-line">ground-or-abstain · kỷ luật xác tín: kiểm nguồn thật trước khi nói chắc</div>
+      <div class="mono-line">what-for-and-how · hỏi "để làm gì" tới đáy rồi mới làm, có code chặn AI lách</div>
+      <p style="margin-top:18px;">Chuyện dài hơn, cả đêm 14 tháng 6 sinh ra chữ "xác tín", nằm ở trang hành trình. Còn cả phòng máy, triết lý, và kho công cụ đã thử, nằm ở trang AI OS.</p>
+      <div class="face-links">
+        <a href="https://github.com/hoangCreative" target="_blank" rel="noopener">GitHub</a>
+        <a href="ai-journey.html" class="noext">Đêm đặt tên cho chỗ AI gãy</a>
+        <a href="ai-os.html" class="noext">LCH's AI OS</a>
+      </div>
     </div>
-  </div>
-</section>
+  </section>
 
-<!-- 4. NGUOI VIET -->
-<section class="face face-write">
-  <div class="wrap-v">
-    <div class="face-tag">Mặt thứ tư · Người viết · nhịp chậm, đi từ khoảnh khắc thật</div>
-    <h2>Viết để được thấy đúng, không viết để được chú ý</h2>
-    <div style="display:grid; grid-template-columns:1fr 260px; gap:clamp(24px,4vw,44px); align-items:start;">
-      <div>
-        <p>Mình viết chậm và thưa. Mỗi bài đi từ một khoảnh khắc có thật: một buổi ngồi trong rạp, một tin nhắn, một tấm hình, rồi mới mở ra cái lớn hơn. Format mình hay dùng là "30s": những mẩu ngẫm bằng tim và óc.</p>
-        <p class="post-style">"Dễ vỡ nhưng dẻo dai. Sóng ngầm ầm ầm mà mây xanh gió lặng. Đứng số 1 trong lòng người mình yêu, thay vì trong mắt xã hội."</p>
-        <p>Đó là kiểu câu mình theo đuổi: hai vế chọi nhau, và mình sống trong cái khe ở giữa.</p>
-        <div class="face-links">
+  <!-- MẶT 4 · NGƯỜI VIẾT -->
+  <section class="face face-write" data-screen-label="Mặt 4 Người viết">
+    <div class="wrap-mid">
+      <div class="face-tag">Mặt thứ tư · Người viết · nhịp chậm, đi từ khoảnh khắc thật</div>
+      <h2>Viết để được thấy đúng, không viết để được chú ý</h2>
+      <div class="face-write-grid">
+        <div>
+          <p>Mình viết chậm và thưa. Mỗi bài đi từ một khoảnh khắc có thật: một buổi ngồi trong rạp, một tin nhắn, một tấm hình, rồi mới mở ra cái lớn hơn. Format mình hay dùng là "30s": những mẩu ngẫm bằng tim và óc.</p>
+          <p class="post-style">"Dễ vỡ nhưng dẻo dai. Sóng ngầm ầm ầm mà mây xanh gió lặng. Đứng số 1 trong lòng người mình yêu, thay vì trong mắt xã hội."</p>
+          <p>Đó là kiểu câu mình theo đuổi: hai vế chọi nhau, và mình sống trong cái khe ở giữa.</p>
+          <div class="face-links">
+            <a href="https://www.facebook.com/hoangmarill/" target="_blank" rel="noopener">Facebook</a>
+          </div>
+        </div>
+        <figure class="fig r14">
+          <span class="fig-frame"><img src="assets/ai-xe-hoi.jpg" alt="Tấm visual AI và chiếc xe hơi: có AI chưa chắc là lợi thế, lợi thế nằm ở cách bạn dùng nó mỗi ngày" loading="lazy" width="750" height="1000" /></span>
+          <figcaption>Một tấm mình làm cho một bài viết về AI và thị trường lao động.</figcaption>
+        </figure>
+      </div>
+    </div>
+  </section>
+
+  <!-- MẶT 5 · NGƯỜI CỐ VẤN -->
+  <section class="face face-advisor" data-screen-label="Mặt 5 Cố vấn">
+    <div class="wrap-mid">
+      <div class="face-tag">Mặt thứ năm · Người cố vấn · The Mirror Practice</div>
+      <h2>Bán khả năng thấy, không bán giờ làm</h2>
+      <div class="face-advisor-grid">
+        <div>
+          <p>Nghề diễn cho mình chứng chỉ đọc người bằng trải nghiệm. Tâm lý học tham vấn và NLP cho mình khung có kiểm chứng. Mười năm điều hành studio cho mình con mắt hệ thống. Cộng ba thứ đó lại thành việc mình làm cho các đội ngũ: ngồi xuống, nhìn vào tổ chức của họ, và gọi tên cái cơ chế họ đang sống trong đó mà chưa ai nói ra được.</p>
+          <p>Mình gọi practice này là The Mirror Practice: một tấm gương đủ sạch để người đối diện thấy chính mình rõ hơn.</p>
+          <div class="face-links">
+            <a href="https://www.linkedin.com/in/leconghoang/" target="_blank" rel="noopener">LinkedIn</a>
+            <a href="https://leconghoang.my.canva.site/" target="_blank" rel="noopener">Hồ sơ nghề đầy đủ</a>
+          </div>
+        </div>
+        <figure class="fig r14">
+          <span class="slot-frame slot-34"><span class="slot-mark" aria-hidden="true"></span><span class="slot-label">ảnh đời thường · sắp có</span></span>
+          <figcaption>Chân dung tĩnh, đang chọn ảnh.</figcaption>
+        </figure>
+      </div>
+    </div>
+  </section>
+
+  <!-- MẶT 6 · NGƯỜI DẪN LỚP -->
+  <section class="face face-teach" data-screen-label="Mặt 6 Dẫn lớp">
+    <div class="wrap-mid">
+      <div class="face-tag">Mặt thứ sáu · Người dẫn lớp · lớp nhỏ, 3 người</div>
+      <h2>Mua lại thời gian của chính bạn</h2>
+      <p>Mặt mới nhất, và là nơi các mặt kia gặp nhau: một lớp nhỏ cho người đang bị việc nuốt, dạy cách nhắm AI vào đúng chỗ đang ăn mất giờ, để mua lại buổi tối và cuối tuần. Người dẫn không phải thầy dạy công cụ, là người đã đi trước một đoạn và trả đủ học phí trên đoạn đó.</p>
+      <div class="face-links">
+        <a href="index.html" class="noext">Xem lớp học</a>
+        <a href="https://chiphicohoi.com/" target="_blank" rel="noopener">chiphicohoi.com, nhà của hai khung tư duy</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- KẾT -->
+  <section class="vn-close" data-screen-label="Kết">
+    <div class="wrap-mid">
+      <p class="big">Sáu cái áo, một người mặc. Và một việc lặp lại: đọc cho ra cái thật.</p>
+      <p class="sub">Muốn nói chuyện, chọn cửa nào cũng tới mình.</p>
+      <div class="vn-contact">
+        <a class="btn btn-primary btn-lg" href="mailto:leconghoangstudio@gmail.com">Email cho mình</a>
+        <a class="btn btn-ghost btn-lg" href="https://zalo.me/0906300191" target="_blank" rel="noopener">Zalo 0906 300 191</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- CẦU DẪN TRANG KẾ -->
+  <section class="bridge" data-screen-label="Cầu dẫn">
+    <div class="bridge-inner">
+      <div class="bridge-tag">Trang kế · Hành trình xây hệ AI</div>
+      <a class="bridge-link" href="ai-journey.html">
+        <span class="bridge-title">Đêm mình đặt tên cho chỗ AI gãy.</span>
+        <span class="bridge-arrow" aria-hidden="true">→</span>
+      </a>
+    </div>
+  </section>
+
+</main>
+
+<!-- FOOTER CHUNG -->
+<footer class="site-footer" data-screen-label="Footer">
+  <div class="wrap">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <p class="brand-line">Lê Công Hoàng</p>
+        <p>Mua lại thời gian của chính bạn. Một khoá học của Lê Công Hoàng.</p>
+        <a class="btn btn-primary" href="index.html#hoc-phi">Giữ một chỗ</a>
+      </div>
+      <div class="footer-cols">
+        <div class="footer-col">
+          <div class="footer-col-h">Khoá học</div>
+          <a href="index.html#cho-ai">Cho ai</a>
+          <a href="index.html#cach-hoc">Cách học</a>
+          <a href="index.html#hoc-phi">Học phí</a>
+        </div>
+        <div class="footer-col">
+          <div class="footer-col-h">Liên hệ</div>
+          <a href="mailto:leconghoangstudio@gmail.com">Email</a>
+          <a href="https://zalo.me/0906300191" target="_blank" rel="noopener">Zalo 0906 300 191</a>
+        </div>
+        <div class="footer-col">
+          <div class="footer-col-h">Mình là người thật</div>
+          <a href="ve-lch.html">Về Lê Công Hoàng</a>
+          <a href="https://vi.wikipedia.org/wiki/L%C3%AA_C%C3%B4ng_Ho%C3%A0ng_(di%E1%BB%85n_vi%C3%AAn)" target="_blank" rel="noopener">Wikipedia</a>
           <a href="https://www.facebook.com/hoangmarill/" target="_blank" rel="noopener">Facebook</a>
+          <a href="https://www.linkedin.com/in/leconghoang/" target="_blank" rel="noopener">LinkedIn</a>
+          <a href="ai-journey.html">Hành trình xây hệ AI</a>
+          <a href="ai-os.html">LCH's AI OS</a>
         </div>
       </div>
-      <figure style="margin:0;">
-        <img src="assets/ai-xe-hoi.jpg" alt="Tấm visual AI và chiếc xe hơi: có AI chưa chắc là lợi thế, lợi thế nằm ở cách bạn dùng nó mỗi ngày" style="width:100%; border-radius:14px; display:block; border:1px solid var(--line);" />
-        <figcaption style="font-size:11.5px; color:var(--faint); margin-top:8px; line-height:1.5;">Một tấm mình làm cho một bài viết về AI và thị trường lao động.</figcaption>
-      </figure>
     </div>
-    <style>@media (max-width:680px){ .face-write div[style*="grid-template-columns"]{ display:block !important; } .face-write figure{ max-width:280px; margin-top:20px !important; } }</style>
-  </div>
-</section>
-
-<!-- 5. NGUOI CO VAN -->
-<section class="face face-advisor">
-  <div class="wrap-v">
-    <div class="face-tag">Mặt thứ năm · Người cố vấn · The Mirror Practice</div>
-    <h2>Bán khả năng thấy, không bán giờ làm</h2>
-    <p>Nghề diễn cho mình chứng chỉ đọc người bằng trải nghiệm. Tâm lý học tham vấn và NLP cho mình khung có kiểm chứng. Mười năm điều hành studio cho mình con mắt hệ thống. Cộng ba thứ đó lại thành việc mình làm cho các đội ngũ: ngồi xuống, nhìn vào tổ chức của họ, và gọi tên cái cơ chế họ đang sống trong đó mà chưa ai nói ra được.</p>
-    <p>Mình gọi practice này là The Mirror Practice: một tấm gương đủ sạch để người đối diện thấy chính mình rõ hơn.</p>
-    <div class="face-links">
-      <a href="https://www.linkedin.com/in/leconghoang/" target="_blank" rel="noopener">LinkedIn</a>
-      <a href="https://leconghoang.my.canva.site/" target="_blank" rel="noopener">Hồ sơ nghề đầy đủ</a>
+    <div class="footer-bottom">
+      <span>© 2026 Lê Công Hoàng</span>
+      <span>TP. Hồ Chí Minh, Việt Nam</span>
     </div>
   </div>
-</section>
-
-<!-- 6. NGUOI DAN LOP -->
-<section class="face face-teach">
-  <div class="wrap-v">
-    <div class="face-tag">Mặt thứ sáu · Người dẫn lớp · lớp nhỏ, 3 người</div>
-    <h2>Mua lại thời gian của chính bạn</h2>
-    <p>Mặt mới nhất, và là nơi các mặt kia gặp nhau: một lớp nhỏ cho người đang bị việc nuốt, dạy cách nhắm AI vào đúng chỗ đang ăn mất giờ, để mua lại buổi tối và cuối tuần. Người dẫn không phải thầy dạy công cụ, là người đã đi trước một đoạn và trả đủ học phí trên đoạn đó.</p>
-    <div class="face-links">
-      <a href="index.html" class="noext">Xem lớp học</a>
-      <a href="https://chiphicohoi.com/" target="_blank" rel="noopener">chiphicohoi.com, nhà của hai khung tư duy</a>
-    </div>
-  </div>
-</section>
-
-<!-- KET -->
-<section class="vn-close">
-  <div class="wrap-v">
-    <p class="big">Sáu cái áo, một người mặc. Và một việc lặp lại: đọc cho ra cái thật.</p>
-    <p class="sub">Muốn nói chuyện, chọn cửa nào cũng tới mình.</p>
-    <div class="vn-contact">
-      <a class="solid" href="mailto:leconghoangstudio@gmail.com">Email cho mình</a>
-      <a class="line" href="https://zalo.me/0906300191" target="_blank" rel="noopener">Zalo 0906 300 191</a>
-    </div>
-  </div>
-</section>
-
-<footer class="vn-foot">
-  <div>© 2026 Lê Công Hoàng · marillCreative · TP. Hồ Chí Minh</div>
-  <a href="index.html">← Trang chủ</a>
 </footer>
 
+<script src="site.js"></script>
 </body>
 </html>

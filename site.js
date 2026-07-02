@@ -1,138 +1,151 @@
-/* LCH personal site, interactions. Vanilla, no dependencies. */
-(function () {
+/* Lê Công Hoàng · site.js · dùng chung 4 trang, không framework */
+(function(){
   'use strict';
+
   var root = document.documentElement;
+  var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-  /* ---- theme toggle (remembers choice) ---------------------------------- */
-  try {
-    var saved = localStorage.getItem('lch-theme');
-    if (saved) root.setAttribute('data-theme', saved);
-  } catch (e) {}
-  var toggle = document.querySelector('.theme-toggle');
-  if (toggle) {
-    toggle.addEventListener('click', function () {
-      var dark = root.getAttribute('data-theme') === 'dark';
-      var next = dark ? 'light' : 'dark';
-      root.setAttribute('data-theme', next);
-      try { localStorage.setItem('lch-theme', next); } catch (e) {}
-    });
-  }
-
-  /* ---- booking dialog --------------------------------------------------- */
-  var dialog = document.getElementById('booking');
-  var toast = document.getElementById('toast');
-  var lastFocus = null;
-
-  function openBooking() {
-    lastFocus = document.activeElement;
-    dialog.hidden = false;
-    var first = dialog.querySelector('input, select, textarea');
-    if (first) first.focus();
-  }
-  function closeBooking() {
-    dialog.hidden = true;
-    if (lastFocus && lastFocus.focus) lastFocus.focus();
-  }
-
-  document.querySelectorAll('.js-book').forEach(function (b) {
-    b.addEventListener('click', openBooking);
-  });
-  document.querySelectorAll('.js-close-book').forEach(function (b) {
-    b.addEventListener('click', closeBooking);
-  });
-  if (dialog) {
-    dialog.addEventListener('mousedown', function (e) {
-      if (e.target === dialog) closeBooking();
-    });
-  }
-  document.addEventListener('keydown', function (e) {
-    if (e.key === 'Escape' && dialog && !dialog.hidden) closeBooking();
-  });
-
-  /* ---- booking submit: thu gui that (Netlify Forms), rot ve email ------- */
-  var BOOKING_EMAIL = 'leconghoangstudio@gmail.com';
-  var form = document.getElementById('booking-form');
-
-  function guiQuaEmail(name, email, job, why) {
-    var subject = 'Giu mot cho trong lop: ' + name;
-    var body = 'Ten: ' + name +
-      '\nEmail: ' + email +
-      (job ? '\nNghe: ' + job : '') +
-      (why ? '\nCho dang ngon nhieu gio nhat: ' + why : '') +
-      '\n\n(Gui tu trang khoa hoc, chua thu phi o buoc nay)';
-    window.location.href = 'mailto:' + BOOKING_EMAIL +
-      '?subject=' + encodeURIComponent(subject) +
-      '&body=' + encodeURIComponent(body);
-    closeBooking();
-    form.reset();
-    showToast('Một bước nữa là xong',
-      'Ứng dụng email của bạn đang mở với nội dung điền sẵn, bấm Gửi là xong. Không thấy gì mở ra? Nhắn Zalo 0906 300 191 hoặc gửi về ' + BOOKING_EMAIL + ' nhé.');
-  }
-
-  if (form) {
-    form.addEventListener('submit', function (e) {
-      e.preventDefault();
-      var name = (form.elements.name.value || '').trim();
-      var email = (form.elements.email.value || '').trim();
-      var job = (form.elements.job.value || '').trim();
-      var why = (form.elements.why.value || '').trim();
-      var fields = { 'form-name': 'giu-cho', name: name, email: email, job: job, why: why };
-      var body = Object.keys(fields).map(function (k) {
-        return encodeURIComponent(k) + '=' + encodeURIComponent(fields[k]);
-      }).join('&');
-      fetch('/', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-        body: body
-      }).then(function (r) {
-        if (!r.ok) throw new Error('no form backend');
-        closeBooking();
-        form.reset();
-        showToast('Đã ghi nhận', 'Đăng ký của bạn đã tới nơi. Mình sẽ liên hệ lại sớm nhé.');
-      }).catch(function () {
-        guiQuaEmail(name, email, job, why);
+  /* ---------- theme: theo hệ máy, nhớ lựa chọn ---------- */
+  var fixed = root.hasAttribute('data-fixed-theme');
+  if (!fixed){
+    var stored = null;
+    try{ stored = localStorage.getItem('lch-theme'); }catch(e){}
+    var mq = window.matchMedia('(prefers-color-scheme: dark)');
+    function applyTheme(t){ root.setAttribute('data-theme', t); }
+    applyTheme(stored === 'dark' || stored === 'light' ? stored : (mq.matches ? 'dark' : 'light'));
+    if (mq.addEventListener){
+      mq.addEventListener('change', function(e){
+        var s = null;
+        try{ s = localStorage.getItem('lch-theme'); }catch(err){}
+        if (!s) applyTheme(e.matches ? 'dark' : 'light');
       });
-    });
-  }
-  var toastTimer = null;
-  function showToast(title, msg) {
-    if (!toast) return;
-    if (title) toast.querySelector('.toast-title').textContent = title;
-    if (msg) toast.querySelector('.toast-msg').textContent = msg;
-    toast.hidden = false;
-    clearTimeout(toastTimer);
-    toastTimer = setTimeout(function () { toast.hidden = true; }, 4200);
-  }
-  document.querySelectorAll('.js-close-toast').forEach(function (b) {
-    b.addEventListener('click', function () {
-      if (toast) toast.hidden = true;
-      clearTimeout(toastTimer);
-    });
-  });
-
-  /* ---- writing filter --------------------------------------------------- */
-  var filters = document.querySelectorAll('.writing-filters .tag');
-  var posts = document.querySelectorAll('.writing-list .post');
-  filters.forEach(function (f) {
-    f.addEventListener('click', function () {
-      filters.forEach(function (x) { x.classList.remove('tag-active'); });
-      f.classList.add('tag-active');
-      var cat = f.getAttribute('data-cat');
-      posts.forEach(function (p) {
-        var show = cat === 'Tất cả' || p.getAttribute('data-cat') === cat;
-        p.style.display = show ? '' : 'none';
-      });
-    });
-  });
-
-  /* ---- waveform bars ---------------------------------------------------- */
-  var HS = [46, 78, 60, 92, 54, 82, 44, 88, 64, 36, 74, 92, 58, 80, 48, 86, 64, 42, 76, 90, 52, 84];
-  document.querySelectorAll('.waveform').forEach(function (w) {
-    var n = parseInt(w.getAttribute('data-bars'), 10) || 22;
-    var html = '';
-    for (var i = 0; i < n; i++) {
-      html += '<span style="height:' + HS[i % HS.length] + '%"></span>';
     }
-    w.innerHTML = html;
-  });
+    document.querySelectorAll('.theme-toggle').forEach(function(btn){
+      btn.addEventListener('click', function(){
+        var next = root.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+        applyTheme(next);
+        try{ localStorage.setItem('lch-theme', next); }catch(e){}
+      });
+    });
+  }
+
+  /* ---------- dialog giữ chỗ (chỉ index) ---------- */
+  var scrim = document.getElementById('booking');
+  if (scrim){
+    var lastFocus = null;
+    function openBook(){
+      lastFocus = document.activeElement;
+      scrim.hidden = false;
+      var first = scrim.querySelector('input[name="name"]');
+      if (first) first.focus();
+    }
+    function closeBook(){
+      scrim.hidden = true;
+      if (lastFocus && lastFocus.focus) lastFocus.focus();
+    }
+    document.querySelectorAll('.js-book').forEach(function(b){ b.addEventListener('click', openBook); });
+    scrim.querySelectorAll('.js-close-book').forEach(function(b){ b.addEventListener('click', closeBook); });
+    scrim.addEventListener('click', function(e){ if (e.target === scrim) closeBook(); });
+    document.addEventListener('keydown', function(e){ if (e.key === 'Escape' && !scrim.hidden) closeBook(); });
+
+    var form = document.getElementById('booking-form');
+    var toast = document.getElementById('toast');
+    function showToast(title, msg){
+      if (!toast) return;
+      var t = toast.querySelector('.toast-title'); if (t && title) t.textContent = title;
+      var m = toast.querySelector('.toast-msg'); if (m && msg) m.textContent = msg;
+      toast.hidden = false;
+      setTimeout(function(){ toast.hidden = true; }, 12000);
+    }
+    if (form){
+      form.addEventListener('submit', function(e){
+        e.preventDefault();
+        if (form.querySelector('[name="bot-field"]').value) return; /* honeypot */
+        var v = function(n){ var el = form.querySelector('[name="' + n + '"]'); return el ? el.value.trim() : ''; };
+        var fields = { 'form-name': 'giu-cho', name: v('name'), email: v('email'), job: v('job'), why: v('why') };
+        var urlBody = Object.keys(fields).map(function(k){
+          return encodeURIComponent(k) + '=' + encodeURIComponent(fields[k]);
+        }).join('&');
+        function guiQuaEmail(){
+          var mailBody = 'Tên: ' + fields.name + '\nEmail: ' + fields.email + '\nNghề: ' + fields.job + '\nChỗ đang ngốn nhiều giờ nhất: ' + fields.why;
+          window.location.href = 'mailto:leconghoangstudio@gmail.com?subject=' +
+            encodeURIComponent('Giữ một chỗ · Mua lại thời gian của chính bạn') +
+            '&body=' + encodeURIComponent(mailBody);
+          closeBook();
+          form.reset();
+          showToast('Một bước nữa là xong', 'Ứng dụng email của bạn đang mở với nội dung điền sẵn, bấm Gửi là xong. Không thấy gì mở ra? Nhắn Zalo 0906 300 191 hoặc gửi thẳng về leconghoangstudio@gmail.com nhé.');
+        }
+        fetch('/', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+          body: urlBody
+        }).then(function(r){
+          if (!r.ok) throw new Error('no form backend');
+          closeBook();
+          form.reset();
+          showToast('Đã ghi nhận', 'Đăng ký của bạn đã tới nơi. Mình sẽ liên hệ lại sớm nhé.');
+        }).catch(guiQuaEmail);
+      });
+    }
+    if (toast){
+      toast.querySelectorAll('.js-close-toast').forEach(function(b){
+        b.addEventListener('click', function(){ toast.hidden = true; });
+      });
+    }
+  }
+
+  /* ---------- thanh tiến độ đọc (ai-journey) ---------- */
+  var bar = document.getElementById('progress');
+  if (bar){
+    var onScroll = function(){
+      var h = document.documentElement;
+      var max = h.scrollHeight - h.clientHeight;
+      bar.style.width = (max > 0 ? (h.scrollTop / max) * 100 : 0) + '%';
+    };
+    document.addEventListener('scroll', onScroll, { passive: true });
+    onScroll();
+  }
+
+  /* ---------- hiện dần khi cuộn tới ---------- */
+  var rvEls = document.querySelectorAll('.rv');
+  if (rvEls.length && 'IntersectionObserver' in window && !reduced){
+    var io = new IntersectionObserver(function(entries){
+      entries.forEach(function(e){
+        if (e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); }
+      });
+    }, { threshold: 0.12 });
+    rvEls.forEach(function(el){ io.observe(el); });
+  } else {
+    rvEls.forEach(function(el){ el.classList.add('in'); });
+  }
+
+  /* ---------- số đếm chạy ---------- */
+  function runCount(el){
+    var target = parseInt(el.getAttribute('data-count'), 10);
+    var suffix = el.getAttribute('data-suffix') || '';
+    if (reduced){ el.textContent = target + suffix; return; }
+    var t0 = null, dur = 1100, done = false;
+    function step(ts){
+      if (done) return;
+      if (!t0) t0 = ts;
+      var p = Math.min((ts - t0) / dur, 1);
+      el.textContent = Math.round(target * (1 - Math.pow(1 - p, 3))) + suffix;
+      if (p < 1) requestAnimationFrame(step); else done = true;
+    }
+    requestAnimationFrame(step);
+    setTimeout(function(){ if (!done){ done = true; el.textContent = target + suffix; } }, dur + 300);
+  }
+  var counters = document.querySelectorAll('[data-count]');
+  if (counters.length){
+    if ('IntersectionObserver' in window){
+      var ioNum = new IntersectionObserver(function(entries){
+        entries.forEach(function(e){
+          if (e.isIntersecting){ runCount(e.target); ioNum.unobserve(e.target); }
+        });
+      }, { threshold: 0.5 });
+      counters.forEach(function(el){ ioNum.observe(el); });
+    } else {
+      counters.forEach(runCount);
+    }
+  }
 })();

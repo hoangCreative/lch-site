@@ -1,47 +1,39 @@
 <!DOCTYPE html>
-<html lang="vi" data-theme="light" data-accent="turquoise">
+<html lang="vi" data-theme="light">
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Mua lại thời gian của chính bạn · Khoá học cùng Lê Công Hoàng</title>
 <meta name="description" content="Khoá học theo nhóm cho người đang ngộp việc. Không dạy thêm kỹ năng AI, mà giúp bạn lấy lại buổi tối, ngày cuối tuần, những giờ đáng lẽ thuộc về con cái và việc lớn của đời. AI là đòn bẩy, không phải môn học." />
 <link rel="icon" href="assets/podcast/mark.png" />
-<link rel="stylesheet" href="ds/styles.css" />
-<link rel="stylesheet" href="site.css" />
-<link rel="stylesheet" href="course.css" />
+<script>try{var t=localStorage.getItem('lch-theme');if(t!=='dark'&&t!=='light')t=matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light';document.documentElement.setAttribute('data-theme',t);}catch(e){}</script>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="styles.css" />
 </head>
-<body>
+<body id="top">
 
-<!-- HEADER -->
-<header class="site-header" id="top">
-  <div class="header-inner">
-    <a href="#top" class="brand" aria-label="Lê Công Hoàng">
-      <img class="brand-mark light-only" src="assets/podcast/mark.png" alt="LCH" />
-      <img class="brand-mark dark-only" src="assets/podcast/mark-white.png" alt="LCH" />
-    </a>
-    <nav class="header-nav">
-      <a href="#cho-ai">Cho ai</a>
-      <a href="#cach-hoc">Cách học</a>
-      <a href="#hoc-phi">Học phí</a>
+<!-- NAV CHUNG -->
+<nav class="nv" data-screen-label="Nav">
+  <div class="nv-inner">
+    <a class="nv-brand" href="index.html">Lê Công Hoàng</a>
+    <div class="nv-right">
       <a href="ve-lch.html">Về mình</a>
-    </nav>
-    <div class="header-right">
-      <button class="btn btn-ghost btn-sm theme-toggle" type="button" aria-label="Đổi sáng tối">
-        <span class="ico-moon" aria-hidden="true"></span>
-        <span class="ico-sun" aria-hidden="true"></span>
-      </button>
-      <button class="btn btn-primary btn-sm js-book" type="button">Giữ một chỗ</button>
+      <a href="ai-journey.html">Hành trình</a>
+      <a href="ai-os.html">AI OS</a>
+      <button class="theme-toggle" type="button" aria-label="Đổi sáng tối"><span class="glyph moon" aria-hidden="true">◐</span><span class="glyph sun" aria-hidden="true">◑</span></button>
+      <a class="btn btn-primary" href="#hoc-phi">Lớp học</a>
     </div>
   </div>
-</header>
+</nav>
 
 <main>
 
   <!-- 1. HERO -->
-  <section class="c-hero nebula">
-    <span class="hero-ring" aria-hidden="true"></span>
-    <div class="c-hero-inner">
-      <div class="eyebrow on-dark"><span class="rule"></span>Lớp học cho người đang ngộp việc</div>
+  <section class="c-hero nebula" data-screen-label="Hero">
+    <div class="wrap">
+      <div class="eyebrow">Lớp học cho người đang ngộp việc</div>
       <h1 class="c-hero-title">Mua lại thời gian<br /><span class="glow">của chính bạn.</span></h1>
       <p class="c-hero-intro">Khoá này không dạy bạn thêm một kỹ năng AI. Nó giúp bạn lấy lại buổi tối, lấy lại ngày cuối tuần, lấy lại những giờ đáng lẽ thuộc về con cái và việc lớn của đời. AI chỉ là đòn bẩy. Mình đi trước bạn một đoạn, giờ quay lại chỉ cho bạn nhắm nó vào đúng chỗ đang ăn mất giờ của bạn mỗi ngày.</p>
       <div class="c-hero-cta">
@@ -60,20 +52,24 @@
     </div>
   </section>
 
-  <!-- 2. PAIN / CHO AI -->
-  <section class="c-pain" id="cho-ai">
+  <!-- 2. NỖI ĐAU -->
+  <section class="c-pain" id="cho-ai" data-screen-label="Cho ai">
     <div class="wrap">
-      <div class="section-head"><div class="eyebrow accent">// Cho người làm chủ, làm một mình</div><h2 class="section-title">Bạn làm một mình. Sai một nhịp, không ai đỡ. Mọi thứ đổ hết về bạn.</h2></div>
+      <div class="eyebrow">// Cho người làm chủ, làm một mình</div>
+      <h2 class="section-title">Bạn làm một mình. Sai một nhịp, không ai đỡ. Mọi thứ đổ hết về bạn.</h2>
       <div class="c-pain-grid">
         <div class="c-pain-item">
+          <span class="n">01</span>
           <h3>Pitch, research, draft, sửa, gửi</h3>
           <p>Không có team. Mỗi project từ đầu đến cuối qua tay bạn. Bạn đang bán giờ sáng tạo hoặc giờ tư duy, nhưng mất cả buổi sáng vào những thứ bất kỳ ai cũng làm được.</p>
         </div>
         <div class="c-pain-item">
+          <span class="n">02</span>
           <h3>CEO buổi sáng, nhân viên buổi chiều</h3>
           <p>Quyết định chiến lược lúc 9 giờ, rồi ngồi viết doc, cập nhật cho đối tác, chuẩn bị pitch lúc 3 giờ chiều. Thứ ăn hết tuần của bạn không phải chiến lược. Là sản xuất.</p>
         </div>
         <div class="c-pain-item">
+          <span class="n">03</span>
           <h3>Đã thử AI, nhưng vẫn đang kẹt</h3>
           <p>Bạn biết AI có thể giúp. Đã thử vài lần, thấy hay. Nhưng chưa có ai ngồi xuống cùng bạn, nhìn vào tuần làm việc thật của bạn, chỉ ra đúng chỗ đang chảy máu thời gian.</p>
         </div>
@@ -81,52 +77,57 @@
     </div>
   </section>
 
-  <!-- 2c. DON BAY (cuoi len Buy Back Your Time, khong nhac ten) -->
-  <section class="c-lever nebula" data-theme="dark">
-    <div class="wrap" style="padding-top:76px; padding-bottom:76px; text-align:center;">
-      <p style="margin:0 auto; max-width:26ch; font-family:var(--font-display); font-weight:800; font-size:clamp(26px,3.2vw,42px); line-height:1.16; letter-spacing:-0.025em; color:#fff;">Người ta bảo muốn mua lại thời gian thì thuê người. Nhưng bạn làm một mình, không đủ tiền thuê cả một team.</p>
-      <p style="margin:24px auto 0; max-width:40ch; font-size:19px; line-height:1.55; color:var(--turq-glow); font-weight:600;">AI là nhân viên đầu tiên của bạn. Lương 0 đồng. Khoá này dạy bạn cách giao việc cho nó.</p>
-      <p style="margin:20px auto 0; max-width:52ch; font-size:13px; line-height:1.6; color:rgba(255,255,255,0.55);">Nói rõ nguồn: ý "mua lại thời gian" gần với cuốn Buy Back Your Time của Dan Martell. Khác một chỗ: sách bảo thuê người, mình bảo bạn chưa cần thuê ai.</p>
+  <!-- 3. ĐÒN BẨY -->
+  <section class="c-lever nebula" data-screen-label="Đòn bẩy">
+    <div class="wrap c-lever-inner">
+      <p class="c-lever-big">Người ta bảo muốn mua lại thời gian thì thuê người. Nhưng bạn làm một mình, không đủ tiền thuê cả một team.</p>
+      <p class="c-lever-punch">AI là nhân viên đầu tiên của bạn. Lương 0 đồng. Khoá này dạy bạn cách giao việc cho nó.</p>
+      <p class="c-lever-src">Nói rõ nguồn: ý "mua lại thời gian" gần với cuốn Buy Back Your Time của Dan Martell. Khác một chỗ: sách bảo thuê người, mình bảo bạn chưa cần thuê ai.</p>
     </div>
   </section>
 
-  <!-- 3. QUOTE ANCHOR -->
-  <section class="c-quote">
-    <div class="wrap">
+  <!-- 4. QUOTE, TRÁI TIM TRANG -->
+  <section class="c-quote" data-screen-label="Quote đứa trẻ">
+    <div class="wrap-mid">
       <p class="c-quote-lead">Có một câu mình đọc được, ám ảnh mãi.</p>
       <blockquote class="c-quote-big">Mẹ ơi, con muốn mua một ngày làm việc của mẹ để mẹ chơi với con, có được không?</blockquote>
+      <div class="c-quote-rule" aria-hidden="true"></div>
       <p class="c-quote-src">Lời một đứa trẻ hỏi mẹ. Người mẹ ấy có tiền, có địa vị, mà không mua nổi thời gian cho con. Thời gian là thứ đắt nhất, và là thứ duy nhất tiền không mua lại được. Chỉ có thể ngừng để nó trôi đi.</p>
     </div>
   </section>
 
-  <!-- 4. WHY NOW -->
-  <section class="c-whynow">
+  <!-- 5. VÌ SAO LÀ BÂY GIỜ -->
+  <section class="c-whynow" data-screen-label="Vì sao bây giờ">
     <div class="wrap">
-      <div class="section-head"><div class="eyebrow accent">// Vì sao là bây giờ</div><h2 class="section-title">Ai cũng có AI rồi. Hết là lợi thế.</h2></div>
+      <div class="eyebrow">// Vì sao là bây giờ</div>
+      <h2 class="section-title">Ai cũng có AI rồi. Hết là lợi thế.</h2>
       <p class="c-whynow-lede">Khác nhau không nằm ở chỗ ai có công cụ, mà ở chỗ ai biết nhắm nó vào đúng giờ đang mất. Người làm thật đang lấy lại từng giờ mỗi ngày. Người chậm chân thì trả giá đắt nhất, là thời gian, cho việc AI làm trong vài giây.</p>
       <div class="c-stats">
-        <div class="c-stat"><b>88%</b><span>tổ chức đã dùng AI, nhưng chỉ một phần ba mới bắt đầu nhân rộng được</span><i><a href="https://www.mckinsey.com/capabilities/quantumblack/our-insights/the-state-of-ai" target="_blank" rel="noopener" style="color:inherit;">McKinsey 11/2025</a></i></div>
-        <div class="c-stat"><b>40-60 phút</b><span>người làm thật lấy lại được mỗi ngày làm việc</span><i><a href="https://openai.com/index/the-state-of-enterprise-ai-2025-report/" target="_blank" rel="noopener" style="color:inherit;">OpenAI 12/2025</a></i></div>
-        <div class="c-stat"><b>+56%</b><span>lương cao hơn cho người có kỹ năng dùng AI</span><i><a href="https://www.pwc.com/gx/en/news-room/press-releases/2025/ai-linked-to-a-fourfold-increase-in-productivity-growth.html" target="_blank" rel="noopener" style="color:inherit;">PwC 2025</a></i></div>
+        <div class="c-stat"><b>88%</b><span>tổ chức đã dùng AI, nhưng chỉ một phần ba mới bắt đầu nhân rộng được</span><i><a href="https://www.mckinsey.com/capabilities/quantumblack/our-insights/the-state-of-ai" target="_blank" rel="noopener">McKinsey 11/2025</a></i></div>
+        <div class="c-stat"><b>40-60 phút</b><span>người làm thật lấy lại được mỗi ngày làm việc</span><i><a href="https://openai.com/index/the-state-of-enterprise-ai-2025-report/" target="_blank" rel="noopener">OpenAI 12/2025</a></i></div>
+        <div class="c-stat"><b>+56%</b><span>lương cao hơn cho người có kỹ năng dùng AI</span><i><a href="https://www.pwc.com/gx/en/news-room/press-releases/2025/ai-linked-to-a-fourfold-increase-in-productivity-growth.html" target="_blank" rel="noopener">PwC 2025</a></i></div>
       </div>
     </div>
   </section>
 
-  <!-- 5. WHY ME -->
-  <section class="c-why nebula" data-theme="dark">
-    <span class="hero-ring left" aria-hidden="true"></span>
+  <!-- 6. VÌ SAO HỌC TỪ MÌNH -->
+  <section class="c-why nebula" data-screen-label="Vì sao học từ mình">
     <div class="wrap">
-      <div class="eyebrow on-dark glow-text">// Vì sao học điều này từ mình</div>
-      <div style="display:flex; gap:clamp(24px,4vw,48px); align-items:flex-start; flex-wrap:wrap;">
-        <div style="flex:1 1 420px;">
-          <h2 class="c-why-title">Mình không phải thầy dạy AI.<br />Mình là người đã đi qua con đường đó.</h2>
-        </div>
-        <figure style="margin:0; flex:0 1 190px;">
-          <img src="assets/lch-tokyo-2022.jpg" alt="Lê Công Hoàng tại Liên hoan phim quốc tế Tokyo 2022" style="width:100%; border-radius:14px; display:block;" />
-          <figcaption style="font-size:10.5px; color:rgba(255,255,255,0.45); margin-top:6px; line-height:1.5;">Tokyo IFF 2022 · Ảnh: <a href="https://commons.wikimedia.org/wiki/File:Le_Cong_Hoang_from_%22Glorious_Ashes%22_at_Red_Carpet_of_the_Tokyo_International_Film_Festival_2022_(52460466017)_(cropped).jpg" target="_blank" rel="noopener" style="color:inherit;">D.T. Johnson, CC BY 2.0</a></figcaption>
+      <div class="eyebrow">// Vì sao học điều này từ mình</div>
+      <div class="c-why-head">
+        <h2 class="c-why-title">Mình không phải thầy dạy AI.<br />Mình là người đã đi qua con đường đó.</h2>
+        <figure class="fig r14">
+          <span class="fig-frame"><img src="assets/lch-tokyo-2022.jpg" alt="Lê Công Hoàng tại Liên hoan phim quốc tế Tokyo 2022" width="690" height="900" /></span>
+          <figcaption>Tokyo IFF 2022 · Ảnh: <a href="https://commons.wikimedia.org/wiki/File:Le_Cong_Hoang_from_%22Glorious_Ashes%22_at_Red_Carpet_of_the_Tokyo_International_Film_Festival_2022_(52460466017)_(cropped).jpg" target="_blank" rel="noopener">D.T. Johnson, CC BY 2.0</a></figcaption>
         </figure>
       </div>
       <p class="c-why-intro">Mình từng dựng đủ thứ quy trình, vấp đủ chỗ gập ghềnh, rồi mới rút ra cái nào đáng. Giờ mình quay lại làm bằng phẳng con đường đó cho bạn, để bạn không mất mấy tháng dò đường như mình.</p>
+      <div class="video-slot" role="img" aria-label="Chỗ dành cho video giới thiệu 30 đến 60 giây, sắp có">
+        <span class="poster" style="background-image:url('assets/lch-tokyo-2022.jpg');"></span>
+        <span class="poster-tint"></span>
+        <span class="play" aria-hidden="true"></span>
+        <span class="video-label">video · 30 đến 60 giây · sắp có</span>
+      </div>
       <div class="c-why-grid">
         <div class="c-why-card">
           <div class="c-why-h">Đi trước, rồi quay lại dẫn</div>
@@ -145,14 +146,15 @@
           <p>Mình là diễn viên. Nghề đó luyện cho mình cách đọc người, đọc giọng. Mình dạy bạn dùng AI mà không đánh mất giọng riêng, không thành bản sao của cái máy.</p>
         </div>
       </div>
-      <p style="margin:28px 0 0; font-size:15px;"><a href="ai-journey.html" style="color:var(--accent); font-weight:600; text-decoration:none;">Mình đi trước bạn một đoạn là đoạn nào? Đọc hành trình xây hệ AI của mình →</a></p>
+      <p class="c-why-more"><a href="ai-journey.html">Mình đi trước bạn một đoạn là đoạn nào? Đọc hành trình xây hệ AI của mình →</a></p>
     </div>
   </section>
 
-  <!-- 6. CACH HOC -->
-  <section class="c-how" id="cach-hoc">
+  <!-- 7. CHƯƠNG TRÌNH -->
+  <section class="c-how" id="cach-hoc" data-screen-label="Chương trình">
     <div class="wrap">
-      <div class="section-head"><div class="eyebrow accent">// Chương trình</div><h2 class="section-title">8 buổi, 4 tuần, bắt đầu từ chỗ bạn đang kẹt</h2></div>
+      <div class="eyebrow">// Chương trình</div>
+      <h2 class="section-title">8 buổi, 4 tuần, bắt đầu từ chỗ bạn đang kẹt</h2>
       <div class="c-how-facts">
         <div class="c-fact"><b>20 giờ</b><span>8 buổi × 2.5 giờ, trải trong 4 tuần</span></div>
         <div class="c-fact"><b>Tối đa 3 người</b><span>gần như kèm riêng, cùng mình trực tiếp</span></div>
@@ -161,50 +163,50 @@
       <div class="c-pillars">
         <div class="c-pillar">
           <span class="c-pillar-n">1</span>
-          <h3>Chẩn đoán thật</h3>
-          <p>Trải tuần làm việc của bạn ra thành một bản đồ. Tìm ra đâu là phần đầu não thật và đâu là phần bất kỳ ai cũng làm được. Buổi quan trọng nhất vì không chẩn đúng thì áp sai.</p>
+          <div><h3>Chẩn đoán thật</h3>
+          <p>Trải tuần làm việc của bạn ra thành một bản đồ. Tìm ra đâu là phần đầu não thật và đâu là phần bất kỳ ai cũng làm được. Buổi quan trọng nhất vì không chẩn đúng thì áp sai.</p></div>
         </div>
         <div class="c-pillar">
           <span class="c-pillar-n">2</span>
-          <h3>Giao việc đúng cách</h3>
-          <p>Không hỏi AI như hỏi Google. Brief AI như giao cho người thật: rõ đầu ra, rõ tiêu chí, không phải sửa năm lần rồi vẫn không dùng được.</p>
+          <div><h3>Giao việc đúng cách</h3>
+          <p>Không hỏi AI như hỏi Google. Brief AI như giao cho người thật: rõ đầu ra, rõ tiêu chí, không phải sửa năm lần rồi vẫn không dùng được.</p></div>
         </div>
         <div class="c-pillar">
           <span class="c-pillar-n">3</span>
-          <h3>Cắt ba việc ngay</h3>
-          <p>Mỗi người chọn 3 việc đang ngốn nhiều giờ nhất. Áp AI vào ngay trong buổi. Đo thời gian trước và sau để thấy con số thật, không phải ước tính.</p>
+          <div><h3>Cắt ba việc ngay</h3>
+          <p>Mỗi người chọn 3 việc đang ngốn nhiều giờ nhất. Áp AI vào ngay trong buổi. Đo thời gian trước và sau để thấy con số thật, không phải ước tính.</p></div>
         </div>
         <div class="c-pillar">
           <span class="c-pillar-n">4</span>
-          <h3>Giữ đầu não cho mình</h3>
-          <p>Rõ việc nào AI không được chạm vào. Cách duyệt nhanh thứ AI làm ra mà không mất công như tự làm. Giữ giọng của bạn, giữ quyền phán đoán của bạn, chỉ bỏ phần tay chân.</p>
+          <div><h3>Giữ đầu não cho mình</h3>
+          <p>Rõ việc nào AI không được chạm vào. Cách duyệt nhanh thứ AI làm ra mà không mất công như tự làm. Giữ giọng của bạn, giữ quyền phán đoán của bạn, chỉ bỏ phần tay chân.</p></div>
         </div>
         <div class="c-pillar">
           <span class="c-pillar-n">5</span>
-          <h3>Chi Phí Cơ Hội</h3>
-          <p>Khung tư duy mình tự đúc: mỗi giờ làm việc thấp giá là một giờ không làm được việc cao giá. Nó thành công cụ quyết định ai làm gì mỗi ngày trong lịch thật của bạn.</p>
+          <div><h3>Chi Phí Cơ Hội</h3>
+          <p>Khung tư duy mình tự đúc: mỗi giờ làm việc thấp giá là một giờ không làm được việc cao giá. Nó thành công cụ quyết định ai làm gì mỗi ngày trong lịch thật của bạn.</p></div>
         </div>
         <div class="c-pillar">
           <span class="c-pillar-n">6</span>
-          <h3>Tiểu Hành Tinh</h3>
-          <p>Thói quen ăn thời gian mà bạn đã quen đến mức coi là bình thường, không còn nhìn thấy nữa. Mình dạy bạn cách soi ra những thứ đó, vì bạn không thể giải quyết cái bạn không nhìn thấy.</p>
+          <div><h3>Tiểu Hành Tinh</h3>
+          <p>Thói quen ăn thời gian mà bạn đã quen đến mức coi là bình thường, không còn nhìn thấy nữa. Mình dạy bạn cách soi ra những thứ đó, vì bạn không thể giải quyết cái bạn không nhìn thấy.</p></div>
         </div>
         <div class="c-pillar">
           <span class="c-pillar-n">7</span>
-          <h3>Xây quy trình chạy một mình</h3>
-          <p>Thiết kế quy trình cá nhân cho 5 đến 7 việc lặp lại hàng tuần. Làm một lần, dùng mãi. Không cần nhớ mẹo, không cần dựng lại từ đầu mỗi khi dùng.</p>
+          <div><h3>Xây quy trình chạy một mình</h3>
+          <p>Thiết kế quy trình cá nhân cho 5 đến 7 việc lặp lại hàng tuần. Làm một lần, dùng mãi. Không cần nhớ mẹo, không cần dựng lại từ đầu mỗi khi dùng.</p></div>
         </div>
         <div class="c-pillar">
           <span class="c-pillar-n">8</span>
-          <h3>Tính sổ và đi tiếp</h3>
-          <p>Đo thật: bao nhiêu giờ đã mua lại so với trước lớp. Mỗi người trình bày, cả lớp phản biện, mình kết. Rồi bước tiếp theo của bạn là gì sau khi lớp kết thúc.</p>
+          <div><h3>Tính sổ và đi tiếp</h3>
+          <p>Đo thật: bao nhiêu giờ đã mua lại so với trước lớp. Mỗi người trình bày, cả lớp phản biện, mình kết. Rồi bước tiếp theo của bạn là gì sau khi lớp kết thúc.</p></div>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- 7. REVERSE FILTER -->
-  <section class="c-filter">
+  <!-- 8. LỌC NGƯỢC -->
+  <section class="c-filter" data-screen-label="Lọc ngược">
     <div class="wrap">
       <div class="c-filter-box">
         <h2 class="c-filter-title">Nói thẳng: khoá này không dành cho ai</h2>
@@ -214,16 +216,16 @@
     </div>
   </section>
 
-  <!-- 8. HOC PHI -->
-  <section class="c-price" id="hoc-phi">
+  <!-- 9. HỌC PHÍ -->
+  <section class="c-price" id="hoc-phi" data-screen-label="Học phí">
     <div class="wrap">
       <div class="c-price-card">
         <div class="c-price-left">
-          <div class="eyebrow accent">// Học phí</div>
+          <div class="eyebrow">// Học phí</div>
           <div class="c-price-num">15.000.000<span>đ</span></div>
           <div class="c-price-cohort">Lớp kế tiếp chỉ 3 chỗ, đang nhận giữ chỗ</div>
-          <div style="margin-top:20px; padding:16px 18px; background:var(--accent-soft); border-radius:12px; font-size:14px; line-height:1.65; color:var(--text-body);">
-            <b style="display:block; color:var(--accent-hover); margin-bottom:6px;">Tính nhanh đi</b>
+          <div class="c-note-box">
+            <b>Tính nhanh đi</b>
             Khoá này nhắm lấy lại cho bạn khoảng 8 đến 10 giờ mỗi tuần, đều đặn. Bạn tự biết một giờ của mình đáng bao nhiêu. Nhân lên một tháng, rồi một năm. Học phí 15 triệu là khoản nạp một lần, số giờ kia trả lại bạn mãi về sau.
           </div>
         </div>
@@ -237,21 +239,22 @@
             <li>Một tháng nhóm riêng sau khi lớp kết thúc, tiếp tục hỏi.</li>
             <li>Ưu tiên giá học viên cũ cho khoá và buổi 1:1 tiếp theo.</li>
           </ul>
-          <div style="margin:18px 0 4px; padding:16px 18px; background:var(--accent-soft); border-radius:12px; font-size:14px; line-height:1.65; color:var(--text-body);">
-            <b style="display:block; color:var(--accent-hover); margin-bottom:6px;">Quà đồng hành: 3 đến 6 tháng tinh chỉnh ngân sách công cụ AI cùng bạn</b>
+          <div class="c-note-box" style="margin:18px 0 20px;">
+            <b>Quà đồng hành: 3 đến 6 tháng tinh chỉnh ngân sách công cụ AI cùng bạn</b>
             Công cụ AI ra gói mới mỗi tháng, và cách tốn tiền nhất là tự mình thử hết. Nên mình thử trước bằng tiền của mình: gói nào mình đã mua, đang dùng hoặc sắp thử, bạn đều biết. Đến lượt bạn cần, mình chỉ đúng gói hợp với việc của bạn, đáng tiền đến từng đồng. Kể cả khi câu trả lời là: khỏi mua, gói miễn phí đủ rồi.
           </div>
           <button class="btn btn-primary btn-lg js-book" type="button">Giữ một chỗ</button>
-          <p style="margin:12px 0 0; font-size:13px; line-height:1.5; color:var(--text-muted);">Chưa thu phí ở bước này. Buổi đầu thấy không hợp, hoàn 100%, không hỏi lý do.</p>
+          <p class="c-price-fine">Chưa thu phí ở bước này. Buổi đầu thấy không hợp, hoàn 100%, không hỏi lý do.</p>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- 9. FAQ -->
-  <section class="c-faq">
-    <div class="wrap">
-      <div class="section-head"><div class="eyebrow accent">// Bạn đang phân vân</div><h2 class="section-title">Vài điều mình đoán bạn đang nghĩ</h2></div>
+  <!-- 10. FAQ -->
+  <section class="c-faq" data-screen-label="FAQ">
+    <div class="wrap-mid">
+      <div class="eyebrow">// Bạn đang phân vân</div>
+      <h2 class="section-title">Vài điều mình đoán bạn đang nghĩ</h2>
       <div class="c-faq-list">
         <details class="c-faq-item"><summary>Mình quá bận, lấy đâu ra thời gian học thêm một khoá?</summary><p>Đây đúng là lý do khoá này tồn tại, và là lý do nó nhắm người bận chứ không nhắm người rảnh. Bạn bỏ chừng mười giờ ban đầu để dựng quy trình, rồi được trả lại từng đó giờ mỗi tuần, mãi về sau. Bạn không học để thêm việc. Bạn học để đây là lần cuối phải làm tay những thứ đang ăn mòn quỹ thời gian của mình.</p></details>
         <details class="c-faq-item"><summary>Mình dùng AI rồi, nó còn tạo thêm việc cho mình.</summary><p>Đúng, và đây là chỗ thật. <a href="https://www.glean.com/work-ai-institute/reports/work-ai-index-report" target="_blank" rel="noopener" style="color:inherit;">Glean Work AI Index 2026</a> đo được người ta đốt trung bình 6,4 giờ một tuần chỉ để trông bot: nạp ngữ cảnh, kiểm, sửa, dọn đầu ra của AI. Nên khoá này không dạy bạn dùng nhiều AI hơn, mà dạy nhắm cho trúng, có kỷ luật, để cái nó làm ra dùng được ngay chứ không phải làm lại từ đầu. AI là đòn bẩy có kỷ luật, không phải nút thần.</p></details>
@@ -266,44 +269,56 @@
     </div>
   </section>
 
-  <!-- 10. EARLY COHORT (that long: chua co loi chung, lat thanh loi the vao som + hoan tien) -->
-  <section class="c-pilot">
+  <!-- 11. LỚP MỚI, NÓI THẲNG -->
+  <section class="c-pilot" data-screen-label="Lớp mới nói thẳng">
     <div class="wrap">
       <div class="c-pilot-box">
-        <h2 style="margin:0 0 14px; font-family:var(--font-display); font-size:clamp(22px,2.6vw,30px); font-weight:700; letter-spacing:-0.02em; color:var(--text-strong);">Đây là lớp mới. Mình nói thẳng.</h2>
-        <p class="c-pilot-real" style="font-family:var(--font-sans); font-size:17px; font-weight:400; color:var(--text-body);">Mình không có sẵn một dãy lời chứng để khoe, và mình không bịa ra một cái nào. Lớp này mới, bạn là những người đầu tiên, vậy thôi.</p>
-        <p class="c-pilot-todo" style="color:var(--text-body);">Đổi lại, vào sớm thì được nhiều hơn: lớp chỉ 3 người, mình ngồi sát từng người, giá của khoá đầu. Và quan trọng nhất, bạn không cần tin lời ai khác. Buổi đầu thấy không hợp thì hoàn 100%, không hỏi lý do. Bạn chỉ cần thử một buổi.</p>
+        <h2>Đây là lớp mới. Mình nói thẳng.</h2>
+        <p>Mình không có sẵn một dãy lời chứng để khoe, và mình không bịa ra một cái nào. Lớp này mới, bạn là những người đầu tiên, vậy thôi.</p>
+        <p>Đổi lại, vào sớm thì được nhiều hơn: lớp chỉ 3 người, mình ngồi sát từng người, giá của khoá đầu. Và quan trọng nhất, bạn không cần tin lời ai khác. Buổi đầu thấy không hợp thì hoàn 100%, không hỏi lý do. Bạn chỉ cần thử một buổi.</p>
       </div>
     </div>
   </section>
 
-  <!-- 11. FINAL CTA -->
-  <section class="c-final nebula" data-theme="dark">
-    <span class="hero-ring" aria-hidden="true"></span>
-    <div class="c-final-inner">
-      <div class="eyebrow on-dark glow-text center">// Bắt đầu</div>
+  <!-- 12. CTA CUỐI -->
+  <section class="c-final nebula" data-screen-label="CTA cuối">
+    <div class="wrap">
+      <div class="eyebrow" style="text-align:center;">// Bắt đầu</div>
       <h2 class="c-final-title">Mỗi ngày trì hoãn là thêm một ngày bạn trả bằng thời gian.</h2>
       <p class="c-final-lede">Giữ một chỗ trong lớp tới. Mình sẽ liên hệ lại với bạn về lịch và chi tiết.</p>
-      <div class="c-final-btn"><button class="btn btn-lg btn-on-dark-solid js-book" type="button">Giữ một chỗ</button></div>
-      <p style="margin:16px auto 0; font-size:13px; color:rgba(255,255,255,0.6);">Chưa thu phí ở bước này. Hoàn 100% nếu buổi đầu không hợp.</p>
+      <button class="btn btn-lg btn-on-dark-solid js-book" type="button">Giữ một chỗ</button>
+      <p class="c-final-fine">Chưa thu phí ở bước này. Hoàn 100% nếu buổi đầu không hợp.</p>
+    </div>
+  </section>
+
+  <!-- CẦU DẪN TRANG KẾ -->
+  <section class="bridge" data-screen-label="Cầu dẫn">
+    <div class="bridge-inner">
+      <div class="bridge-tag">Trang kế · Về Lê Công Hoàng</div>
+      <a class="bridge-link" href="ve-lch.html">
+        <span class="bridge-title">Một người, nhiều mặt, một trục.</span>
+        <span class="bridge-arrow" aria-hidden="true">→</span>
+      </a>
     </div>
   </section>
 
 </main>
 
-<!-- FOOTER -->
-<footer class="site-footer">
+<!-- FOOTER CHUNG -->
+<footer class="site-footer" data-screen-label="Footer">
   <div class="wrap">
     <div class="footer-top">
       <div class="footer-brand">
-        <span class="footer-mark" aria-hidden="true"></span>
+        <p class="brand-line">Lê Công Hoàng</p>
         <p>Mua lại thời gian của chính bạn. Một khoá học của Lê Công Hoàng.</p>
         <button class="btn btn-primary js-book" type="button">Giữ một chỗ</button>
       </div>
       <div class="footer-cols">
         <div class="footer-col">
           <div class="footer-col-h">Khoá học</div>
-          <a href="#cho-ai">Cho ai</a><a href="#cach-hoc">Cách học</a><a href="#hoc-phi">Học phí</a>
+          <a href="#cho-ai">Cho ai</a>
+          <a href="#cach-hoc">Cách học</a>
+          <a href="#hoc-phi">Học phí</a>
         </div>
         <div class="footer-col">
           <div class="footer-col-h">Liên hệ</div>
@@ -328,24 +343,24 @@
   </div>
 </footer>
 
-<!-- ENROLL DIALOG -->
+<!-- DIALOG GIỮ CHỖ -->
 <div class="dialog-scrim" id="booking" hidden>
   <div class="dialog" role="dialog" aria-modal="true" aria-labelledby="booking-title">
     <div class="dialog-head">
       <h2 id="booking-title">Giữ một chỗ</h2>
-      <button class="dialog-close js-close-book" type="button" aria-label="Đóng"></button>
+      <button class="dialog-close js-close-book" type="button" aria-label="Đóng">×</button>
     </div>
     <div class="dialog-body">
       <p class="dialog-intro">Giữ một chỗ trong lớp tới. Mình sẽ liên hệ lại với bạn về lịch và chi tiết. Chưa thu phí gì ở bước này.</p>
       <form class="booking-form" id="booking-form" name="giu-cho" method="POST" data-netlify="true" netlify-honeypot="bot-field">
         <input type="hidden" name="form-name" value="giu-cho" />
         <p hidden><label>Đừng điền ô này: <input name="bot-field" /></label></p>
-        <div class="field"><label for="bn">Tên của bạn</label><div class="input"><input id="bn" name="name" placeholder="Nguyễn Văn A" required /></div></div>
-        <div class="field"><label for="be">Email</label><div class="input"><input id="be" name="email" type="email" placeholder="ban@vidu.com" required /></div></div>
-        <div class="field"><label for="bj">Bạn làm nghề gì</label><div class="input"><input id="bj" name="job" placeholder="Vd: chủ doanh nghiệp, sản phẩm, sáng tạo" /></div></div>
+        <div class="field"><label for="bn">Tên của bạn</label><input id="bn" name="name" placeholder="Nguyễn Văn A" required /></div>
+        <div class="field"><label for="be">Email</label><input id="be" name="email" type="email" placeholder="ban@vidu.com" required /></div>
+        <div class="field"><label for="bj">Bạn làm nghề gì</label><input id="bj" name="job" placeholder="Vd: chủ doanh nghiệp, sản phẩm, sáng tạo" /></div>
         <div class="field"><label for="bd">Chỗ nào đang ngốn nhiều giờ nhất của bạn</label><textarea id="bd" name="why" rows="3" placeholder="Một câu thôi cũng được."></textarea><span class="field-help">Để mình hiểu bạn trước khi gặp.</span></div>
       </form>
-      <p style="margin:10px 0 0; font-size:13px; line-height:1.5; color:var(--text-muted);">Không thích điền form? Nhắn <a href="https://zalo.me/0906300191" target="_blank" rel="noopener">Zalo 0906 300 191</a> hoặc gửi thẳng về <a href="mailto:leconghoangstudio@gmail.com">leconghoangstudio@gmail.com</a>.</p>
+      <p style="margin:10px 0 0; font-size:13px; line-height:1.5; color:var(--muted);">Không thích điền form? Nhắn <a href="https://zalo.me/0906300191" target="_blank" rel="noopener">Zalo 0906 300 191</a> hoặc gửi thẳng về <a href="mailto:leconghoangstudio@gmail.com">leconghoangstudio@gmail.com</a>.</p>
     </div>
     <div class="dialog-foot">
       <button class="btn btn-ghost js-close-book" type="button">Để sau</button>
@@ -359,7 +374,7 @@
   <div class="toast" role="status">
     <span class="toast-bar"></span>
     <div class="toast-body"><div class="toast-title">Một bước nữa là xong</div><div class="toast-msg">Ứng dụng email của bạn đang mở với nội dung điền sẵn, bấm Gửi là xong. Không thấy gì mở ra? Gửi thẳng về leconghoangstudio@gmail.com nhé.</div></div>
-    <button class="toast-close js-close-toast" type="button" aria-label="Đóng"></button>
+    <button class="toast-close js-close-toast" type="button" aria-label="Đóng">×</button>
   </div>
 </div>
 
