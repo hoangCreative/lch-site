@@ -349,6 +349,7 @@ p{ text-wrap:pretty; }
 }
 .c-pain-item h3{ margin:0 0 10px; font-size:16.5px; font-weight:700; color:var(--ink); line-height:1.4; }
 .c-pain-item p{ margin:0; font-size:14px; line-height:1.7; color:var(--ink-2); }
+.c-pain-lede{ margin:36px auto 0; max-width:60ch; font-size:clamp(16px,1.9vw,18.5px); line-height:1.72; color:var(--ink); }
 
 .c-lever{ background:#121618; }
 .c-lever-inner{ padding:clamp(72px,10vw,104px) 0; text-align:center; }
@@ -419,6 +420,8 @@ p{ text-wrap:pretty; }
   font-size:clamp(20px,2.4vw,26px); letter-spacing:-0.02em; color:var(--turq-text); margin-bottom:5px;
 }
 .c-fact span{ font-size:13px; line-height:1.55; color:var(--ink-2); }
+.c-how-steps{ margin:26px 0 4px; max-width:64ch; font-size:15.5px; line-height:1.75; color:var(--ink-2); }
+.c-how-steps b{ color:var(--ink); font-weight:700; }
 .c-pillars{ display:grid; grid-template-columns:repeat(2,1fr); gap:14px; margin-top:18px; }
 .c-pillar{
   background:var(--surface); border:1px solid var(--line); border-radius:var(--r-card);
@@ -512,6 +515,7 @@ p{ text-wrap:pretty; }
   margin:0 auto 20px; max-width:22ch; font-family:var(--font-display); font-weight:800;
   font-size:clamp(27px,4.2vw,48px); line-height:1.16; letter-spacing:-0.022em; color:#F1F4F4;
 }
+.c-final-scene{ margin:0 auto 30px; max-width:48ch; font-size:16px; line-height:1.8; color:#C4CCCC; }
 .c-final-lede{ margin:0 auto 34px; max-width:44ch; font-size:16px; color:#B7C0C0; }
 .c-final-fine{ margin:16px auto 0; font-size:13px; color:rgba(241,244,244,0.55); }
 
