@@ -705,6 +705,8 @@ p{ text-wrap:pretty; }
   font-size:clamp(24px,4vw,46px); line-height:1.24; letter-spacing:-0.02em; color:var(--ink);
 }
 .jp-close-sub{ margin:0 auto 46px; max-width:52ch; font-size:16px; color:var(--muted); }
+.jp-close-sub2{ margin:18px auto 0; font-size:14px; }
+.jp-close-sub2 a{ color:var(--muted); text-decoration:underline; }
 
 /* ============================================================
    TRANG 4 · ai-os.html (tối)
@@ -829,4 +831,83 @@ p{ text-wrap:pretty; }
   .nv-right{ gap:9px; }
   .footer-cols{ grid-template-columns:1fr; }
   .video-slot .play{ width:58px; height:58px; }
+}
+
+/* ---------- 12. SO DO SONG (dot dung lai 7 so do AI OS, 2026-07-11) ---------- */
+.dgr{ border:1px solid var(--line); border-radius:var(--r-fig); background:var(--surface); padding:22px; }
+.dgr + .dgr{ margin-top:14px; }
+.dgr-cap{ font-family:var(--font-mono); font-size:11px; letter-spacing:0.14em; text-transform:uppercase; color:var(--faint); margin:0 0 14px; }
+.dgr-note{ font-size:12.5px; color:var(--muted); margin-top:12px; line-height:1.6; }
+
+.chip{ display:inline-flex; flex-direction:column; gap:1px; border:1px solid var(--line-2); border-radius:10px; background:var(--paper); padding:7px 12px; min-width:0; }
+.chip b{ font-size:13px; color:var(--ink); font-weight:600; line-height:1.35; }
+.chip span{ font-size:11.5px; color:var(--muted); line-height:1.4; }
+.chip.soft{ background:var(--surface); border-style:dashed; }
+.chip-row{ display:flex; flex-wrap:wrap; gap:8px; align-items:stretch; }
+
+.chain{ display:flex; flex-wrap:wrap; gap:6px; align-items:center; }
+.chain .arw{ color:var(--faint); font-size:14px; flex:none; padding:0 2px; }
+
+.lane{ border:1px solid var(--line); border-left:3px solid var(--turq); border-radius:0 12px 12px 0; background:var(--paper); padding:14px 16px; }
+.lane + .lane{ margin-top:10px; }
+.lane-h{ display:flex; align-items:baseline; gap:10px; margin-bottom:10px; }
+.lane-h b{ font-size:14px; color:var(--ink); }
+.lane-h span{ font-size:12px; color:var(--muted); }
+.lane.l-peri{ border-left-color:var(--peri); }
+.lane.l-terra{ border-left-color:var(--terra); }
+
+.map-band{ margin-top:14px; }
+.map-band + .map-band{ margin-top:18px; }
+.map-band > .map-lbl{ font-family:var(--font-mono); font-size:11px; letter-spacing:0.14em; text-transform:uppercase; color:var(--turq-text); margin-bottom:9px; }
+.map-down{ text-align:center; color:var(--faint); font-size:15px; line-height:1; margin:12px 0 0; }
+
+.dgr-case{ border:1px solid var(--line); border-radius:14px; background:var(--surface); padding:18px; display:flex; flex-direction:column; gap:13px; border-top:3px solid var(--turq); }
+.dgr-case.l-peri{ border-top-color:var(--peri); }
+.dgr-case.l-terra{ border-top-color:var(--terra); }
+.dgr-case h4{ margin:0; font-size:16px; color:var(--ink); }
+.dgr-case h4 span{ display:block; font-size:12px; color:var(--muted); font-weight:400; margin-top:2px; }
+.case-sec > .cs-lbl{ font-family:var(--font-mono); font-size:10.5px; letter-spacing:0.12em; text-transform:uppercase; color:var(--faint); margin-bottom:7px; }
+.steps{ display:flex; flex-direction:column; gap:6px; }
+.stp{ display:flex; gap:9px; align-items:baseline; font-size:12.5px; color:var(--ink-2); line-height:1.5; }
+.stp .n{ font-family:var(--font-mono); font-size:10.5px; color:var(--turq-text); border:1px solid var(--turq-line); border-radius:50%; width:18px; height:18px; flex:none; display:inline-flex; align-items:center; justify-content:center; transform:translateY(2px); }
+.dgr-case.l-peri .stp .n{ color:var(--peri); border-color:var(--peri); }
+.dgr-case.l-terra .stp .n{ color:var(--terra); border-color:var(--terra); }
+.stp b{ color:var(--ink); font-weight:600; }
+.case-rule{ font-size:12px; color:var(--muted); line-height:1.55; padding-left:14px; position:relative; }
+.case-rule::before{ content:"·"; position:absolute; left:2px; color:var(--turq); }
+
+.bars{ display:flex; flex-direction:column; gap:10px; margin-top:14px; }
+.bar-row{ display:grid; grid-template-columns:minmax(150px,220px) 1fr 44px; gap:12px; align-items:center; }
+.bar-row .bl{ font-size:12.5px; color:var(--ink-2); line-height:1.4; }
+.bar-row .tr{ display:block; height:8px; border-radius:5px; background:var(--paper-2); overflow:hidden; }
+.bar-row .fl{ display:block; height:100%; border-radius:5px; background:var(--turq); }
+.bar-row .pc{ font-family:var(--font-mono); font-size:11.5px; color:var(--muted); text-align:right; }
+.stat-line{ display:flex; flex-wrap:wrap; gap:22px; margin-bottom:4px; }
+.stat-line .st b{ display:block; font-family:var(--font-mono); font-size:26px; color:var(--ink); font-weight:600; line-height:1.1; }
+.stat-line .st span{ font-size:12px; color:var(--muted); }
+
+.os-board{ font-family:var(--font-mono); font-size:12.5px; line-height:1.5; border:1px solid var(--line); border-radius:var(--r-fig); background:var(--surface); padding:18px 20px; display:flex; flex-direction:column; gap:10px; }
+.os-board .bd-row{ display:flex; justify-content:space-between; gap:12px; align-items:baseline; border-bottom:1px dashed var(--line); padding-bottom:9px; }
+.os-board .bd-row:last-child{ border-bottom:0; padding-bottom:0; }
+.os-board .bd-row > span:first-child{ color:var(--ink); min-width:0; }
+.os-board .bd-row > span:last-child{ color:var(--turq-text); font-size:11px; text-align:right; flex:none; }
+.os-board .bd-row.bd-head > span:first-child{ font-weight:700; }
+
+.ba-grid{ display:grid; grid-template-columns:1fr 1fr; gap:14px; }
+.ba-col{ border:1px solid var(--line); border-radius:14px; background:var(--surface); padding:18px; }
+.ba-col > .ba-h{ font-family:var(--font-mono); font-size:11px; letter-spacing:0.14em; text-transform:uppercase; margin-bottom:12px; color:var(--faint); }
+.ba-col.ba-after > .ba-h{ color:var(--turq-text); }
+.ba-col ul{ margin:0; padding:0; list-style:none; display:flex; flex-direction:column; gap:9px; }
+.ba-col li{ font-size:13px; color:var(--ink-2); line-height:1.55; padding-left:16px; position:relative; }
+.ba-col li::before{ content:"·"; position:absolute; left:3px; color:var(--faint); }
+.ba-col.ba-after li::before{ content:"✓"; font-size:10.5px; color:var(--turq); left:0; top:2px; }
+
+@media (max-width:760px){
+  .dgr{ padding:16px; }
+  .ba-grid{ grid-template-columns:1fr; }
+  .bar-row{ grid-template-columns:1fr 60px; }
+  .bar-row .tr{ grid-column:1 / -1; order:3; }
+  .bar-row .bl{ order:1; }
+  .bar-row .pc{ order:2; }
+  .stat-line{ gap:16px; }
 }
