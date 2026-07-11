@@ -1,0 +1,311 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Phòng máy · bản đồ sống của LCH's AI OS</title>
+<meta name="description" content="Bản đồ tương tác của hệ điều hành làm việc: bấm từng máy để xem vai, chạy thử một việc qua ba dây chuyền Lab, Studio, Product." />
+<link rel="canonical" href="https://aimentoringlch.netlify.app/phong-may.html" />
+<meta property="og:type" content="website" />
+<meta property="og:site_name" content="Lê Công Hoàng" />
+<meta property="og:title" content="Phòng máy · bản đồ sống của LCH's AI OS" />
+<meta property="og:description" content="Bấm từng máy để xem vai của nó. Chạy thử một việc qua ba dây chuyền Lab, Studio, Product." />
+<meta property="og:image" content="https://aimentoringlch.netlify.app/assets/og-mua-lai-thoi-gian.jpg" />
+<meta property="og:url" content="https://aimentoringlch.netlify.app/phong-may.html" />
+<link rel="icon" href="assets/podcast/mark.png" />
+<script>try{var t=localStorage.getItem('lch-theme');if(t!=='dark'&&t!=='light')t=matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light';document.documentElement.setAttribute('data-theme',t);}catch(e){}</script>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+<style>
+:root{
+  --paper:#F4F6F6; --surface:#FFFFFF; --ink:#121618; --ink2:#3C4648;
+  --muted:#667173; --faint:#98A2A4; --line:#DFE4E4; --line2:#C8D0D0;
+  --turq:#157E72; --turq-strong:#0F6459; --turq-soft:#E1F0ED;
+  --peri:#6667AB; --terra:#B5652F;
+  --sans:'Be Vietnam Pro',system-ui,sans-serif; --mono:'JetBrains Mono',ui-monospace,monospace;
+}
+[data-theme="dark"]{
+  --paper:#121618; --surface:#1B2225; --ink:#F1F4F4; --ink2:#C4CCCC;
+  --muted:#8A9597; --faint:#5C6769; --line:#232B2D; --line2:#3A4446;
+  --turq:#34B5A6; --turq-strong:#5FCBBF; --turq-soft:rgba(52,181,166,0.10);
+  --peri:#8B8DC7; --terra:#CE8352;
+}
+*{box-sizing:border-box;margin:0}
+html,body{height:100%}
+body{font-family:var(--sans);background:var(--paper);color:var(--ink);display:flex;flex-direction:column;overflow:hidden;-webkit-font-smoothing:antialiased}
+
+.bar{display:flex;align-items:center;gap:14px;padding:12px 18px;border-bottom:1px solid var(--line);flex-wrap:wrap}
+.bar h1{font-size:16px;font-weight:700;letter-spacing:-0.01em}
+.bar .sub{font-family:var(--mono);font-size:10.5px;color:var(--muted);margin-top:2px}
+.bar .back{font-size:12.5px;color:var(--muted);text-decoration:none;border:1px solid var(--line);border-radius:8px;padding:6px 11px;flex:none}
+.bar .back:hover{color:var(--ink);border-color:var(--turq)}
+.spacer{flex:1}
+.chips{display:flex;gap:7px;flex-wrap:wrap}
+.chip{font-family:var(--sans);font-size:12px;font-weight:600;color:var(--muted);background:var(--surface);border:1px solid var(--line);border-radius:999px;padding:7px 13px;cursor:pointer}
+.chip:hover{color:var(--ink);border-color:var(--line2)}
+.chip.on{color:var(--turq-strong);border-color:var(--turq);background:var(--turq-soft)}
+#themeToggle{font-family:var(--mono);font-size:11px;color:var(--muted);background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:7px 11px;cursor:pointer}
+
+.stage{flex:1;position:relative;min-height:0}
+.stage svg{position:absolute;inset:0;width:100%;height:100%;display:block}
+
+.zone rect{fill:none;stroke:var(--line);stroke-dasharray:5 5;rx:16}
+.ztitle{font-family:var(--mono);font-size:12px;font-weight:600;letter-spacing:0.12em;fill:var(--faint);text-transform:uppercase}
+.zsub{font-family:var(--sans);font-size:11px;fill:var(--faint)}
+
+.node{cursor:pointer}
+.node rect{fill:var(--surface);stroke:var(--line2);stroke-width:1;rx:10}
+.node:hover rect{stroke:var(--turq)}
+.node.sel rect{stroke:var(--turq);stroke-width:1.6}
+.node .t{font-family:var(--sans);font-size:14px;font-weight:700;fill:var(--ink)}
+.node .m{font-family:var(--sans);font-size:10.5px;fill:var(--muted)}
+.node.brain rect{stroke-width:1.4}
+.node.lab rect{stroke:var(--turq)}
+.node.stu rect{stroke:var(--peri)}
+.node.pro rect{stroke:var(--terra)}
+.node.out rect{fill:var(--turq-soft);stroke:var(--turq)}
+.lanetag{font-family:var(--sans);font-size:12.5px;font-weight:700}
+.lanesub{font-family:var(--sans);font-size:10.5px;fill:var(--muted)}
+.freetext{font-family:var(--sans);font-size:11px;fill:var(--muted)}
+
+.edge{fill:none;stroke:var(--faint);stroke-width:1.4;marker-end:url(#arw)}
+.edge.dash{stroke-dasharray:4 5}
+.elbl{font-family:var(--mono);font-size:10px;fill:var(--muted)}
+
+.stage.flowing .edge{opacity:0.12}
+.stage.flowing .elbl{opacity:0.12}
+.stage.flowing .node{opacity:0.25}
+.stage.flowing .zone,.stage.flowing .lanetag,.stage.flowing .lanesub,.stage.flowing .freetext{opacity:0.35}
+.stage.flowing .edge.lit{opacity:1;stroke:var(--turq);stroke-width:2;stroke-dasharray:7 6;animation:run 0.9s linear infinite;marker-end:url(#arwlit)}
+.stage.flowing .elbl.lit{opacity:1;fill:var(--turq-strong)}
+.stage.flowing .node.lit{opacity:1}
+.stage.flowing .node.lit rect{stroke:var(--turq);stroke-width:1.6}
+@keyframes run{to{stroke-dashoffset:-13}}
+@media (prefers-reduced-motion: reduce){.stage.flowing .edge.lit{animation:none}}
+
+.panel{position:absolute;background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:15px 17px;box-shadow:0 8px 28px rgba(0,0,0,0.08)}
+#detail{right:16px;top:16px;width:300px;display:none}
+#detail.show{display:block}
+#detail h2{font-size:14.5px;font-weight:700}
+#detail .dm{font-family:var(--mono);font-size:10.5px;color:var(--turq-strong);margin:3px 0 9px}
+#detail p{font-size:12.5px;line-height:1.6;color:var(--ink2)}
+#detail .close{position:absolute;top:9px;right:12px;border:0;background:none;color:var(--faint);font-size:15px;cursor:pointer}
+#flowcap{left:16px;bottom:16px;max-width:440px;display:none}
+#flowcap.show{display:block}
+#flowcap .fname{font-family:var(--mono);font-size:10.5px;letter-spacing:0.08em;text-transform:uppercase;color:var(--turq-strong);margin-bottom:7px}
+#flowcap ol{margin-left:18px}
+#flowcap li{font-size:12.5px;line-height:1.6;color:var(--ink2)}
+
+@media (max-width:820px){
+  body{overflow:auto}
+  .stage{min-height:74vh}
+  #detail,#flowcap{position:fixed;left:10px;right:10px;bottom:10px;top:auto;width:auto;max-width:none;max-height:45vh;overflow-y:auto;z-index:9;box-shadow:0 -6px 30px rgba(0,0,0,0.18)}
+  #detail{z-index:10}
+}
+</style>
+</head>
+<body>
+
+<div class="bar">
+  <a class="back" href="ai-os.html">← AI OS</a>
+  <div>
+    <h1>Phòng máy · bản đồ sống của hệ</h1>
+    <div class="sub">706 skill thử, giữ 18 · 332 repo giữ từ 1307 · 160 notebook một năm</div>
+  </div>
+  <div class="spacer"></div>
+  <div class="chips" id="chips">
+    <button class="chip on" data-flow="all">Toàn cảnh</button>
+    <button class="chip" data-flow="lab">Một câu hỏi qua Lab</button>
+    <button class="chip" data-flow="stu">Một chiến dịch qua Studio</button>
+    <button class="chip" data-flow="pro">Một sản phẩm qua Product</button>
+    <button class="chip" data-flow="luu">Vòng chảy về kho</button>
+  </div>
+  <button id="themeToggle">sáng / tối</button>
+</div>
+
+<div class="stage" id="stage">
+<svg viewBox="0 0 1500 950" preserveAspectRatio="xMidYMid meet" role="img" aria-label="Bản đồ hệ điều hành làm việc: cửa vào, bộ não ba app, ba dây chuyền Lab Studio Product, đầu ra, và vòng chảy về kho tri thức">
+  <defs>
+    <marker id="arw" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" style="fill:var(--faint)"/></marker>
+    <marker id="arwlit" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" style="fill:var(--turq)"/></marker>
+  </defs>
+
+  <g class="zone"><rect x="28" y="120" width="212" height="580"/><text class="ztitle" x="46" y="150">Cửa vào</text><text class="zsub" x="46" y="167">một việc bước vào hệ</text></g>
+  <g class="zone"><rect x="278" y="120" width="252" height="580"/><text class="ztitle" x="296" y="150">Bộ não</text><text class="zsub" x="296" y="167">một việc · một app chủ trì</text></g>
+  <g class="zone"><rect x="568" y="80" width="650" height="700"/><text class="ztitle" x="586" y="110">Ba dây chuyền</text><text class="zsub" x="586" y="127">việc đi qua tay ai, theo thứ tự nào</text></g>
+  <g class="zone"><rect x="1256" y="120" width="216" height="580"/><text class="ztitle" x="1274" y="150">Ra</text><text class="zsub" x="1274" y="167">thành phẩm cầm được</text></g>
+
+  <path class="edge" id="e-in1" d="M212,216 C 248,218 258,236 292,240"/>
+  <path class="edge" id="e-in2" d="M212,292 C 248,288 258,266 292,258"/>
+  <path class="edge" id="e-in3" d="M212,368 C 250,360 256,290 292,272"/>
+  <path class="edge" id="e-in4" d="M212,444 C 254,430 258,306 292,286"/>
+  <path class="edge" id="e-in5" d="M212,530 C 258,512 260,330 292,300"/>
+  <path class="edge" id="e-gpt-cc" d="M404,318 L404,378"/>
+  <path class="edge" id="e-cc-obs" d="M404,462 L404,522"/>
+  <path class="edge" id="e-gpt-lab" d="M516,262 C 552,258 560,242 592,238"/>
+  <path class="edge" id="e-lab1" d="M712,232 L744,232"/>
+  <path class="edge" id="e-lab2" d="M862,232 L894,232"/>
+  <path class="edge" id="e-lab3" d="M1022,232 L1054,232"/>
+  <path class="edge" id="e-lab-out" d="M1174,232 C 1224,232 1234,226 1270,222"/>
+  <path class="edge" id="e-gpt-stu" d="M516,286 C 552,314 556,428 592,452"/>
+  <path class="edge" id="e-stu1" d="M712,446 L744,446"/>
+  <path class="edge" id="e-stu2" d="M862,446 L894,446"/>
+  <path class="edge" id="e-stu3" d="M1022,446 L1054,446"/>
+  <path class="edge" id="e-stu-out" d="M1174,446 C 1224,446 1234,438 1270,434"/>
+  <path class="edge" id="e-cc-pro" d="M516,428 C 556,470 556,624 592,652"/>
+  <path class="edge" id="e-pro1" d="M712,646 L744,646"/>
+  <path class="edge" id="e-pro2" d="M882,646 L914,646"/>
+  <path class="edge" id="e-pro-out" d="M1194,646 C 1230,646 1240,640 1270,634"/>
+  <path class="edge dash" id="e-luu1" d="M1330,252 C 1330,300 1330,340 1330,392"/>
+  <path class="edge dash" id="e-luu2" d="M1330,466 C 1330,520 1330,560 1330,592"/>
+  <path class="edge dash" id="e-luu3" d="M1268,664 C 900,850 520,760 420,570"/>
+  <path class="edge dash" id="e-obs-gpt" d="M392,522 C 380,480 380,362 392,318"/>
+
+  <text class="elbl" data-e="e-gpt-cc" x="414" y="352">giao việc</text>
+  <text class="elbl" data-e="e-cc-obs" x="414" y="496">ghi lại</text>
+  <text class="elbl" data-e="e-obs-gpt" x="330" y="424" text-anchor="middle">mở phiên · hít vào</text>
+  <text class="elbl" data-e="e-luu3" x="850" y="826" text-anchor="middle">/luu · đóng phiên là thở ra, bài học chảy về kho</text>
+
+  <g class="node" data-k="ytuong"><rect x="46" y="192" width="166" height="48"/><text class="t" x="62" y="222" style="font-size:13px">Ý tưởng</text></g>
+  <g class="node" data-k="cauhoi"><rect x="46" y="268" width="166" height="48"/><text class="t" x="62" y="298" style="font-size:13px">Câu hỏi</text></g>
+  <g class="node" data-k="tailieu"><rect x="46" y="344" width="166" height="48"/><text class="t" x="62" y="374" style="font-size:13px">Tài liệu</text></g>
+  <g class="node" data-k="reference"><rect x="46" y="420" width="166" height="48"/><text class="t" x="62" y="450" style="font-size:13px">Reference</text></g>
+  <g class="node" data-k="khachhang"><rect x="46" y="496" width="166" height="64"/><text class="t" x="62" y="522" style="font-size:13px">Nhu cầu</text><text class="t" x="62" y="544" style="font-size:13px">khách hàng</text></g>
+
+  <g class="node brain" data-k="gpt"><rect x="292" y="212" width="224" height="106"/><text class="t" x="310" y="244">ChatGPT MAIN</text><text class="m" x="310" y="266">tư duy chiến lược</text><text class="m" x="310" y="283">nơi mọi việc được đóng khung</text><text class="m" x="310" y="300">trước khi giao đi</text></g>
+  <g class="node brain" data-k="cc"><rect x="292" y="378" width="224" height="84"/><text class="t" x="310" y="410">Claude Code</text><text class="m" x="310" y="432">điều phối và thi công</text><text class="m" x="310" y="449">tổng công trình sư</text></g>
+  <g class="node brain" data-k="obs"><rect x="292" y="522" width="224" height="84"/><text class="t" x="310" y="554">Obsidian</text><text class="m" x="310" y="576">bộ nhớ sống của cả hệ</text><text class="m" x="310" y="593">trí nhớ không nằm trong AI</text></g>
+
+  <text class="lanetag" x="592" y="196" style="fill:var(--turq)">A · Lab</text>
+  <text class="lanesub" x="668" y="196">nghiên cứu và thử nghiệm</text>
+  <g class="node lab" data-k="perplexity"><rect x="592" y="208" width="120" height="48"/><text class="t" x="606" y="228" style="font-size:12.5px">Perplexity</text><text class="m" x="606" y="245">scout nguồn</text></g>
+  <g class="node lab" data-k="hermes"><rect x="744" y="208" width="118" height="48"/><text class="t" x="758" y="228" style="font-size:12.5px">Hermes</text><text class="m" x="758" y="245">gom và nén</text></g>
+  <g class="node lab" data-k="nblm"><rect x="894" y="208" width="128" height="48"/><text class="t" x="908" y="228" style="font-size:12.5px">NotebookLM</text><text class="m" x="908" y="245">đọc bộ tài liệu</text></g>
+  <g class="node lab" data-k="cclab"><rect x="1054" y="208" width="120" height="48"/><text class="t" x="1068" y="228" style="font-size:12.5px">Claude Code</text><text class="m" x="1068" y="245">lưu, đóng gói</text></g>
+
+  <text class="lanetag" x="592" y="410" style="fill:var(--peri)">B · Studio</text>
+  <text class="lanesub" x="692" y="410">truyền thông nghe nhìn</text>
+  <g class="node stu" data-k="hermes2"><rect x="592" y="422" width="120" height="48"/><text class="t" x="606" y="442" style="font-size:12.5px">Hermes</text><text class="m" x="606" y="459">scout trend</text></g>
+  <g class="node stu" data-k="gemini"><rect x="744" y="422" width="118" height="48"/><text class="t" x="758" y="442" style="font-size:12.5px">Gemini</text><text class="m" x="758" y="459">art direction</text></g>
+  <g class="node stu" data-k="flow"><rect x="894" y="422" width="128" height="48"/><text class="t" x="908" y="442" style="font-size:12.5px">Flow</text><text class="m" x="908" y="459">tạo shot, video</text></g>
+  <g class="node stu" data-k="premiere"><rect x="1054" y="422" width="120" height="48"/><text class="t" x="1068" y="442" style="font-size:12.5px">Premiere</text><text class="m" x="1068" y="459">dựng, hoàn thiện</text></g>
+
+  <text class="lanetag" x="592" y="610" style="fill:var(--terra)">C · Product</text>
+  <text class="lanesub" x="702" y="610">website, app, proposal</text>
+  <g class="node pro" data-k="codex"><rect x="592" y="622" width="120" height="48"/><text class="t" x="606" y="642" style="font-size:12.5px">Codex · AGY</text><text class="m" x="606" y="659">task code hẹp</text></g>
+  <g class="node pro" data-k="ghrs"><rect x="744" y="622" width="138" height="48"/><text class="t" x="758" y="642" style="font-size:12.5px">GitHub · Render</text><text class="m" x="758" y="659">build và deploy</text></g>
+  <g class="node pro" data-k="ship"><rect x="914" y="622" width="280" height="48"/><text class="t" x="928" y="642" style="font-size:12.5px">Kiểm bằng mắt trên bản chạy thật</text><text class="m" x="928" y="659">chưa thấy chạy thì chưa gọi là xong</text></g>
+
+  <text class="freetext" x="592" y="748">App phụ trợ gọi theo việc: Gemini · Codex · AGY · NotebookLM · Perplexity · Hermes.</text>
+  <text class="freetext" x="592" y="766">Dùng đóng vai, không mở cùng lúc vô định.</text>
+
+  <g class="node out" data-k="outlab"><rect x="1270" y="192" width="186" height="60"/><text class="t" x="1286" y="216" style="font-size:12.5px">Report · quyết định</text><text class="m" x="1286" y="236">hiểu rõ hơn</text></g>
+  <g class="node out" data-k="outstu"><rect x="1270" y="406" width="186" height="60"/><text class="t" x="1286" y="430" style="font-size:12.5px">Ảnh · video · campaign</text><text class="m" x="1286" y="450">tạo nhanh hơn</text></g>
+  <g class="node out" data-k="outpro"><rect x="1270" y="592" width="186" height="72"/><text class="t" x="1286" y="616" style="font-size:12.5px">Website · app · hồ sơ</text><text class="m" x="1286" y="636">ship chuyên nghiệp hơn</text></g>
+</svg>
+
+<div class="panel" id="detail">
+  <button class="close" id="dclose" aria-label="Đóng">×</button>
+  <h2 id="d-title"></h2>
+  <div class="dm" id="d-meta"></div>
+  <p id="d-body"></p>
+</div>
+
+<div class="panel" id="flowcap">
+  <div class="fname" id="f-name"></div>
+  <ol id="f-steps"></ol>
+</div>
+</div>
+
+<script>
+const DETAIL = {
+  ytuong:{t:"Ý tưởng",m:"cửa vào",b:"Một ý loé lên giữa ngày. Vào hệ là nó được đóng khung trước, không trôi mất."},
+  cauhoi:{t:"Câu hỏi",m:"cửa vào",b:"Cửa vào của dây chuyền Lab. Luật đầu tiên: bắt đầu bằng câu hỏi, không bắt đầu bằng tool."},
+  tailieu:{t:"Tài liệu",m:"cửa vào",b:"File, sách, transcript. Điểm đến thường là NotebookLM để đọc thành bộ."},
+  reference:{t:"Reference",m:"cửa vào",b:"Ảnh, web, ví dụ hay nhặt được. Nuôi dây chuyền Studio."},
+  khachhang:{t:"Nhu cầu khách hàng",m:"cửa vào",b:"Đề bài thật từ người thật. Thường dẫn tới dây chuyền Product."},
+  gpt:{t:"ChatGPT MAIN",m:"bộ não · tư duy chiến lược",b:"Mọi việc được chốt câu hỏi, chốt insight, chốt bài toán ở đây trước khi giao đi. Một việc chỉ có một app chủ trì, các app khác là tay phụ."},
+  cc:{t:"Claude Code",m:"bộ não · điều phối và thi công",b:"Tổng công trình sư: nhận việc đã đóng khung, chia cho thợ, kiểm kết quả, lưu về kho. Chủ trì dây chuyền Product."},
+  obs:{t:"Obsidian",m:"bộ não · bộ nhớ sống",b:"Trí nhớ không nằm trong AI, nằm trong kho này. Mở phiên là hít vào, đóng phiên là thở ra: kết luận nào cũng phải quay về đây."},
+  perplexity:{t:"Perplexity",m:"Lab · bước 2",b:"Scout nguồn mới trên web. Chỉ đi tìm sau khi câu hỏi đã chốt."},
+  hermes:{t:"Hermes",m:"Lab · bước 3",b:"Gom và nén research. Luật: Hermes gom dữ liệu, không thay tư duy."},
+  nblm:{t:"NotebookLM",m:"Lab · bước 4",b:"Đọc cả bộ tài liệu một lượt. 160 notebook trong một năm nằm ở đây."},
+  cclab:{t:"Claude Code",m:"Lab · bước 5",b:"Lưu và đóng gói kết luận: report, decision memo, insight. Rồi chảy về Obsidian."},
+  hermes2:{t:"Hermes / Perplexity",m:"Studio · bước 2",b:"Scout trend, comment, pain point, đối thủ. Mở khi cần nghe thị trường nói gì."},
+  gemini:{t:"Gemini",m:"Studio · bước 3",b:"Phát triển art direction, sinh ảnh. Luật: Gemini là cầu nối sáng tạo, mở khi research cần chuyển sang visual."},
+  flow:{t:"Flow",m:"Studio · bước 4",b:"Tạo shot, video. Luật: không mở Flow trước khi có brief."},
+  premiere:{t:"Premiere",m:"Studio · bước 5",b:"Dựng và hoàn thiện. Xong thì Claude Code lưu prompt cộng asset map: asset tốt phải lưu để tái sử dụng."},
+  codex:{t:"Codex · AGY",m:"Product · bước 3",b:"Thợ code cho task hẹp có khung sẵn. Luật: Codex là subcontractor, không phải tổng thầu. AGY mở khi muốn A/B test một task kỹ thuật có timebox."},
+  ghrs:{t:"GitHub · Render · Supabase",m:"Product · bước 4",b:"Build và deploy. Luật: một repo canonical, không làm trên bản stale."},
+  ship:{t:"Kiểm bằng mắt",m:"Product · bước 5",b:"Người không code kiểm bằng trải nghiệm thật trên bản chạy thật. Mọi quyết định quan trọng phải được ghi lại."},
+  outlab:{t:"Report · quyết định",m:"ra · hiểu rõ hơn",b:"Thành phẩm của Lab. Không phải đống link, mà một quyết định đứng được."},
+  outstu:{t:"Ảnh · video · campaign",m:"ra · tạo nhanh hơn",b:"Thành phẩm của Studio, kèm asset map để lần sau không làm lại từ đầu."},
+  outpro:{t:"Website · app · hồ sơ",m:"ra · ship chuyên nghiệp hơn",b:"Thành phẩm của Product: thứ chạy thật trên mạng, có địa chỉ, bấm được."}
+};
+
+const FLOWS = {
+  lab:{name:"Một câu hỏi đi qua Lab",
+    edges:["e-in2","e-gpt-lab","e-lab1","e-lab2","e-lab3","e-lab-out","e-luu1"],
+    nodes:["cauhoi","gpt","perplexity","hermes","nblm","cclab","outlab","obs"],
+    steps:["ChatGPT MAIN chốt câu hỏi cho đúng trước","Perplexity scout nguồn mới, Hermes gom và nén","NotebookLM đọc cả bộ tài liệu một lượt","Claude Code đóng gói thành report, quyết định","Kết luận chảy về Obsidian, phiên sau dùng lại"]},
+  stu:{name:"Một chiến dịch đi qua Studio",
+    edges:["e-in1","e-gpt-stu","e-stu1","e-stu2","e-stu3","e-stu-out","e-luu2"],
+    nodes:["ytuong","gpt","hermes2","gemini","flow","premiere","outstu","obs"],
+    steps:["ChatGPT MAIN chốt message và brief","Hermes, Perplexity scout trend và reference","Gemini phát triển art direction, Flow tạo shot","Premiere dựng, Claude Code lưu prompt cộng asset map","Asset tốt lưu lại để tái sử dụng"]},
+  pro:{name:"Một sản phẩm đi qua Product",
+    edges:["e-in5","e-gpt-cc","e-cc-pro","e-pro1","e-pro2","e-pro-out","e-luu3"],
+    nodes:["khachhang","gpt","cc","codex","ghrs","ship","outpro","obs"],
+    steps:["ChatGPT MAIN chốt bài toán, Claude Code nhận vai tổng công trình sư","Codex, AGY nhận task code hẹp có khung sẵn","GitHub, Render, Supabase build và deploy","Kiểm bằng mắt trên bản chạy thật rồi mới gọi là xong","Quyết định quan trọng ghi lại, chảy về kho"]},
+  luu:{name:"Vòng chảy về kho · hoàn vốn hệ thống",
+    edges:["e-luu1","e-luu2","e-luu3","e-obs-gpt","e-cc-obs"],
+    nodes:["outlab","outstu","outpro","obs","gpt"],
+    steps:["Đóng phiên là thở ra: /luu ghi quyết định, trạng thái, bài học về kho","Trí nhớ không nằm trong AI, nằm trong dòng chảy này","Mở phiên sau là hít vào: hệ khôn hơn chính nó hôm qua"]}
+};
+
+const stage=document.getElementById('stage');
+const nodes=document.querySelectorAll('.node');
+const edges=document.querySelectorAll('.edge');
+const elbls=document.querySelectorAll('.elbl');
+const chips=document.querySelectorAll('.chip');
+const fcap=document.getElementById('flowcap');
+const detail=document.getElementById('detail');
+
+function setFlow(key){
+  chips.forEach(c=>c.classList.toggle('on',c.dataset.flow===key));
+  edges.forEach(e=>e.classList.remove('lit'));
+  elbls.forEach(l=>l.classList.remove('lit'));
+  nodes.forEach(n=>n.classList.remove('lit'));
+  if(key==='all'){stage.classList.remove('flowing');fcap.classList.remove('show');return}
+  const f=FLOWS[key];
+  stage.classList.add('flowing');
+  f.edges.forEach(id=>document.getElementById(id)?.classList.add('lit'));
+  elbls.forEach(l=>{if(f.edges.includes(l.dataset.e))l.classList.add('lit')});
+  f.nodes.forEach(k=>document.querySelector(`.node[data-k="${k}"]`)?.classList.add('lit'));
+  document.getElementById('f-name').textContent=f.name;
+  document.getElementById('f-steps').innerHTML=f.steps.map(s=>`<li>${s}</li>`).join('');
+  fcap.classList.add('show');
+}
+chips.forEach(c=>c.addEventListener('click',()=>setFlow(c.dataset.flow)));
+
+nodes.forEach(n=>n.addEventListener('click',()=>{
+  nodes.forEach(x=>x.classList.remove('sel'));
+  n.classList.add('sel');
+  const d=DETAIL[n.dataset.k];
+  if(!d)return;
+  document.getElementById('d-title').textContent=d.t;
+  document.getElementById('d-meta').textContent=d.m;
+  document.getElementById('d-body').textContent=d.b;
+  detail.classList.add('show');
+}));
+document.getElementById('dclose').addEventListener('click',()=>{detail.classList.remove('show');nodes.forEach(x=>x.classList.remove('sel'))});
+
+document.getElementById('themeToggle').addEventListener('click',()=>{
+  const cur=document.documentElement.getAttribute('data-theme');
+  const next=cur==='dark'?'light':'dark';
+  document.documentElement.setAttribute('data-theme',next);
+  try{localStorage.setItem('lch-theme',next)}catch(e){}
+});
+</script>
+</body>
+</html>
