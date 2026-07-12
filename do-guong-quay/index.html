@@ -537,27 +537,20 @@ h1 {
 
   <!-- ============ MÀN 1: CHÀO ============ -->
   <section class="screen active" id="screen-intro">
-    <div class="eyebrow">Trước khi giữ chỗ khoá "Mua lại thời gian"</div>
+    <div class="eyebrow">Trước khi giữ chỗ học</div>
     <h1>Đo guồng quay của bạn</h1>
-    <p class="lead">
-      Mình sẽ hỏi bạn 14 câu, mất chừng năm đến bảy phút thôi. Ở đây không có câu nào
-      là đúng hay sai cả, chỉ cần bạn trả lời thật lòng là được.
-    </p>
-    <p class="lead">
-      Sau cùng, bạn sẽ nhận được một bản đọc về chính cái guồng quay công việc mình đang chạy:
-      chỗ nào đang siết, chỗ nào vẫn còn chỗ thở, và mình cũng sẽ gợi ý một việc bạn có thể
-      làm ngay trong tuần này mà không cần phải mua thêm bất cứ thứ gì.
-    </p>
+    <p class="lead">Mình sẽ hỏi bạn 14 câu, mất chừng 5 đến 7 phút thôi. Không có câu nào là đúng hay sai cả, bạn cứ trả lời thật lòng là được.</p>
+    <p class="lead">Sau cùng, bạn sẽ nhận được một bản đọc về chính cái guồng quay công việc mình đang chạy: chỗ nào đang siết, chỗ nào vẫn còn chỗ thở, và mình cũng sẽ gợi ý một việc bạn có thể làm ngay trong tuần này mà không cần phải mua thêm bất cứ thứ gì.</p>
     <p class="scope-note">Một chia sẻ thẳng thắn trước khi bắt đầu: 14 câu này mình dựng dành cho những ai đang có một công việc đang vận hành, dù là đi làm thuê hay tự làm chủ. Nếu bạn đang trong giai đoạn tìm việc hoặc đã nghỉ rồi, thì nhiều câu hỏi sẽ hỏi trật đời bạn, và bản đọc cuối cùng sẽ không đúng về bạn. Mình nói trước để bạn đỡ mất công.</p>
     <div class="meta-row">
       <span class="meta-pill">14 câu</span>
       <span class="meta-pill">5 đến 7 phút</span>
       <span class="meta-pill">Không cần đăng ký</span>
     </div>
-    <button class="btn-primary" id="btnStart">Bắt đầu</button>
-    <button class="btn-ghost" id="btnResume" style="width:100%; margin-top:10px; display:none;">Làm tiếp bài đo đang dở</button>
+    <button class="btn-primary" id="btnStart">Bắt đầu đo</button>
+    <button class="btn-ghost" id="btnResume" style="width:100%; margin-top:10px; display:none;">Làm tiếp bài đo dở</button>
     <p class="privacy-note">Mọi câu trả lời của bạn chỉ nằm lại trong trình duyệt này thôi chứ không gửi đi đâu hết. Nếu chẳng may có việc bận phải đi giữa chừng, app sẽ tự nhớ chỗ bạn đang làm dở ngay trên máy, lúc quay lại là làm tiếp được luôn chứ không phải bắt đầu lại từ đầu đâu.
-      <a href="cach-do.html" style="color:inherit;text-decoration:underline;">Nếu muốn kiểm chứng lời hứa này, bạn có thể xem cái bản đồ app đo mình để ở đây.</a></p>
+      <a href="cach-do.html" style="color:inherit;text-decoration:underline;">Bạn có thể bấm vào đây để xem bản đồ app đo</a></p>
   </section>
 
   <!-- ============ MÀN 2: CÂU HỎI ============ -->
@@ -590,29 +583,29 @@ h1 {
     <h1 id="resultHeadline">Guồng quay của bạn</h1>
 
     <div class="result-section">
-      <h2>Năm trục</h2>
+      <h2>Năm trục đo</h2>
       <div id="barsWrap"></div>
     </div>
 
     <div class="result-section">
-      <h2>Điểm cao nhất và điểm cần chú ý</h2>
+      <h2>Điểm sáng và điểm cần lưu ý</h2>
       <div class="narrative-card" id="narrativeHigh"></div>
       <div class="narrative-card" id="narrativeLow"></div>
     </div>
 
     <div class="result-section">
-      <h2>Một việc cắt-ngay cho tuần này</h2>
+      <h2>Một việc cắt ngay tuần này</h2>
       <div class="cut-card" id="cutSuggestion"></div>
     </div>
 
     <div class="result-section">
-      <h2 id="doorHeading">Cửa của bạn</h2>
+      <h2 id="doorHeading">Lối đi cho bạn</h2>
       <div class="door-card" id="doorCard"></div>
     </div>
 
     <div class="restart-row">
-      <button class="btn-primary" id="btnSave" style="margin-bottom:12px;">Lưu bản đọc để gửi đi</button>
-      <p class="privacy-note" style="margin:0 0 16px;">Lưu về máy hoặc gửi cho người bạn tin, trước khi quyết gì. Vẫn không có gì gửi về phía mình.</p>
+      <button class="btn-primary" id="btnSave" style="margin-bottom:12px;">Lưu bản đọc</button>
+      <p class="privacy-note" style="margin:0 0 16px;">Lưu về máy hoặc gửi cho người bạn tin trước khi quyết định. Vẫn không có gì gửi về phía mình.</p>
       <button class="btn-ghost" id="btnRestart">Làm lại từ đầu</button>
     </div>
   </section>
@@ -642,20 +635,20 @@ const CONFIG = {
   // Nếu chạy thử thấy quá gắt, có thể đổi điều kiện cửa A ở hàm classifyDoor()
   // thành "T4 hoặc T5" thay vì "T4 và T5", đúng như ghi chú trong spec gốc.
   axisNames: {
-    T1: "Guồng quay",
-    T2: "Harness nghề",
+    T1: "Guồng việc",
+    T2: "Làm chủ nghề",
     T3: "Tư duy hệ",
     T4: "Kỷ luật thân",
-    T5: "Kỷ luật học"
+    T5: "Nhịp tự học"
   },
   questions: [
     // ---------------- T1 · Guồng quay (3 câu) ----------------
     {
       id: "C1",
       axis: "T1",
-      text: "Tuần vừa rồi, việc lặp đi lặp lại (báo cáo, email theo mẫu, tổng hợp, giấy tờ) chiếm bao nhiêu phần ngày làm việc của bạn vậy?",
+      text: "Tuần vừa rồi, việc lặp đi lặp lại như báo cáo, email mẫu, giấy tờ chiếm bao nhiêu phần ngày làm việc của bạn?",
       options: [
-        { label: "Gần như cả ngày, chuyên môn thật bị dồn vào tối", score: 3 },
+        { label: "Gần như cả ngày, chuyên môn bị dồn vào tối", score: 3 },
         { label: "Khoảng nửa ngày", score: 2 },
         { label: "Chừng một phần tư", score: 1 },
         { label: "Không đáng kể", score: 0 }
@@ -664,12 +657,12 @@ const CONFIG = {
     {
       id: "C2",
       axis: "T1",
-      text: "Lần gần nhất bạn làm việc sau 9 giờ tối vì việc ban ngày chưa xong là khi nào?",
+      text: "Lần gần nhất bạn phải làm việc sau 9 giờ tối vì việc ban ngày chưa xong là khi nào?",
       options: [
         { label: "Tuần này, hơn một lần", score: 3 },
         { label: "Tuần này, một lần", score: 2 },
-        { label: "Trong tháng", score: 1 },
-        { label: "Lâu rồi không nhớ", score: 0 }
+        { label: "Trong tháng này", score: 1 },
+        { label: "Lâu rồi không bị", score: 0 }
       ]
     },
     {
@@ -677,44 +670,44 @@ const CONFIG = {
       axis: "T1",
       text: "Nghĩ tới sáng thứ Hai, cảm giác thật của bạn gần với câu nào nhất?",
       options: [
-        { label: "Ngộp trước cả khi mở máy, vì biết cái guồng đang chờ", score: 3 },
-        { label: "Nặng, nhưng vào guồng rồi thì chạy được", score: 2 },
-        { label: "Bình thường, có tuần nặng tuần nhẹ", score: 1 },
-        { label: "Nhẹ nhõm, việc trong tầm kiểm soát", score: 0 }
+        { label: "Ngộp thở trước khi mở máy vì biết guồng quay đang đợi", score: 3 },
+        { label: "Hơi nặng nề nhưng vào guồng thì chạy được", score: 2 },
+        { label: "Bình thường, tuần nặng tuần nhẹ", score: 1 },
+        { label: "Nhẹ nhõm, việc nằm trong tầm kiểm soát", score: 0 }
       ]
     },
     // ---------------- T2 · Harness nghề (3 câu) ----------------
     {
       id: "C4",
       axis: "T2",
-      text: "Nếu phải mô tả sản phẩm cuối cùng của công việc bạn trong MỘT câu cho người ngoài ngành, bạn:",
+      text: "Nếu phải mô tả kết quả cuối cùng công việc của bạn trong một câu cho người ngoài ngành, bạn sẽ:",
       options: [
-        { label: "Nói được ngay, có khi còn kèm tiêu chí thế nào là đạt", score: 3 },
-        { label: "Nói được sau vài giây nghĩ", score: 2 },
-        { label: "Nói được nhưng dài dòng, người nghe hay hỏi lại", score: 1 },
-        { label: "Khó, việc của mình nhiều thứ lắm không gói được", score: 0 }
+        { label: "Nói được ngay kèm tiêu chí rõ ràng", score: 3 },
+        { label: "Nói được sau vài giây suy nghĩ", score: 2 },
+        { label: "Nói được nhưng dài dòng, họ phải hỏi lại", score: 1 },
+        { label: "Rất khó vì việc của mình quá nhiều thứ", score: 0 }
       ]
     },
     {
       id: "C5",
       axis: "T2",
-      text: "Trong nghề của bạn, bạn có \"cách làm riêng\" nào mà đồng nghiệp từng hỏi xin hay khen không?",
+      text: "Trong nghề, bạn có cách làm riêng nào từng được đồng nghiệp khen hay hỏi xin không?",
       options: [
-        { label: "Có, hơn một cái, và mình chỉ được cho người khác làm theo", score: 3 },
-        { label: "Có một cái rõ", score: 2 },
-        { label: "Chắc có, nhưng chưa ai hỏi bao giờ", score: 1 },
+        { label: "Có vài cái và chỉ được cho người khác làm", score: 3 },
+        { label: "Có một cái rất rõ ràng", score: 2 },
+        { label: "Chắc có nhưng chưa ai hỏi xin bao giờ", score: 1 },
         { label: "Làm theo hướng dẫn chung là chính", score: 0 }
       ]
     },
     {
       id: "C6",
       axis: "T2",
-      text: "Khi nhận một việc quen thuộc, bạn ước lượng thời gian hoàn thành sai lệch cỡ nào?",
+      text: "Khi nhận một việc quen thuộc, bạn ước lượng thời gian hoàn thành sai lệch thế nào?",
       options: [
         { label: "Thường trúng, lệch dưới một phần tư", score: 3 },
-        { label: "Lệch chừng một nửa", score: 2 },
-        { label: "Hay bị lố gấp đôi", score: 1 },
-        { label: "Không ước được, tới đâu hay tới đó", score: 0 }
+        { label: "Lệch chừng một nửa thời gian", score: 2 },
+        { label: "Hay bị lố thời gian gấp đôi", score: 1 },
+        { label: "Không ước lượng được, tới đâu hay tới đó", score: 0 }
       ]
     },
     // ---------------- T3 · Tư duy hệ (4 câu) ----------------
@@ -723,135 +716,135 @@ const CONFIG = {
       axis: "T3",
       text: "Nếu ngày mai phải bàn giao việc cho một người mới, bạn đưa họ cái gì?",
       options: [
-        { label: "Tài liệu hoặc checklist có sẵn, mình đã viết từ trước", score: 3 },
-        { label: "Ngồi viết ra được trong một buổi, vì trong đầu đã có khung", score: 2 },
-        { label: "Kèm tay chỉ việc vài tuần, khó viết ra", score: 1 },
-        { label: "Việc của mình phải tự làm mới hiểu, không bàn giao được", score: 0 }
+        { label: "Tài liệu hoặc checklist có sẵn từ trước", score: 3 },
+        { label: "Ngồi viết được ngay vì đã có khung sẵn", score: 2 },
+        { label: "Phải kèm tay chỉ việc chứ khó viết ra", score: 1 },
+        { label: "Việc đặc thù phải tự làm mới hiểu được", score: 0 }
       ]
     },
     {
       id: "C8",
       axis: "T3",
-      text: "Gặp một vấn đề mới chưa từng gặp trong công việc, phản xạ ĐẦU TIÊN của bạn là gì?",
+      text: "Gặp một vấn đề mới chưa từng thấy trong công việc, phản xạ đầu tiên của bạn là gì?",
       options: [
-        { label: "Bẻ nó ra thành phần nhỏ, xem phần nào mình đã biết cách xử", score: 3 },
-        { label: "Tìm xem ai từng gặp cái tương tự, học cách của họ rồi chỉnh", score: 2 },
-        { label: "Hỏi người giỏi hơn trước cho chắc", score: 1 },
-        { label: "Thấy ngán, thường để nó đó tới khi buộc phải xử", score: 0 }
+        { label: "Bẻ nhỏ nó ra xem phần nào mình tự xử được", score: 3 },
+        { label: "Tìm xem ai từng gặp chưa để học theo", score: 2 },
+        { label: "Đi hỏi người giỏi hơn trước cho chắc ăn", score: 1 },
+        { label: "Thấy ngán và né tránh đến khi buộc phải làm", score: 0 }
       ]
     },
     {
       id: "C9",
       axis: "T3",
-      text: "File và tài liệu công việc của bạn hiện đang được tổ chức thế nào?",
+      text: "File và tài liệu công việc của bạn hiện đang được sắp xếp thế nào?",
       options: [
-        { label: "Có cấu trúc thư mục rõ, tìm lại được đồ của năm ngoái trong một phút", score: 3 },
-        { label: "Có cấu trúc nhưng lâu lâu vẫn thất lạc", score: 2 },
-        { label: "Dồn vài chỗ lớn, tìm bằng ô search là chính", score: 1 },
-        { label: "Rải rác desktop, chat, email, tìm gì cũng lâu", score: 0 }
+        { label: "Thư mục rõ ràng, tìm lại đồ cũ rất nhanh", score: 3 },
+        { label: "Có ngăn nắp nhưng lâu lâu vẫn bị thất lạc", score: 2 },
+        { label: "Dồn đống vài chỗ rồi gõ tìm kiếm là chính", score: 1 },
+        { label: "Rải rác khắp nơi, mỗi lần tìm mệt mỏi", score: 0 }
       ]
     },
     {
       id: "C10",
       axis: "T3",
-      text: "Lần gần nhất bạn tự quyết một việc quan trọng KHÔNG hỏi ý ai trước, rồi kết quả ra sao?",
+      text: "Lần gần nhất bạn tự quyết một việc quan trọng không hỏi ý ai, kết quả thế nào?",
       options: [
-        { label: "Trong tháng này, kết quả tốt hoặc rút được bài học rõ", score: 3 },
-        { label: "Trong quý, ổn", score: 2 },
-        { label: "Lâu rồi, mình quen tham khảo trước cho chắc", score: 1 },
-        { label: "Việc quan trọng thì luôn cần người khác gật mới yên tâm", score: 0 }
+        { label: "Ngay trong tháng này, kết quả rất ổn", score: 3 },
+        { label: "Trong quý này, kết quả khá tốt", score: 2 },
+        { label: "Lâu rồi vì mình quen hỏi han trước", score: 1 },
+        { label: "Luôn cần người khác gật đầu mới dám làm", score: 0 }
       ]
     },
     // ---------------- T4 · Kỷ luật thân (2 câu) ----------------
     {
       id: "C11",
       axis: "T4",
-      text: "Tuần vừa rồi bạn vận động ra mồ hôi mấy lần vậy? (chạy, gym, đá bóng, cầu lông, bơi, nhảy, gì cũng tính)",
+      text: "Tuần vừa rồi bạn vận động thể chất ra mồ hôi mấy lần?",
       options: [
-        { label: "Ba lần trở lên", score: 3 },
-        { label: "Một tới hai lần", score: 2 },
-        { label: "Không, nhưng tháng này có", score: 1 },
-        { label: "Lâu rồi không", score: 0 }
+        { label: "Từ 3 lần trở lên", score: 3 },
+        { label: "Khoảng 1 đến 2 lần", score: 2 },
+        { label: "Không có nhưng trong tháng thì có", score: 1 },
+        { label: "Lâu lắm rồi không vận động", score: 0 }
       ]
     },
     {
       id: "C12",
       axis: "T4",
-      text: "Môn thể thao hay vận động bạn đang theo, bạn giữ nó được bao lâu rồi?",
+      text: "Thói quen tập luyện thể thao của bạn đã duy trì được bao lâu rồi?",
       options: [
-        { label: "Trên một năm, thành nếp", score: 3 },
-        { label: "Vài tháng nay", score: 2 },
-        { label: "Mới bắt đầu lại gần đây", score: 1 },
-        { label: "Chưa có môn nào theo được", score: 0 }
+        { label: "Trên 1 năm và đã thành nếp sống", score: 3 },
+        { label: "Mới duy trì được vài tháng nay", score: 2 },
+        { label: "Mới bắt đầu quay lại gần đây", score: 1 },
+        { label: "Chưa có môn nào theo được lâu", score: 0 }
       ]
     },
     // ---------------- T5 · Kỷ luật học (2 câu) ----------------
     {
       id: "C13",
       axis: "T5",
-      text: "Cuốn sách hoặc khoá học gần nhất bạn HOÀN THÀNH (không phải bắt đầu) là khi nào?",
+      text: "Cuốn sách hay khóa học gần nhất bạn đã hoàn thành là khi nào?",
       options: [
-        { label: "Trong quý này", score: 3 },
-        { label: "Trong nửa năm", score: 2 },
-        { label: "Trong năm", score: 1 },
-        { label: "Không nhớ", score: 0 }
+        { label: "Ngày trong quý này", score: 3 },
+        { label: "Trong vòng nửa năm qua", score: 2 },
+        { label: "Trong vòng một năm qua", score: 1 },
+        { label: "Lâu quá không nhớ nổi", score: 0 }
       ]
     },
     {
       id: "C14",
       axis: "T5",
-      text: "Kỹ năng hoặc môn mới gần nhất bạn tự học tới mức dùng được là gì, hồi nào?",
+      text: "Kỹ năng mới gần nhất bạn tự học đến mức dùng được là khi nào?",
       options: [
-        { label: "Có, trong năm nay, kể tên được ngay", score: 3 },
-        { label: "Có, một hai năm trước", score: 2 },
-        { label: "Có bắt đầu vài thứ nhưng chưa cái nào tới nơi", score: 1 },
-        { label: "Lâu lắm rồi không học gì mới", score: 0 }
+        { label: "Có ngay trong năm nay", score: 3 },
+        { label: "Có từ một hai năm trước", score: 2 },
+        { label: "Có bắt đầu vài thứ nhưng chưa tới đâu", score: 1 },
+        { label: "Lâu lắm rồi chưa học gì mới", score: 0 }
       ]
     }
   ],
   // Đoạn diễn giải khi một trục là CAO NHẤT của người trả lời.
   narrativeHigh: {
-    T1: "Guồng quay của bạn đang siết thật. Việc lặp đi lặp lại đang ăn vào giờ mà lẽ ra chuyên môn thật của bạn được dùng, và cơ thể bạn đang trả giá bằng những tối muộn. Đây là chỗ đau rõ nhất, và cũng là chỗ đáng gỡ nhất.",
-    T2: "Bạn nắm nghề của mình rất chắc. Bạn biết đầu ra là gì, biết cách làm riêng của mình, và ước lượng thời gian gần như trúng phóc. Đây là nền tốt, một cái hệ AI có chỗ để bám vào chứ không phải dựng từ số không.",
-    T3: "Tư duy tổ chức của bạn đang chạy tốt. Bạn bẻ vấn đề ra được, tài liệu hoá được, tự quyết được khi cần. Đây là loại đầu óc mà một hệ thống mới, dù là AI hay bất kỳ công cụ nào, cũng dễ ăn khớp vào.",
-    T4: "Bạn có một nhịp vận động thật, đều đặn, ra mồ hôi hàng tuần. Đây là bằng chứng sống rằng bạn nuôi được một thói quen dài hơi, điều mà rất nhiều hệ thống hay dở dang vì thiếu.",
-    T5: "Bạn vẫn đang học, vẫn đang nạp cái mới, không để đầu óc đứng yên. Nhịp đọc và học của bạn là lý do một hệ mới có cơ hội bén rễ thay vì rơi rụng sau vài tuần."
+    T1: "Guồng việc của bạn đang siết rất căng. Những việc lặp đi lặp lại đang ăn mòn khoảng thời gian lẽ ra dành cho chuyên môn thực tế, khiến bạn phải trả giá bằng những buổi tối muộn mệt mỏi. Đây là chỗ đau rõ ràng nhất, cũng là nơi cần được tháo gỡ sớm nhất.",
+    T2: "Bạn nắm chuyên môn và công việc của mình rất chắc chắn. Bạn biết rõ đầu ra cần gì, có phương pháp riêng và ước lượng thời gian chuẩn xác. Đây là nền tảng cực tốt để một hệ thống AI bám vào hoạt động hiệu quả chứ không phải xây lại từ đầu.",
+    T3: "Tư duy hệ thống của bạn đang vận hành rất ổn. Bạn bẻ nhỏ được vấn đề, đóng gói được quy trình và tự đưa ra quyết định khi cần thiết. Kiểu tư duy này giúp bạn cực kỳ dễ dàng làm quen và làm chủ các công cụ công nghệ mới.",
+    T4: "Bạn duy trì được nhịp vận động thể chất đều đặn hàng tuần. Đây là bằng chứng thực tế cho thấy bạn có khả năng nuôi dưỡng một thói quen dài hạn, điều mà rất nhiều người thất bại khi xây dựng hệ thống mới vì thiếu đi tính kiên trì.",
+    T5: "Bạn vẫn liên tục học hỏi và nạp thêm kiến thức mới, không để đầu óc mình đứng yên một chỗ. Tinh thần chủ động này chính là lý do giúp một hệ thống làm việc mới có cơ hội bén rễ sâu sắc thay vì bị bỏ xó sau vài tuần thử nghiệm."
   },
   // Đoạn diễn giải khi một trục là THẤP NHẤT của người trả lời.
   narrativeLow: {
-    T1: "Ngày của bạn hiện vẫn còn chỗ thở, guồng quay chưa siết tới mức cần một cái hệ lớn để gỡ. Đây không phải điểm yếu đâu, chỉ là chưa đến lúc cần thôi.",
-    T2: "Có thể bạn chưa quen gọi tên rõ đầu ra công việc của mình, hoặc cách làm riêng của bạn còn mờ. Đây là chỗ nên làm rõ trước khi giao cho bất kỳ hệ thống nào, kể cả AI, vì hệ chỉ nhân được cái đã có khuôn.",
-    T3: "Tư duy tổ chức và hệ thống của bạn có thể còn đang hình thành. File chưa có chỗ, vấn đề mới còn hay để đó. Không sao, nhiều khi việc đổ tới nhanh hơn sức sắp xếp, chứ không phải bạn xuề xoà. Chỉ là một hệ thống mới sẽ cần một nền vững hơn để đứng.",
-    T4: "Nhịp vận động của bạn đang tạm gác lại. Có thể vì quỹ giờ trong ngày đang dồn hết cho một việc khác cần bạn ngay bây giờ, không phải vì thiếu kỷ luật. Khi nào có khoảng trống, đây là chỗ có thể quay lại trước.",
-    T5: "Đã lâu rồi bạn chưa hoàn thành một cuốn sách hay học xong một cái gì mới. Có thể quỹ chú ý của bạn đang dồn cho việc gấp hơn, chứ không phải bạn lười. Nhưng một hệ thống mới thì cần đúng cái nhịp nạp đó để bén rễ."
+    T1: "Ngày làm việc của bạn hiện tại vẫn còn những khoảng thở tự nhiên. Guồng quay chưa siết đến mức bạn cần một hệ thống lớn để giải phóng sức lao động. Đây không phải điểm yếu, chỉ là chưa đến lúc bạn cần phải can thiệp thôi.",
+    T2: "Có thể bạn chưa quen gọi tên rõ ràng đầu ra của từng đầu việc, hoặc phương pháp làm việc riêng vẫn còn mờ nhạt. Đây là điểm nên làm rõ trước khi giao việc cho bất kỳ hệ thống nào, kể cả AI, bởi vì máy móc chỉ nhân bản được những gì đã có khuôn mẫu sẵn.",
+    T3: "Tư duy sắp xếp và hệ thống của bạn có thể vẫn đang trong quá trình định hình. Tài liệu chưa ngăn nắp, việc mới phát sinh còn hay bị trì hoãn. Không sao cả, nhiều khi do việc dồn dập quá nhanh chứ không phải do bạn thiếu ngăn nắp. Chỉ là một hệ thống mới sẽ cần một điểm tựa vững vàng hơn để vận hành êm ái.",
+    T4: "Nhịp tập luyện của bạn đang phải tạm gác lại sang một bên. Có thể do quỹ thời gian mỗi ngày đang phải dồn hết cho những việc khẩn cấp khác chứ không phải vì bạn thiếu kỷ luật. Khi nào cuộc sống có thêm khoảng trống, đây là thói quen đầu tiên bạn nên khôi phục.",
+    T5: "Đã lâu rồi bạn chưa đọc trọn vẹn một cuốn sách hay học xong một kỹ năng mới. Có thể sự tập trung của bạn đang phải dồn hết cho những việc cấp bách trước mắt chứ không phải do bạn lười biếng. Tuy nhiên, một hệ thống làm việc mới luôn cần nhịp nạp kiến thức này để có thể bén rễ thành công."
   },
   // Bốn biến thể gợi ý cắt-ngay, chọn theo đáp án C1 (mức 0 tới 3).
   cutSuggestionByC1: [
-    "Ngày của bạn hiện còn nhẹ, chưa cần cắt gì gấp. Nếu muốn thử, chọn một việc lặp nhỏ nhất trong tuần và ghi lại đúng ba bước bạn làm mỗi lần, chỉ vậy thôi, để lần sau nhìn lại có sẵn khuôn.",
-    "Thử chọn MỘT việc lặp lại trong tuần này (một email mẫu, một báo cáo cố định) và viết hẳn ra thành một khuôn (template) bạn có thể dùng lại, không cần công cụ gì, chỉ cần giấy hoặc ghi chú.",
-    "Chọn việc lặp lại chiếm nhiều giờ nhất tuần này, và thử hỏi chính mình: nếu phải bàn giao việc này cho người khác trong một buổi, mình sẽ viết ra sao? Viết thử phần đó ra trước, dù chưa bàn giao cho ai.",
-    "Việc lặp đang ăn gần hết ngày của bạn, và chuyên môn thật bị dồn vào tối. Việc cắt-ngay tuần này: chọn đúng MỘT việc lặp bạn ghét nhất, tính xem một tuần nó ngốn bao nhiêu phút, viết con số đó ra. Nhìn thấy con số thật là bước đầu để gỡ nó."
+    "Ngày làm việc của bạn hiện tại tương đối dễ thở, chưa cần phải cắt giảm gì khẩn cấp. Nếu muốn thử sức, bạn hãy chọn một việc lặp đi lặp lại nhỏ nhất trong tuần, viết ra đúng ba bước thực hiện để lần sau cứ thế làm theo khuôn có sẵn.",
+    "Hãy chọn đúng một việc lặp lại trong tuần này như một email gửi khách hay một báo cáo định kỳ. Viết nó ra thành một cái khung mẫu trên giấy hoặc ghi chú điện thoại để lần sau chỉ việc lấy ra dùng lại, chưa cần dùng đến công cụ phức tạp nào cả.",
+    "Hãy chọn ra đầu việc lặp đi lặp lại đang tiêu tốn nhiều thời gian nhất của bạn trong tuần này. Thử tự hỏi mình nếu phải bàn giao việc này cho người khác trong một buổi thì bạn sẽ viết hướng dẫn thế nào. Hãy viết thử phần hướng dẫn đó ra trước, dù chưa bàn giao cho ai cả.",
+    "Những việc lặp đi lặp lại đang nuốt chửng ban ngày của bạn, đẩy việc chuyên môn chính vào ban đêm. Hành động cắt ngay tuần này: chọn đúng một việc lặp bạn thấy ghét nhất, tính thử xem một tuần nó ngốn hết bao nhiêu phút rồi viết con số đó ra giấy. Nhìn thấy con số thực tế là bước đầu tiên để bạn tháo gỡ nó."
   ],
   // Nội dung Ba cửa ra, lời mời lấy NGUYÊN VĂN từ spec.
   doors: {
     A: {
-      label: "Cửa A · Khoá 8 buổi (15 triệu)",
-      quote: "Guồng quay của bạn đúng loại khoá này gỡ, và bạn có nền để nuôi cái hệ mình sẽ dựng. Mình mời bạn giữ chỗ.",
-      note: "App này chỉ mở cửa, chỗ thật xác nhận qua một cuộc gọi 15 phút với Hoàng.",
-      ctaLabel: "Giữ một chỗ",
+      label: "Cửa A · Khóa 8 buổi (15.000.000đ)",
+      quote: "Guồng quay công việc của bạn rất khớp với những gì lớp học này giải quyết, bản thân bạn cũng đã có nền tảng tốt để vận hành hệ thống mới. Mình mời bạn giữ chỗ trong lớp học tới.",
+      note: "Bản đo này chỉ giúp mở cánh cửa phù hợp, vị trí chính thức trong lớp sẽ được xác nhận qua một cuộc trò chuyện ngắn khoảng 15 phút với mình.",
+      ctaLabel: "Giữ một chỗ học",
       ctaHref: "https://aimentoringlch.netlify.app/#hoc-phi"
     },
     B: {
-      label: "Cửa B · Buổi 1-1, 3 giờ (1,5 triệu)",
-      quote: "Bạn đau thật, và bạn xứng đáng được gỡ ngay một việc thay vì ôm một hệ chưa đúng lúc. Ba giờ, một mình bạn với mình, cắt ngay việc nặng nhất.",
-      note: "Trang buổi 1-1 riêng chưa dựng xong, nhắn thẳng để giữ chỗ trước.",
-      ctaLabel: "Nhắn Zalo giữ chỗ buổi 1-1",
+      label: "Cửa B · Buổi tư vấn 1 kèm 1 kéo dài 3 giờ (1.500.000đ)",
+      quote: "Bạn đang thực sự quá tải, nhưng có lẽ chưa phải lúc để xây một hệ thống lớn. Bạn xứng đáng được tháo gỡ ngay một đầu việc cụ thể. Trong buổi 1 kèm 1 kéo dài 3 giờ này, mình và bạn sẽ cùng ngồi lại để cắt phăng việc nặng nề nhất.",
+      note: "Trang thông tin riêng cho buổi 1 kèm 1 này chưa dựng xong, bạn có thể nhắn tin trực tiếp cho mình để giữ chỗ trước.",
+      ctaLabel: "Nhắn Zalo giữ chỗ 1 kèm 1",
       ctaHref: "https://zalo.me/0906300191"
     },
     C: {
       label: "Cửa C · Chưa phải lúc",
-      quote: "Ngày của bạn còn chỗ thở, vậy là quý, đừng mua thứ mình chưa cần. Cầm bản đọc này về, khi nào guồng quay siết lại thì mình ở đây.",
-      note: "Còn nếu chỗ thở này đã ở với bạn lâu rồi, nó không phải may mắn tạm thời đâu, nó là nếp bạn giữ được. Bản đọc này chụp lại cái nếp đó, để lúc bạn bước vào một guồng mới, bạn biết mình mang theo gì.",
+      quote: "Ngày làm việc của bạn vẫn còn những khoảng thở quý giá, đừng vội mua những thứ bản thân chưa thực sự cần đến. Bạn cứ giữ bản đọc này làm kỷ niệm, khi nào guồng quay công việc siết chặt lại thì mình luôn ở đây đợi bạn.",
+      note: "Nếu khoảng trống dễ thở này đã đồng hành cùng bạn từ lâu, đó không phải là sự may mắn nhất thời mà là nếp sống lành mạnh bạn đã giữ được. Bản đọc này sẽ ghi lại nếp sống đó để sau này khi bước vào guồng quay mới, bạn biết mình đang có những gì làm điểm tựa.",
       ctaLabel: "",
       ctaHref: ""
     }
@@ -955,7 +948,7 @@ els.btnStart.addEventListener('click', () => {
   if (!saved) return;
   const answered = Object.keys(saved.answers).length;
   els.btnResume.style.display = 'inline-flex';
-  els.btnResume.textContent = `Làm tiếp bài đo đang dở (đã trả lời ${answered} trên ${CONFIG.questions.length} câu)`;
+  els.btnResume.textContent = `Làm tiếp bài đo dở (đã trả lời ${answered} trên ${CONFIG.questions.length} câu)`;
   els.btnResume.addEventListener('click', () => {
     state.answers = saved.answers;
     state.current = Math.min(saved.current, CONFIG.questions.length - 1);
@@ -1127,7 +1120,7 @@ function computeAndRenderResult() {
   doorHtml += `<p class="door-quote">${doorCfg.quote}</p>`;
   if (door === 'A') {
     doorHtml += `<a class="door-cta" href="${doorCfg.ctaHref}">${doorCfg.ctaLabel}</a>`;
-    doorHtml += `<p class="door-note">${doorCfg.note}</p>`;
+    doorHtml += `<p class="door-note">Nếu bạn ngại nhắn qua Zalo, cứ gửi email trực tiếp cho mình qua địa chỉ <a href="mailto:leconghoangstudio@gmail.com" style="color:inherit;">leconghoangstudio@gmail.com</a> nhé.</p>`;
   } else if (door === 'B') {
     doorHtml += `<a class="door-cta door-cta-b" href="${doorCfg.ctaHref}">${doorCfg.ctaLabel}</a>`;
     doorHtml += `<p class="door-note">${doorCfg.note}</p>`;
@@ -1142,9 +1135,9 @@ function computeAndRenderResult() {
 
   // Bản chữ của bản đọc, để nút "Lưu bản đọc" mang ra khỏi tab.
   const lines = [];
-  lines.push('Mình vừa ngồi trả lời 14 câu về một tuần làm việc của mình, đây là bản đọc app trả lại.');
+  lines.push('Mình vừa hoàn thành bài đo 14 câu về tuần làm việc của mình, đây là kết quả thực tế mà ứng dụng gửi lại.');
   lines.push('');
-  lines.push('BẢN ĐỌC GUỒNG QUAY');
+  lines.push('KẾT QUẢ ĐO GUỒNG QUAY CÔNG VIỆC');
   lines.push('Đo tại: https://aimentoringlch.netlify.app/do-guong-quay/');
   lines.push('');
   lines.push('Năm trục:');
@@ -1158,7 +1151,7 @@ function computeAndRenderResult() {
   lines.push('');
   lines.push(`${doorCfg.label}. ${doorCfg.quote}`);
   lines.push('');
-  lines.push('Nếu bạn nhận được bản này từ người thân: họ không nhờ bạn quyết giùm đâu, chỉ muốn bạn thấy một tuần của họ đang chạy thế nào.');
+  lines.push('Nếu bạn nhận được bản đọc này từ người thân của mình, họ không cần bạn phải đưa ra quyết định hay khuyên nhủ gì đâu, họ chỉ muốn chia sẻ để bạn thấu hiểu một tuần làm việc của họ đang diễn ra thế nào thôi.');
   state.resultText = lines.join('\n');
 }
 
