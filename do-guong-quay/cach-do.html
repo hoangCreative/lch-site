@@ -177,7 +177,7 @@ body{font-family:var(--sans);background:var(--paper);color:var(--ink);display:fl
   <g class="node doorB" data-k="doorB"><rect x="966" y="370" width="390" height="104"/><text class="t" x="982" y="398">Cửa B · Buổi 1-1, 3 giờ</text><text class="m" x="982" y="418">đau thật nhưng chưa đúng lúc ôm cả hệ</text><text class="m" x="982" y="434">ba giờ, cắt ngay một việc nặng nhất</text></g>
   <g class="node doorC" data-k="doorC"><rect x="966" y="562" width="390" height="104"/><text class="t" x="982" y="590">Cửa C · Chưa phải lúc</text><text class="m" x="982" y="610">ngày còn chỗ thở là điều quý</text><text class="m" x="982" y="626">không bán gì hết, cầm bản đọc về</text><text class="m" x="982" y="642">khi nào guồng siết lại thì mình ở đây</text></g>
 
-  <g class="node" data-k="data"><rect x="46" y="756" width="250" height="76"/><text class="t" x="62" y="784">Câu trả lời của bạn</text><text class="m" x="62" y="804">ở lại trong máy bạn</text><text class="m" x="62" y="820">đóng tab là hết, không lưu lại đâu</text></g>
+  <g class="node" data-k="data"><rect x="46" y="756" width="250" height="76"/><text class="t" x="62" y="784">Câu trả lời của bạn</text><text class="m" x="62" y="804">ở lại trong máy bạn, không gửi đi đâu</text><text class="m" x="62" y="820">đo dở thì nhớ chỗ dở, đo xong là xoá</text></g>
   <g class="node dead" data-k="server"><rect x="610" y="800" width="230" height="76"/><text class="t" x="626" y="828">Máy chủ thu dữ liệu</text><text class="m" x="626" y="848">app này không có thứ đó</text><text class="m" x="626" y="864">không xin email, không cần đăng nhập</text></g>
 </svg>
 
@@ -210,8 +210,8 @@ const DETAIL = {
   doorA:{t:"Cửa A · Khoá 8 buổi",m:"điều kiện: đủ cả 5 trục đạt",b:"Lời trong app: “Guồng quay của bạn đúng loại khoá này gỡ, và bạn có nền để nuôi cái hệ mình sẽ dựng.” App chỉ mở cửa, chỗ thật xác nhận qua một cuộc gọi 15 phút với Hoàng."},
   doorB:{t:"Cửa B · Buổi 1-1, 3 giờ",m:"điều kiện: T1 đạt, thiếu ít nhất một trục khác",b:"Lời trong app: “Bạn đau thật, và bạn xứng đáng được gỡ ngay một việc thay vì ôm một hệ chưa đúng lúc.” Ba giờ, một mình bạn với Hoàng, cắt ngay việc nặng nhất."},
   doorC:{t:"Cửa C · Chưa phải lúc",m:"điều kiện: T1 chưa đạt",b:"Lời trong app: “Ngày của bạn còn chỗ thở, vậy là quý, đừng mua thứ mình chưa cần.” Cửa này không có nút mua nào, đó là chủ đích: app sàng lọc thật chứ không gom số."},
-  data:{t:"Câu trả lời của bạn",m:"ở lại trong máy bạn",b:"App chạy hoàn toàn trong trình duyệt của bạn: không gửi đi đâu, không lưu lại, không xin email, không cần đăng nhập. Đóng tab là mọi thứ biến mất."},
-  server:{t:"Máy chủ thu dữ liệu",m:"không tồn tại",b:"Trong mã nguồn app không có một dòng gọi mạng nào. Nếu bạn biết đọc code, cứ bấm chuột phải xem nguồn mà kiểm, đây là loại lời hứa kiểm được."}
+  data:{t:"Câu trả lời của bạn",m:"ở lại trong máy bạn",b:"App chạy hoàn toàn trong trình duyệt của bạn: không gửi đi đâu, không xin email, không cần đăng nhập. Đang đo dở mà bị gọi đi thì app nhớ chỗ dở ngay trên máy bạn, quay lại làm tiếp được; đo xong hoặc bấm làm lại là phần nhớ tạm đó được xoá sạch."},
+  server:{t:"Máy chủ thu dữ liệu",m:"không tồn tại",b:"Trong mã nguồn app không có một dòng gọi mạng nào. Nếu bạn biết đọc code, cứ bấm chuột phải xem nguồn mà kiểm. Không rành code cũng kiểm được: mở app lên rồi tắt mạng đi, làm hết 14 câu, app vẫn chạy ngon lành, vậy là tự thấy nó không gửi gì đi đâu."}
 };
 
 const FLOWS = {
@@ -226,7 +226,7 @@ const FLOWS = {
   data:{name:"Câu trả lời đi đâu",
     edges:["e-server"],
     nodes:["data","server"],
-    steps:["App chạy trọn trong trình duyệt của bạn, không có đường mạng ra","Không lưu, không xin email, không đăng nhập, đóng tab là hết","Vì app này để bạn nhìn rõ mình, không phải để gom danh sách khách"]}
+    steps:["App chạy trọn trong trình duyệt của bạn, không có đường mạng ra","Không xin email, không đăng nhập; đo dở thì máy bạn nhớ chỗ dở, đo xong là xoá","Muốn tự kiểm không cần biết code: tắt mạng đi, app vẫn chạy hết 14 câu","Vì app này để bạn nhìn rõ mình, không phải để gom danh sách khách"]}
 };
 
 const stage=document.getElementById('stage');

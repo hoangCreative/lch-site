@@ -312,6 +312,15 @@ h1 {
   line-height: var(--leading-normal);
 }
 
+.scope-note {
+  font-size: var(--text-sm);
+  color: var(--text-muted);
+  line-height: var(--leading-relaxed);
+  border-left: 3px solid var(--border-strong);
+  padding-left: 14px;
+  margin: 0 0 6px;
+}
+
 /* ---------- question screen ---------- */
 .q-number {
   font-size: var(--text-xs);
@@ -539,13 +548,15 @@ h1 {
       chỗ nào đang siết, chỗ nào còn thở, và một gợi ý bạn có thể làm ngay trong tuần này,
       không cần mua gì cả.
     </p>
+    <p class="scope-note">Một lời thật trước khi đo: 14 câu này dựng cho người đang có một công việc đang chạy, đi làm hay tự làm chủ đều được. Nếu bạn đang tìm việc hoặc đã nghỉ, nhiều câu sẽ hỏi trật đời bạn, và bản đọc cuối sẽ không đúng về bạn. Mình nói trước để bạn khỏi mất công.</p>
     <div class="meta-row">
       <span class="meta-pill">14 câu</span>
       <span class="meta-pill">5 đến 7 phút</span>
       <span class="meta-pill">Không cần đăng ký</span>
     </div>
     <button class="btn-primary" id="btnStart">Bắt đầu</button>
-    <p class="privacy-note">Câu trả lời của bạn chỉ nằm trong trình duyệt này, không gửi đi đâu cả.
+    <button class="btn-ghost" id="btnResume" style="width:100%; margin-top:10px; display:none;">Làm tiếp bài đo đang dở</button>
+    <p class="privacy-note">Câu trả lời của bạn chỉ nằm trong trình duyệt này, không gửi đi đâu cả. Lỡ bị gọi đi giữa chừng, app nhớ chỗ bạn đang dở ngay trên máy bạn, quay lại làm tiếp được, không phải bắt đầu lại.
       <a href="cach-do.html" style="color:inherit;text-decoration:underline;">Muốn kiểm lời hứa đó, xem bản đồ app đo bạn thế nào.</a></p>
   </section>
 
@@ -600,6 +611,8 @@ h1 {
     </div>
 
     <div class="restart-row">
+      <button class="btn-primary" id="btnSave" style="margin-bottom:12px;">Lưu bản đọc để gửi đi</button>
+      <p class="privacy-note" style="margin:0 0 16px;">Lưu về máy hoặc gửi cho người bạn tin, trước khi quyết gì. Vẫn không có gì gửi về phía mình.</p>
       <button class="btn-ghost" id="btnRestart">Làm lại từ đầu</button>
     </div>
   </section>
@@ -850,8 +863,31 @@ const CONFIG = {
    ============================================================================ */
 const state = {
   current: 0,
-  answers: {} // { C1: {axis, score}, ... }
+  answers: {}, // { C1: {axis, score}, ... }
+  resultText: ''
 };
+
+/* ---------- nhớ chỗ đang dở, chỉ trên máy người dùng ----------
+   Câu trả lời dở dang lưu tạm bằng localStorage NGAY TRÊN máy này,
+   không gửi đi đâu. Đo xong hoặc bấm làm lại là xoá sạch. */
+const STORE_KEY = 'dgq-progress';
+function saveProgress() {
+  try {
+    localStorage.setItem(STORE_KEY, JSON.stringify({ current: state.current, answers: state.answers }));
+  } catch (e) {}
+}
+function clearProgress() {
+  try { localStorage.removeItem(STORE_KEY); } catch (e) {}
+}
+function loadProgress() {
+  try {
+    const raw = localStorage.getItem(STORE_KEY);
+    if (!raw) return null;
+    const data = JSON.parse(raw);
+    if (!data || !data.answers || Object.keys(data.answers).length === 0) return null;
+    return data;
+  } catch (e) { return null; }
+}
 
 const els = {
   themeToggle: document.getElementById('themeToggle'),
@@ -860,8 +896,10 @@ const els = {
   screenAnalyzing: document.getElementById('screen-analyzing'),
   screenResult: document.getElementById('screen-result'),
   btnStart: document.getElementById('btnStart'),
+  btnResume: document.getElementById('btnResume'),
   btnBack: document.getElementById('btnBack'),
   btnRestart: document.getElementById('btnRestart'),
+  btnSave: document.getElementById('btnSave'),
   progressLabel: document.getElementById('progressLabel'),
   progressFill: document.getElementById('progressFill'),
   progressBar: document.getElementById('progressBar'),
@@ -904,11 +942,27 @@ els.themeToggle.addEventListener('click', () => {
 
 /* ---------- intro ---------- */
 els.btnStart.addEventListener('click', () => {
+  clearProgress();
   state.current = 0;
   state.answers = {};
   renderQuestion();
   showScreen(els.screenQuestion);
 });
+
+/* ---------- làm tiếp bài đo đang dở ---------- */
+(function initResume() {
+  const saved = loadProgress();
+  if (!saved) return;
+  const answered = Object.keys(saved.answers).length;
+  els.btnResume.style.display = 'inline-flex';
+  els.btnResume.textContent = `Làm tiếp bài đo đang dở (đã trả lời ${answered} trên ${CONFIG.questions.length} câu)`;
+  els.btnResume.addEventListener('click', () => {
+    state.answers = saved.answers;
+    state.current = Math.min(saved.current, CONFIG.questions.length - 1);
+    renderQuestion();
+    showScreen(els.screenQuestion);
+  });
+})();
 
 /* ---------- question rendering ---------- */
 function renderQuestion() {
@@ -941,6 +995,7 @@ function renderQuestion() {
 
 function selectOption(q, idx, opt) {
   state.answers[q.id] = { axis: q.axis, score: opt.score, optionIndex: idx };
+  saveProgress();
   // highlight ngay
   Array.from(els.qOptions.children).forEach((el, i) => {
     el.classList.toggle('selected', i === idx);
@@ -949,6 +1004,7 @@ function selectOption(q, idx, opt) {
   setTimeout(() => {
     if (state.current < CONFIG.questions.length - 1) {
       state.current += 1;
+      saveProgress();
       renderQuestion();
     } else {
       goToAnalyzing();
@@ -959,12 +1015,14 @@ function selectOption(q, idx, opt) {
 els.btnBack.addEventListener('click', () => {
   if (state.current > 0) {
     state.current -= 1;
+    saveProgress();
     renderQuestion();
   }
 });
 
 /* ---------- analyzing ---------- */
 function goToAnalyzing() {
+  clearProgress();
   showScreen(els.screenAnalyzing);
   setTimeout(() => {
     computeAndRenderResult();
@@ -1072,17 +1130,57 @@ function computeAndRenderResult() {
     doorHtml += `<p class="door-note">${doorCfg.note}</p>`;
   } else if (door === 'B') {
     doorHtml += `<a class="door-cta door-cta-b" href="${doorCfg.ctaHref}">${doorCfg.ctaLabel}</a>`;
+    doorHtml += `<p class="door-note">${doorCfg.note}</p>`;
+    doorHtml += `<p class="door-note">Không tiện Zalo? Gửi email lặng lẽ về <a href="mailto:leconghoangstudio@gmail.com" style="color:inherit;">leconghoangstudio@gmail.com</a>, mình trả lời như nhau, không gọi điện.</p>`;
   }
   // Cửa C: không có nút bán, chỉ lời chào tử tế.
   els.doorCard.innerHTML = doorHtml;
 
   els.resultHeadline.textContent = 'Guồng quay của bạn';
+
+  // Bản chữ của bản đọc, để nút "Lưu bản đọc" mang ra khỏi tab.
+  const lines = [];
+  lines.push('BẢN ĐỌC GUỒNG QUAY CỦA TÔI');
+  lines.push('Đo tại: https://aimentoringlch.netlify.app/do-guong-quay/');
+  lines.push('');
+  lines.push('Năm trục:');
+  axisOrder.forEach(ax => lines.push(`- ${CONFIG.axisNames[ax]}: ${pctByAxis[ax]}%`));
+  lines.push('');
+  lines.push(`Cao nhất, ${CONFIG.axisNames[highAxis]}: ${CONFIG.narrativeHigh[highAxis]}`);
+  lines.push('');
+  lines.push(`Cần chú ý, ${CONFIG.axisNames[lowAxis]}: ${CONFIG.narrativeLow[lowAxis]}`);
+  lines.push('');
+  lines.push(`Một việc cắt-ngay cho tuần này: ${CONFIG.cutSuggestionByC1[c1Score]}`);
+  lines.push('');
+  lines.push(`${doorCfg.label}. ${doorCfg.quote}`);
+  state.resultText = lines.join('\n');
 }
+
+/* ---------- lưu bản đọc để gửi đi ---------- */
+els.btnSave.addEventListener('click', () => {
+  const text = state.resultText;
+  if (!text) return;
+  if (navigator.share) {
+    navigator.share({ title: 'Bản đọc guồng quay', text: text }).catch(() => {});
+  } else {
+    const blob = new Blob([text], { type: 'text/plain;charset=utf-8' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'ban-doc-guong-quay.txt';
+    document.body.appendChild(a);
+    a.click();
+    a.remove();
+    setTimeout(() => URL.revokeObjectURL(url), 1000);
+  }
+});
 
 /* ---------- restart ---------- */
 els.btnRestart.addEventListener('click', () => {
+  clearProgress();
   state.current = 0;
   state.answers = {};
+  els.btnResume.style.display = 'none';
   showScreen(els.screenIntro);
 });
 </script>
