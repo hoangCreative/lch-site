@@ -818,6 +818,8 @@ const CONFIG = {
     T4: "Nhịp vận động của bạn đang phải tạm gác lại. Có thể do quỹ thời gian và tâm trí của bạn đang phải dồn hết để gánh vác những trách nhiệm lớn lao khác trong cuộc sống, hoàn toàn không phải vì bạn thiếu kỷ luật. Khi nào cuộc sống có lại những khoảng thở, đây sẽ là thói quen giúp bạn tái tạo năng lượng tốt nhất.",
     T5: "Đã lâu rồi bạn chưa có thời gian đọc trọn vẹn một cuốn sách hay học một kỹ năng mới. Điều này rất bình thường khi tâm trí bạn đang phải ưu tiên cho những việc cấp bách trước mắt, không phải do bạn lười biếng. Khi guồng việc được tháo gỡ bớt, bạn sẽ tự khắc có lại không gian để nạp thêm những điều mới mẻ."
   },
+  // Đoạn thay lời khen khi KHÔNG trục nào vượt ngưỡng (kể cả trục cao nhất).
+  narrativeHighFallback: "Dù đây là trục có điểm số nhỉnh hơn cả, mình thấy nó vẫn chưa chạm tới ngưỡng hoạt động tự nhiên của bạn. Điều này có thể do bạn vừa trả lời hơi nhanh nên chưa phản ánh hết thực tế, hoặc thực sự tuần này bạn đang phải gồng gánh quá nhiều áp lực khiến các guồng quay đều tạm chậm lại. Khi lòng thong thả hơn, bạn thử đo lại một lần xem sao nhé.",
   // Bốn biến thể gợi ý cắt-ngay, chọn theo đáp án C1 (mức 0 tới 3).
   cutSuggestionByC1: [
     "Ngày làm việc của bạn hiện tại tương đối dễ thở, chưa cần phải cắt giảm gì khẩn cấp. Nếu muốn thử sức, bạn hãy chọn một việc lặp đi lặp lại nhỏ nhất trong tuần, viết ra đúng ba bước thực hiện để lần sau cứ thế làm theo khuôn có sẵn.",
@@ -857,7 +859,8 @@ const CONFIG = {
 const state = {
   current: 0,
   answers: {}, // { C1: {axis, score}, ... }
-  resultText: ''
+  resultText: '',
+  advancing: false // chặn bấm trùng trong 250ms chuyển câu
 };
 
 /* ---------- nhớ chỗ đang dở, chỉ trên máy người dùng ----------
@@ -987,22 +990,27 @@ function renderQuestion() {
 }
 
 function selectOption(q, idx, opt) {
-  state.answers[q.id] = { axis: q.axis, score: opt.score, optionIndex: idx };
-  saveProgress();
-  // highlight ngay
-  Array.from(els.qOptions.children).forEach((el, i) => {
-    el.classList.toggle('selected', i === idx);
-  });
-  // tự chuyển câu sau ~250ms
+  if (state.advancing) return; // đang chuyển câu thì bỏ qua, tránh nhảy cóc mất câu
+  state.advancing = true;
+  // hẹn giờ NGAY sau khi bật cờ: dù bước nào phía dưới lỗi, cờ vẫn được tắt sau 250ms
   setTimeout(() => {
-    if (state.current < CONFIG.questions.length - 1) {
-      state.current += 1;
+    state.advancing = false;
+    // đích là câu CHƯA trả lời đầu tiên; đủ 14 câu mới được chấm
+    const nextIdx = CONFIG.questions.findIndex(qq => !state.answers[qq.id]);
+    if (nextIdx >= 0) {
+      state.current = nextIdx;
       saveProgress();
       renderQuestion();
     } else {
       goToAnalyzing();
     }
   }, 250);
+  state.answers[q.id] = { axis: q.axis, score: opt.score, optionIndex: idx };
+  saveProgress();
+  // highlight ngay
+  Array.from(els.qOptions.children).forEach((el, i) => {
+    el.classList.toggle('selected', i === idx);
+  });
 }
 
 els.btnBack.addEventListener('click', () => {
@@ -1096,9 +1104,11 @@ function computeAndRenderResult() {
     if (pctByAxis[ax] < pctByAxis[lowAxis]) lowAxis = ax;
   });
 
+  // chỉ khen khi trục cao nhất THẬT SỰ vượt ngưỡng; không thì nói thật
+  const highPassed = axisPassed(highAxis, pctByAxis[highAxis]);
   els.narrativeHigh.innerHTML = `
     <span class="tag high">Cao nhất · ${CONFIG.axisNames[highAxis]}</span>
-    <p>${CONFIG.narrativeHigh[highAxis]}</p>
+    <p>${highPassed ? CONFIG.narrativeHigh[highAxis] : CONFIG.narrativeHighFallback}</p>
   `;
   els.narrativeLow.innerHTML = `
     <span class="tag low">Cần chú ý · ${CONFIG.axisNames[lowAxis]}</span>
