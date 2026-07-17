@@ -83,7 +83,7 @@
           if (!r.ok) throw new Error('no form backend');
           closeBook();
           form.reset();
-          showToast('Đã ghi nhận', 'Đăng ký của bạn đã tới nơi. Mình sẽ liên hệ lại sớm nhé.');
+          showToast('Đã ghi nhận', 'Thông tin của bạn đã tới nơi. Mình sẽ liên hệ sớm để chúng ta cùng bắt đầu giữ lại thời gian nhé.');
         }).catch(guiQuaEmail);
       });
     }
