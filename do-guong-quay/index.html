@@ -541,7 +541,7 @@ h1 {
     <h1>Đo guồng quay của bạn</h1>
     <p class="lead">Mình sẽ hỏi bạn 14 câu, mất chừng 5 đến 7 phút thôi. Không có câu nào là đúng hay sai cả, bạn cứ trả lời thật lòng là được.</p>
     <p class="lead">Sau cùng, bạn sẽ nhận được một bản đọc về chính cái guồng quay thời gian mình đang chạy: chỗ nào đang siết, chỗ nào vẫn còn chỗ thở, và mình cũng sẽ gợi ý một việc bạn có thể làm ngay trong tuần này để giải phóng bớt vài giờ rảnh mà không cần mua gì.</p>
-    <p class="scope-note">Một chia sẻ chân thành trước khi bắt đầu: 14 câu trắc nghiệm này được thiết kế tối ưu cho những ai đang trực tiếp vận hành một công việc số bận rộn, dù làm tự do hay làm công sở. Nếu bạn đang ở một nhịp nghỉ, đang tìm việc, làm nội trợ, chăm sóc người thân hoặc đã nghỉ hưu, các câu hỏi có thể không phản ánh đúng hoàn cảnh thực tế của bạn lúc này. Mình xin phép chia sẻ trước để bạn cân nhắc, tránh mất thời gian làm bài mà không nhận được kết quả như ý.</p>
+    <p class="scope-note">Một chia sẻ chân thành trước khi bắt đầu: 14 câu trắc nghiệm này được thiết kế tối ưu cho những ai đang trực tiếp xoay xở với một công việc số bận rộn, dù làm tự do hay làm công sở. Nếu bạn đang ở một nhịp nghỉ, đang tìm việc, làm nội trợ, chăm sóc người thân hoặc đã nghỉ hưu, các câu hỏi có thể không phản ánh đúng hoàn cảnh thực tế của bạn lúc này. Mình xin phép chia sẻ trước để bạn cân nhắc, tránh mất thời gian làm bài mà không nhận được kết quả như ý.</p>
     <div class="meta-row">
       <span class="meta-pill">14 câu</span>
       <span class="meta-pill">5 đến 7 phút</span>
@@ -805,8 +805,8 @@ const CONFIG = {
   // Đoạn diễn giải khi một trục là CAO NHẤT của người trả lời.
   narrativeHigh: {
     T1: "Guồng việc của bạn đang siết rất căng. Những việc lặp đi lặp lại đang ăn mòn khoảng thời gian lẽ ra dành cho chuyên môn thực tế, khiến bạn phải trả giá bằng những buổi tối muộn mệt mỏi. Đây là chỗ đau rõ ràng nhất, cũng là nơi cần được tháo gỡ sớm nhất.",
-    T2: "Bạn nắm chuyên môn và công việc của mình rất chắc chắn. Bạn biết rõ đầu ra cần gì, có phương pháp riêng và ước lượng thời gian chuẩn xác. Đây là nền tảng cực tốt để một hệ thống AI bám vào hoạt động hiệu quả chứ không phải xây lại từ đầu.",
-    T3: "Tư duy hệ thống của bạn đang vận hành rất ổn. Bạn bẻ nhỏ được vấn đề, đóng gói được quy trình và tự đưa ra quyết định khi cần thiết. Kiểu tư duy này giúp bạn cực kỳ dễ dàng làm quen và làm chủ các công cụ công nghệ mới.",
+    T2: "Bạn nắm chuyên môn và công việc của mình rất chắc chắn. Bạn biết rõ đầu ra cần gì, có phương pháp riêng và ước lượng thời gian chuẩn xác. Đây là nền tảng cực tốt để bạn đưa AI vào trợ lực hiệu quả chứ không phải xây lại từ đầu.",
+    T3: "Tư duy hệ thống của bạn đang rất vững vàng. Bạn bẻ nhỏ được vấn đề, đóng gói được quy trình và tự đưa ra quyết định khi cần thiết. Kiểu tư duy này giúp bạn cực kỳ dễ dàng làm quen và làm chủ các công cụ công nghệ mới.",
     T4: "Bạn duy trì được nhịp vận động thể chất đều đặn hàng tuần. Đây là bằng chứng thực tế cho thấy bạn có khả năng nuôi dưỡng một thói quen dài hạn, điều mà rất nhiều người thất bại khi xây dựng hệ thống mới vì thiếu đi tính kiên trì.",
     T5: "Bạn vẫn liên tục học hỏi và nạp thêm kiến thức mới, không để đầu óc mình đứng yên một chỗ. Tinh thần chủ động này chính là lý do giúp một hệ thống làm việc mới có cơ hội bén rễ sâu sắc thay vì bị bỏ xó sau vài tuần thử nghiệm."
   },
@@ -814,7 +814,7 @@ const CONFIG = {
   narrativeLow: {
     T1: "Ngày làm việc của bạn hiện tại vẫn còn những khoảng thở tự nhiên. Guồng quay chưa siết đến mức bạn cần một hệ thống lớn để giải phóng sức lao động. Đây không phải điểm yếu, chỉ là chưa đến lúc bạn cần phải can thiệp thôi.",
     T2: "Có thể bạn chưa quen gọi tên rõ ràng đầu ra của từng đầu việc, hoặc phương pháp làm việc riêng vẫn còn mờ nhạt. Đây là điểm nên làm rõ trước khi giao việc cho bất kỳ hệ thống nào, kể cả AI, bởi vì máy móc chỉ nhân bản được những gì đã có khuôn mẫu sẵn.",
-    T3: "Tư duy sắp xếp và hệ thống của bạn có thể vẫn đang trong quá trình định hình. Tài liệu chưa ngăn nắp, việc mới phát sinh còn hay bị trì hoãn. Không sao cả, nhiều khi do việc dồn dập quá nhanh chứ không phải do bạn thiếu ngăn nắp. Chỉ là một hệ thống mới sẽ cần một điểm tựa vững vàng hơn để vận hành êm ái.",
+    T3: "Tư duy sắp xếp và hệ thống của bạn có thể vẫn đang trong quá trình định hình. Tài liệu chưa ngăn nắp, việc mới phát sinh còn hay bị trì hoãn. Không sao cả, nhiều khi do việc dồn dập quá nhanh chứ không phải do bạn thiếu ngăn nắp. Chỉ là một guồng việc mới sẽ cần một điểm tựa vững vàng hơn để chạy thật êm.",
     T4: "Nhịp vận động của bạn đang phải tạm gác lại. Có thể do quỹ thời gian và tâm trí của bạn đang phải dồn hết để gánh vác những trách nhiệm lớn lao khác trong cuộc sống, hoàn toàn không phải vì bạn thiếu kỷ luật. Khi nào cuộc sống có lại những khoảng thở, đây sẽ là thói quen giúp bạn tái tạo năng lượng tốt nhất.",
     T5: "Đã lâu rồi bạn chưa có thời gian đọc trọn vẹn một cuốn sách hay học một kỹ năng mới. Điều này rất bình thường khi tâm trí bạn đang phải ưu tiên cho những việc cấp bách trước mắt, không phải do bạn lười biếng. Khi guồng việc được tháo gỡ bớt, bạn sẽ tự khắc có lại không gian để nạp thêm những điều mới mẻ."
   },
@@ -831,7 +831,7 @@ const CONFIG = {
   doors: {
     A: {
       label: "Cửa A · Khóa 8 buổi (15.000.000đ)",
-      quote: "Guồng quay công việc của bạn rất khớp với những gì lớp học này giải quyết, bản thân bạn cũng đã có nền tảng tốt để vận hành hệ thống mới. Mình mời bạn giữ chỗ trong lớp học tới.",
+      quote: "Guồng quay công việc của bạn rất khớp với những gì lớp học này giải quyết, bản thân bạn cũng đã có nền tảng tốt để làm chủ guồng việc mới. Mình mời bạn giữ chỗ trong lớp học tới.",
       note: "Bản đo này chỉ giúp mở cánh cửa phù hợp, vị trí chính thức trong lớp sẽ được xác nhận qua một cuộc trò chuyện ngắn khoảng 15 phút với mình.",
       ctaLabel: "Giữ một chỗ học",
       ctaHref: "https://aimentoringlch.netlify.app/#hoc-phi"
