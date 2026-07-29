@@ -408,7 +408,12 @@ p{ text-wrap:pretty; }
 }
 .c-why-h{ font-size:15.5px; font-weight:700; color:#F1F4F4; margin-bottom:8px; }
 .c-why-card p{ margin:0; font-size:14px; line-height:1.7; color:#B7C0C0; }
-.c-why-more{ margin:32px 0 0; font-size:15px; }
+.c-why-note{
+  margin:32px 0 0; padding:20px 22px;
+  background:var(--turq-soft); border:1px solid var(--turq-line);
+  border-radius:var(--r-card); font-size:15px; line-height:1.75; color:var(--ink-2);
+}
+.c-why-more{ margin:18px 0 0; font-size:15px; }
 .c-why-more a{ color:#5FCBBF; font-weight:600; text-decoration:none; }
 .c-why-more a:hover{ text-decoration:underline; }
 
