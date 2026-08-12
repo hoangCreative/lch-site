@@ -1128,11 +1128,11 @@ function computeAndRenderResult() {
   doorHtml += `<p class="door-quote">${doorCfg.quote}</p>`;
   if (door === 'A') {
     doorHtml += `<a class="door-cta" href="${doorCfg.ctaHref}">${doorCfg.ctaLabel}</a>`;
-    doorHtml += `<p class="door-note">Nếu bạn ngại nhắn qua Zalo, cứ gửi email trực tiếp cho mình qua địa chỉ <a href="mailto:leconghoangstudio@gmail.com" style="color:inherit;">leconghoangstudio@gmail.com</a> nhé.</p>`;
+    doorHtml += `<p class="door-note">Nếu cần liên hệ chung, gửi email về <a href="mailto:leconghoangstudio@gmail.com" style="color:inherit;">leconghoangstudio@gmail.com</a>. Chỉ cần tên và cách liên hệ; không gửi dữ liệu nhạy cảm, tài liệu công việc hoặc dữ liệu của người khác.</p>`;
   } else if (door === 'B') {
     doorHtml += `<a class="door-cta door-cta-b" href="${doorCfg.ctaHref}">${doorCfg.ctaLabel}</a>`;
     doorHtml += `<p class="door-note">${doorCfg.note}</p>`;
-    doorHtml += `<p class="door-note">Không tiện Zalo? Gửi email lặng lẽ về <a href="mailto:leconghoangstudio@gmail.com" style="color:inherit;">leconghoangstudio@gmail.com</a>, mình trả lời như nhau, không gọi điện.</p>`;
+    doorHtml += `<p class="door-note">Không tiện Zalo, gửi email về <a href="mailto:leconghoangstudio@gmail.com" style="color:inherit;">leconghoangstudio@gmail.com</a>. Chỉ cần tên, cách liên hệ và dịch vụ muốn tìm hiểu; không gửi dữ liệu nhạy cảm, tài liệu công việc hoặc dữ liệu của người khác.</p>`;
   } else if (doorCfg.note) {
     // Cửa C: không có nút bán, chỉ lời chào tử tế, kèm một dòng cho người mà chỗ thở là nếp sống.
     doorHtml += `<p class="door-note">${doorCfg.note}</p>`;
