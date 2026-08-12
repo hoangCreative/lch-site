@@ -48,50 +48,6 @@
     scrim.addEventListener('click', function(e){ if (e.target === scrim) closeBook(); });
     document.addEventListener('keydown', function(e){ if (e.key === 'Escape' && !scrim.hidden) closeBook(); });
 
-    var form = document.getElementById('booking-form');
-    var toast = document.getElementById('toast');
-    function showToast(title, msg){
-      if (!toast) return;
-      var t = toast.querySelector('.toast-title'); if (t && title) t.textContent = title;
-      var m = toast.querySelector('.toast-msg'); if (m && msg) m.textContent = msg;
-      toast.hidden = false;
-      setTimeout(function(){ toast.hidden = true; }, 12000);
-    }
-    if (form){
-      form.addEventListener('submit', function(e){
-        e.preventDefault();
-        if (form.querySelector('[name="bot-field"]').value) return; /* honeypot */
-        var v = function(n){ var el = form.querySelector('[name="' + n + '"]'); return el ? el.value.trim() : ''; };
-        var fields = { 'form-name': 'giu-cho', name: v('name'), email: v('email'), job: v('job'), why: v('why') };
-        var urlBody = Object.keys(fields).map(function(k){
-          return encodeURIComponent(k) + '=' + encodeURIComponent(fields[k]);
-        }).join('&');
-        function guiQuaEmail(){
-          var mailBody = 'Tên: ' + fields.name + '\nEmail: ' + fields.email + '\nNghề: ' + fields.job + '\nChỗ đang ngốn nhiều giờ nhất: ' + fields.why;
-          window.location.href = 'mailto:leconghoangstudio@gmail.com?subject=' +
-            encodeURIComponent('Giữ một chỗ · Mua lại thời gian của chính bạn') +
-            '&body=' + encodeURIComponent(mailBody);
-          closeBook();
-          form.reset();
-          showToast('Một bước nữa là xong', 'Ứng dụng email của bạn đang mở với nội dung điền sẵn, bấm Gửi là xong. Không thấy gì mở ra? Nhắn Zalo 0906 300 191 hoặc gửi thẳng về leconghoangstudio@gmail.com nhé.');
-        }
-        fetch('/', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-          body: urlBody
-        }).then(function(r){
-          if (!r.ok) throw new Error('no form backend');
-          closeBook();
-          form.reset();
-          showToast('Đã ghi nhận', 'Thông tin của bạn đã tới nơi. Mình sẽ liên hệ sớm để chúng ta cùng bắt đầu giữ lại thời gian nhé.');
-        }).catch(guiQuaEmail);
-      });
-    }
-    if (toast){
-      toast.querySelectorAll('.js-close-toast').forEach(function(b){
-        b.addEventListener('click', function(){ toast.hidden = true; });
-      });
-    }
   }
 
   /* ---------- nút liên hệ: bấm ra chữ thật, không mở app ngay ---------- */
