@@ -1,0 +1,15 @@
+/* Self-hosted Be Vietnam Pro and JetBrains Mono.
+ * Source: Google Fonts repositories. Licenses are stored beside these files. */
+
+@font-face { font-family:'Be Vietnam Pro'; font-style:normal; font-weight:300; font-display:swap; src:url('./be-vietnam-pro-300.ttf') format('truetype'); }
+@font-face { font-family:'Be Vietnam Pro'; font-style:normal; font-weight:400; font-display:swap; src:url('./be-vietnam-pro-400.ttf') format('truetype'); }
+@font-face { font-family:'Be Vietnam Pro'; font-style:normal; font-weight:500; font-display:swap; src:url('./be-vietnam-pro-500.ttf') format('truetype'); }
+@font-face { font-family:'Be Vietnam Pro'; font-style:normal; font-weight:600; font-display:swap; src:url('./be-vietnam-pro-600.ttf') format('truetype'); }
+@font-face { font-family:'Be Vietnam Pro'; font-style:normal; font-weight:700; font-display:swap; src:url('./be-vietnam-pro-700.ttf') format('truetype'); }
+@font-face { font-family:'Be Vietnam Pro'; font-style:normal; font-weight:800; font-display:swap; src:url('./be-vietnam-pro-800.ttf') format('truetype'); }
+@font-face { font-family:'Be Vietnam Pro'; font-style:italic; font-weight:400; font-display:swap; src:url('./be-vietnam-pro-400-italic.ttf') format('truetype'); }
+@font-face { font-family:'Be Vietnam Pro'; font-style:italic; font-weight:600; font-display:swap; src:url('./be-vietnam-pro-600-italic.ttf') format('truetype'); }
+@font-face { font-family:'JetBrains Mono'; font-style:normal; font-weight:400; font-display:swap; src:url('./jetbrains-mono-400.ttf') format('truetype'); }
+@font-face { font-family:'JetBrains Mono'; font-style:normal; font-weight:500; font-display:swap; src:url('./jetbrains-mono-500.ttf') format('truetype'); }
+@font-face { font-family:'JetBrains Mono'; font-style:normal; font-weight:600; font-display:swap; src:url('./jetbrains-mono-600.ttf') format('truetype'); }
+@font-face { font-family:'JetBrains Mono'; font-style:normal; font-weight:700; font-display:swap; src:url('./jetbrains-mono-700.ttf') format('truetype'); }
