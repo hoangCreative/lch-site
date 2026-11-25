@@ -4,14 +4,14 @@
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Cho chủ doanh nghiệp mới bắt đầu với AI · Lê Công Hoàng</title>
-<meta name="description" content="Học AI từ đầu trên việc thật của công ty, và cùng đưa AI vào một quy trình đang ngốn giờ. Lê Công Hoàng, sáng lập marillCreative." />
+<meta name="description" content="Một người đọc người, đọc hệ thống và tự xây hệ AI quanh chính mình, giúp chủ doanh nghiệp tính đúng chỗ đưa AI vào và tạo nhịp làm việc cùng AI." />
 <!-- ponytail: trang gửi bằng link, không vào nav, sitemap hay Google; gỡ noindex khi muốn công khai -->
 <meta name="robots" content="noindex" />
 <meta property="og:type" content="website" />
 <meta property="og:site_name" content="Lê Công Hoàng" />
 <meta property="og:title" content="Cho chủ doanh nghiệp mới bắt đầu với AI" />
-<meta property="og:description" content="Học AI từ đầu trên việc thật của công ty, và cùng đưa AI vào một quy trình đang ngốn giờ." />
-<meta property="og:image" content="https://aimentoringlch.netlify.app/assets/lch-tokyo-2022.jpg" />
+<meta property="og:description" content="Tính đúng chỗ đưa AI vào công ty, cố vấn để anh chị giữ quyền quyết, và tạo nhịp làm việc cùng AI cho cả đội." />
+<meta property="og:image" content="https://aimentoringlch.netlify.app/assets/dn-ban-dem.jpg" />
 <meta property="og:url" content="https://aimentoringlch.netlify.app/doanh-nghiep.html" />
 <link rel="icon" href="assets/podcast/mark.png" />
 <script>try{var t=localStorage.getItem('lch-theme');if(t!=='dark'&&t!=='light')t=matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light';document.documentElement.setAttribute('data-theme',t);}catch(e){}</script>
@@ -19,18 +19,78 @@
 <link rel="stylesheet" href="styles.css" />
 <style>
   .nv-right .btn{white-space:nowrap}
+  .dn-line{border:1px solid color-mix(in srgb,currentColor 16%,transparent)}
   .dn-fig{margin:28px 0 0}
-  .dn-fig img{width:100%;height:auto;display:block;border-radius:14px}
-  .dn-keys{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px;margin-top:28px}
-  .dn-key{border:1px solid color-mix(in srgb,currentColor 18%,transparent);border-radius:14px;padding:16px 18px}
+  .dn-fig img{width:100%;height:auto;max-height:340px;object-fit:cover;display:block;border-radius:14px}
+  .dn-cta{display:flex;justify-content:center;width:100%;box-sizing:border-box;margin-top:16px}
+  .dn-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:14px;margin-top:24px}
+  .dn-card{border-radius:14px;padding:18px 20px;display:flex;flex-direction:column}
+  .dn-card .dn-cta{margin-top:auto}
+  .dn-card h3{margin:0 0 6px;font-size:19px}
+  .dn-card p{margin:0;font-size:15px}
+  .dn-card .dn-proof{margin-top:10px;font-size:13px;opacity:.72}
+  .dn-keys{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px;margin-top:24px}
+  .dn-key{border-radius:14px;padding:16px 18px}
   .dn-key b{display:block;font-size:clamp(26px,4vw,34px);line-height:1.1;letter-spacing:-.02em}
   .dn-key span{font-size:14px;opacity:.75}
-  @media (max-width:520px){.dn-keys{grid-template-columns:1fr;gap:8px}.dn-key{display:flex;align-items:baseline;gap:12px;padding:12px 16px}.dn-key b{font-size:22px;white-space:nowrap}}
-  .dn-price{display:inline-block;margin-top:6px;padding:10px 16px;border-radius:12px;border:1px solid color-mix(in srgb,currentColor 22%,transparent);font-size:15px}
+  .dn-rhythm{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:10px;margin-top:22px}
+  .dn-rhythm div{border-radius:14px;padding:14px 16px}
+  .dn-rhythm small{display:block;font-size:12px;letter-spacing:.12em;text-transform:uppercase;opacity:.65;margin-bottom:4px}
+  .dn-calc{border-radius:16px;padding:22px;margin-top:22px}
+  .dn-calc label{display:grid;grid-template-columns:1fr 120px;align-items:center;gap:12px;margin:10px 0;font-size:15px}
+  .dn-calc input{font:inherit;padding:8px 10px;border-radius:10px;border:1px solid color-mix(in srgb,currentColor 25%,transparent);background:transparent;color:inherit;text-align:right;width:100%;box-sizing:border-box}
+  .dn-out{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:12px;margin-top:18px}
+  .dn-out div{border-radius:12px;padding:14px 16px}
+  .dn-out b{display:block;font-size:26px;line-height:1.15}
+  .dn-out span{font-size:13px;opacity:.75}
+  .dn-note{font-size:13px;opacity:.75;margin-top:14px}
+  .dn-price{display:inline-block;padding:10px 16px;border-radius:12px;font-size:15px}
   .dn-price b{font-size:20px}
   .dn-steps{display:grid;gap:14px;margin-top:20px;counter-reset:s}
   .dn-steps p{margin:0;padding-left:44px;position:relative}
   .dn-steps p::before{counter-increment:s;content:counter(s);position:absolute;left:0;top:0;width:30px;height:30px;border-radius:50%;display:grid;place-items:center;border:1px solid currentColor;font-size:14px;opacity:.8}
+  /* biểu đồ: màu đã chạy validate_palette (sáng/tối đều PASS) */
+  :root{--c1:#0B8A78;--c2:#B5652F;--c0:var(--line-2)}
+  [data-theme="dark"]{--c1:#22A090;--c2:#C2723C}
+  .ch{margin-top:26px;border-radius:16px;padding:20px 22px}
+  .ch h4{margin:0 0 4px;font-size:16px}
+  .ch .ch-sub{margin:0 0 16px;font-size:13px;color:var(--muted)}
+  .ch .src{margin:14px 0 0;font-size:13px;line-height:1.5;color:var(--ink-2)}
+  .hb{display:grid;grid-template-columns:minmax(110px,180px) 1fr auto;align-items:center;gap:10px;margin:10px 0;font-size:14px;color:var(--ink-2)}
+  .hb i{display:block;height:14px;border-radius:0 4px 4px 0;background:var(--c1);min-width:2px}
+  .hb i.c0{background:var(--c0)}
+  .hb b{color:var(--ink);font-variant-numeric:tabular-nums}
+  .track{background:color-mix(in srgb,var(--c0) 45%,transparent);border-radius:0 4px 4px 0}
+  .stack{display:flex;gap:2px;height:22px;margin:6px 0 10px}
+  .stack span{display:block;height:100%;min-width:2px;transition:flex-grow .3s}
+  .stack span:first-child{border-radius:4px 0 0 4px} .stack span:last-child{border-radius:0 4px 4px 0}
+  .lg{display:flex;flex-wrap:wrap;gap:6px 18px;font-size:13px;color:var(--ink-2)}
+  .lg span::before{content:"";display:inline-block;width:10px;height:10px;border-radius:3px;margin-right:6px;background:var(--k);vertical-align:-1px}
+  .tl{position:relative;display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:14px;margin-top:8px;padding-top:26px}
+  .tl::before{content:"";position:absolute;left:0;right:0;top:8px;height:2px;background:var(--c0)}
+  .tl div{position:relative;font-size:13px;color:var(--ink-2)}
+  .tl div::before{content:"";position:absolute;top:-24px;left:0;width:12px;height:12px;border-radius:50%;background:var(--c1);box-shadow:0 0 0 3px var(--paper)}
+  .tl b{display:block;font-size:15px;color:var(--ink)}
+  .ladder{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;align-items:end;margin-top:22px}
+  .ladder div{border-radius:12px 12px 4px 4px;padding:12px 14px;font-size:13px;color:var(--ink-2);background:color-mix(in srgb,var(--c1) 12%,transparent);border:1px solid color-mix(in srgb,var(--c1) 35%,transparent)}
+  .ladder b{display:block;font-size:16px;color:var(--ink)}
+  .ladder .l1{height:90px} .ladder .l2{height:130px} .ladder .l3{height:170px}
+  .ladder-ax{display:flex;justify-content:space-between;font-size:12px;color:var(--muted);margin-top:6px}
+  .loop{margin:10px 0 0;font-size:13px;color:var(--muted)}
+  #tip{position:fixed;z-index:50;pointer-events:none;padding:6px 10px;border-radius:8px;background:var(--ink);color:var(--paper);font-size:12px;opacity:0;transition:opacity .12s;max-width:240px}
+  @media (max-width:520px){
+    .dn-keys{grid-template-columns:1fr;gap:8px}
+    .dn-key{display:flex;align-items:baseline;gap:12px;padding:12px 16px}
+    .dn-key b{font-size:22px;white-space:nowrap}
+    .dn-calc label{grid-template-columns:1fr 96px}
+    .hb{grid-template-columns:96px 1fr auto}
+    .tl{grid-template-columns:1fr;padding:0 0 0 24px}
+    .tl::before{left:5px;right:auto;top:4px;bottom:4px;width:2px;height:auto}
+    .tl div::before{top:3px;left:-24px}
+    .ladder{grid-template-columns:1fr}
+    .ladder div{height:auto!important;border-radius:4px 12px 12px 4px}
+    .ladder .l1{width:70%} .ladder .l2{width:85%}
+  }
 </style>
 </head>
 <body id="top">
@@ -54,36 +114,199 @@
       <div class="eyebrow">Cho chủ doanh nghiệp mới bắt đầu với AI</div>
       <h1>Bắt đầu với AI từ chính công việc hằng ngày của anh chị.</h1>
       <p>Chào anh chị. Nếu anh chị tới đây qua lời giới thiệu, chắc anh chị đang ở chỗ nhiều chủ doanh nghiệp đang đứng: biết AI quan trọng, đã nghe nhiều, nhưng chưa rõ bắt đầu từ đâu, và cũng chưa biết nên giao cho ai làm.</p>
-      <p>Mình là Lê Công Hoàng. Mình có thể hướng dẫn anh chị học AI từ đầu, ngay trên việc thật của công ty. Hoặc cùng đội của anh chị đưa AI vào quy trình đang tốn nhiều giờ nhất. Làm song song cả hai cũng được.</p>
-      <div class="dn-keys">
-        <div class="dn-key"><b>15 phút</b><span>gọi làm quen, chưa mua gì</span></div>
-        <div class="dn-key"><b>Việc thật</b><span>học trên chính việc của công ty</span></div>
-        <div class="dn-key"><b>Đo trước sau</b><span>thời gian tính trên việc của anh chị</span></div>
+      <p>Mình là Lê Công Hoàng. Mình làm nghề này từ một con đường khá lạ. Anh chị đọc vài phút sẽ thấy vì sao con đường đó hợp với chỗ anh chị đang kẹt.</p>
+      <figure class="fig dn-fig"><span class="fig-frame"><img src="assets/dn-ban-dem.jpg" alt="Bàn làm việc của một chủ doanh nghiệp với laptop, ly cà phê sữa đá, sổ tay chi chít ghi chú và giấy nhớ" width="1600" height="893" /></span><figcaption>Ảnh dựng bằng AI để gợi không khí.</figcaption></figure>
+    </div>
+  </section>
+
+  <section class="face" data-screen-label="Chỗ kẹt">
+    <div class="wrap-mid">
+      <div class="face-tag">Chỗ kẹt thật</div>
+      <h2>Công ty anh chị không thiếu công cụ AI. Cái thiếu là người đọc ra nên giao việc gì.</h2>
+      <p>Bây giờ ai cũng mở được ChatGPT hay Claude. Cái khó là ba câu hỏi phía sau. Việc nào trong công ty đáng giao cho AI, việc nào thì chưa. Giao rồi thì ai kiểm, kiểm thế nào để khỏi tin nhầm một câu trả lời nghe rất xuôi. Và làm sao để cả đội dùng đều tay mỗi tuần, chứ không phải hăng hái vài hôm rồi bỏ.</p>
+      <p>Ba câu đó không nằm trong hướng dẫn sử dụng của phần mềm nào. Nó cần một người nhìn được cùng lúc con người, cách công ty vận hành, và cái máy.</p>
+      <div class="ch dn-line" role="figure" aria-label="Khoảng cách giữa dùng AI và đưa AI vào vận hành">
+        <h4>Dùng AI thì nhiều, đưa được vào vận hành thì ít</h4>
+        <p class="ch-sub">Tỉ lệ người trả lời, khảo sát toàn cầu</p>
+        <div class="hb" data-tip="88% nói tổ chức dùng AI thường xuyên ở ít nhất một chức năng"><span>Có dùng AI</span><span class="track"><i class="c0" style="width:88%"></i></span><b>88%</b></div>
+        <div class="hb" data-tip="Khoảng một phần ba nói tổ chức đã bắt đầu mở rộng AI ở cấp doanh nghiệp"><span>Đã mở rộng toàn công ty</span><span class="track"><i style="width:33%"></i></span><b>1/3</b></div>
+        <p class="src">Nguồn: McKinsey, khảo sát tình hình AI, 11/2025.</p>
       </div>
-      <figure class="fig dn-fig"><span class="fig-frame"><img src="assets/dn-ban-dem.jpg" alt="Bàn làm việc của một chủ doanh nghiệp với laptop, ly cà phê sữa đá, sổ tay chi chít ghi chú và giấy nhớ" width="1600" height="893" loading="lazy" /></span><figcaption>Ảnh dựng bằng AI để gợi không khí.</figcaption></figure>
+      <div class="ch dn-line" role="figure" aria-label="Thời gian mỗi tuần dành để hầu hạ AI">
+        <h4>Mỗi tuần mất 6,4 giờ chỉ để hầu hạ AI</h4>
+        <p class="ch-sub">Nạp bối cảnh, kiểm, sửa, dọn đầu ra. Trên một tuần làm việc 40 giờ</p>
+        <div class="stack" data-tip="6,4 trên 40 giờ, khoảng 16% tuần làm việc"><span style="flex-grow:6.4;background:var(--c2)"></span><span style="flex-grow:33.6;background:var(--c0)"></span></div>
+        <div class="lg"><span style="--k:var(--c2)">Hầu hạ AI · 6,4 giờ</span><span style="--k:var(--c0)">Phần còn lại · 33,6 giờ</span></div>
+        <p class="src">Nguồn: Glean Work AI Index 2026, 6.000 lao động số ở Mỹ, Anh, Úc, tự khai. Đây là lý do mình luôn trừ phần này khi tính.</p>
+      </div>
     </div>
   </section>
 
-  <section class="face" data-screen-label="Học từ đầu">
+  <section class="face" data-screen-label="Vì sao là mình">
     <div class="wrap-mid">
-      <div class="face-tag">Cách thứ nhất · Học từ đầu</div>
-      <h2>Đủ hiểu để tự quyết, không cần thành dân kỹ thuật</h2>
-      <p>Anh chị không cần biết lập trình. Mình không dạy bấm nút từng công cụ, vì vài tháng là công cụ đổi. Mình dạy cái ở lại lâu hơn: nhìn ra việc nào nên giao cho AI, giao thế nào cho nó hiểu, kiểm lại ra sao để khỏi tin nhầm một câu trả lời nghe rất xuôi.</p>
-      <p>Mình không học trên bài tập mẫu. Anh chị mang một việc thật đang làm hằng tuần, ví dụ báo cáo, trả lời khách hay soạn nội dung, rồi mình cùng làm lại việc đó với AI ngay trong buổi. Anh chị có thể học một mình, hoặc cùng hai ba người đang trực tiếp phụ trách việc đó.</p>
-      <p class="dn-price">Lớp nhóm <b>Bắt Nhịp</b> · tối đa 3 người · <b>15 triệu</b> mỗi người</p>
-      <figure class="fig dn-fig"><span class="fig-frame"><img src="assets/dn-hoc-cung.jpg" alt="Hai người ngồi cạnh nhau, một người chỉ vào màn hình laptop, người kia ghi chép vào sổ" width="1600" height="1194" loading="lazy" /></span><figcaption>Ảnh dựng bằng AI để gợi không khí.</figcaption></figure>
+      <div class="face-tag">Vì sao là mình</div>
+      <h2>Bốn nghề hiếm khi gặp nhau trong một người</h2>
+      <p>Mình không phải kỹ sư, cũng không phải giảng viên dạy công cụ. Mình đi tới AI từ bốn nghề, và cả bốn đều dùng tới khi ngồi với một công ty.</p>
+      <div class="dn-grid" style="grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr))">
+        <div class="dn-card dn-line">
+          <h3>Đọc người</h3>
+          <p>Mười lăm năm làm diễn viên rèn cho mình thói quen quan sát phản ứng của từng người. Ngồi với đội của anh chị, mình dễ nhận ra khâu nào mọi người đang vướng mà ngại nói ra.</p>
+          <p class="dn-proof">Vai Dương trong "Tro Tàn Rực Rỡ", giải Bông Sen nam diễn viên phụ, Liên hoan phim Việt Nam lần thứ 23</p>
+        </div>
+        <div class="dn-card dn-line">
+          <h3>Đọc hệ thống</h3>
+          <p>Hơn mười năm tự vận hành marillCreative, một studio làm phim quảng cáo và nội dung. Mình biết một công ty nhỏ mất giờ ở đâu, vì chính mình đã từng mất ở đó.</p>
+          <p class="dn-proof">marillCreative, từ 08-08-2015</p>
+        </div>
+        <div class="dn-card dn-line">
+          <h3>Đọc cái máy</h3>
+          <p>Không biết lập trình, mình vẫn tự xây một hệ AI chạy quanh công việc của mình mỗi ngày, viết bằng tiếng Việt. Mình biết AI gãy ở đâu, vì đã thức nhiều đêm vá đúng những chỗ đó.</p>
+          <p class="dn-proof">Thử 706 công cụ nhỏ, giữ lại 18 thứ thành thói quen thật</p>
+        </div>
+        <div class="dn-card dn-line">
+          <h3>Giữ quyền quyết cho anh chị</h3>
+          <p>Mình có học thêm kỹ năng tham vấn tâm lý: nghe, phản hồi, và biết lúc nào một chuyện đã vượt khỏi phần mình. Mình phản chiếu điều anh chị khó thấy khi đang ở bên trong, rồi trả quyết định về đúng người.</p>
+          <p class="dn-proof">Cách làm này mình đặt tên LCH Reflector Audit: soi cùng nhau, quyết là việc của anh chị</p>
+        </div>
+      </div>
+      <div class="ch dn-line" role="figure" aria-label="Đường nghề của Lê Công Hoàng">
+        <h4>Mười lăm năm, bốn nghề chồng lên nhau</h4>
+        <div class="tl">
+          <div><b>2011</b>Bắt đầu nghề diễn</div>
+          <div><b>2015</b>"Cha và con và..." dự tranh Berlinale</div>
+          <div><b>2015 · tháng 8</b>Lập studio marillCreative</div>
+          <div><b>2022</b>"Tro Tàn Rực Rỡ" dự Tokyo IFF</div>
+          <div><b>2026</b>Tự xây hệ AI chạy mỗi ngày</div>
+        </div>
+      </div>
     </div>
   </section>
 
-  <section class="face" data-screen-label="Triển khai">
+  <section class="face" data-screen-label="Bằng chứng">
     <div class="wrap-mid">
-      <div class="face-tag">Cách thứ hai · Cùng triển khai</div>
-      <h2>Đưa AI vào một quy trình thật, chạy được rồi mới tính tiếp</h2>
-      <p>Mình ngồi với anh chị và người đang trực tiếp làm việc đó. Cùng nhau chọn một hai quy trình đáng làm nhất, dựng cách làm mới có AI, chạy thử trên việc thật, ghi lại thời gian trước và sau. Xong thì bàn giao hướng dẫn để đội tự chạy tiếp, không phụ thuộc vào mình.</p>
-      <p>Có những việc mình sẽ khuyên anh chị chưa nên vội đưa AI vào, ví dụ việc chạm dữ liệu nhạy cảm của khách, hay việc mà sai một lần là mất tiền thật. Tránh được một khoản thử tốn kém thì anh chị đỡ cả tiền lẫn công.</p>
-      <p class="dn-price">Gói <b>Cầm Nhịp</b> · 1 kèm 1 trong 90 ngày · từ <b>45 triệu</b>, tuỳ phạm vi</p>
-      <p>Mình gửi văn bản ghi rõ phạm vi và chi phí để anh chị cân nhắc trước khi quyết.</p>
+      <div class="face-tag">Xem tận mắt, không cần tin lời</div>
+      <h2>Hệ AI mình đang chạy mỗi ngày, mở ra cho anh chị xem</h2>
+      <div class="dn-keys">
+        <div class="dn-key dn-line"><b>160</b><span>sổ nghiên cứu trong một năm</span></div>
+                        <div class="dn-key dn-line"><b>2</b><span>kỷ luật làm việc với AI, mở mã cho ai cũng đọc</span></div>
+      </div>
+      <p style="margin-top:20px">Con số mình quý nhất là 18 trên 706, ở biểu đồ ngay dưới. Cài nhiều chỉ làm rối việc và tốn tiền, dùng kỹ vài thứ mới thật sự bớt việc. Mình sẽ giúp công ty anh chị tránh đúng cái bẫy đó: mua nhiều, dùng ít.</p>
+      <div class="ch dn-line" role="figure" aria-label="Tỉ lệ công cụ giữ lại sau khi thử">
+        <h4>Thử nhiều, giữ ít</h4>
+        <p class="ch-sub">Mỗi thanh là số đã thử hoặc soi, phần đậm là số giữ lại</p>
+        <div class="hb" data-tip="Giữ 18 trên 706, khoảng 2,5%"><span>Công cụ nhỏ</span><span class="track"><i style="width:2.5%"></i></span><b>18 / 706</b></div>
+        <div class="hb" data-tip="Giữ 332 trên 1.307, khoảng 25%"><span>Bộ công cụ mở</span><span class="track"><i style="width:25.4%"></i></span><b>332 / 1.307</b></div>
+      </div>
+      <div class="ch dn-line" role="figure" aria-label="160 sổ nghiên cứu chia theo chủ đề">
+        <h4>160 sổ nghiên cứu trong một năm, đọc về đâu</h4>
+        <p class="ch-sub">Tỉ lệ ước theo chủ đề, từ nhật ký NotebookLM của mình</p>
+        <div class="hb" data-tip="Khoảng 35%"><span>Công nghệ, AI</span><span class="track"><i style="width:35%"></i></span><b>35%</b></div>
+        <div class="hb" data-tip="Khoảng 25%"><span>Quản trị, vận hành, marketing</span><span class="track"><i style="width:25%"></i></span><b>25%</b></div>
+        <div class="hb" data-tip="Khoảng 20%"><span>Tâm lý, phát triển bản thân</span><span class="track"><i style="width:20%"></i></span><b>20%</b></div>
+        <div class="hb" data-tip="Khoảng 12%"><span>Nghệ thuật, điện ảnh</span><span class="track"><i style="width:12%"></i></span><b>12%</b></div>
+        <div class="hb" data-tip="Khoảng 8%"><span>Triết học, y học cổ truyền</span><span class="track"><i style="width:8%"></i></span><b>8%</b></div>
+        <p class="src">Gần hai phần ba số sổ không nằm ở công nghệ. Đó là phần giúp mình đọc người và đọc công ty, chứ không chỉ đọc máy.</p>
+      </div>
+      <figure class="fig dn-fig" style="max-width:320px"><span class="fig-frame"><img src="assets/lch-tokyo-2022.jpg" alt="Lê Công Hoàng tại thảm đỏ Liên hoan phim quốc tế Tokyo 2022" width="690" height="900" loading="lazy" /></span><figcaption>Tokyo IFF 2022. Ảnh: <a href="https://commons.wikimedia.org/wiki/File:Le_Cong_Hoang_from_%22Glorious_Ashes%22_at_Red_Carpet_of_the_Tokyo_International_Film_Festival_2022_(52460466017)_(cropped).jpg" target="_blank" rel="noopener">Dick Thomas Johnson, CC BY 2.0</a></figcaption></figure>
+      <div class="face-links">
+        <a href="ai-os.html">Mở phòng máy AI của mình</a>
+        <a href="ve-lch.html">Hồ sơ đầy đủ, có link kiểm chứng</a>
+        <a href="https://vi.wikipedia.org/wiki/L%C3%AA_C%C3%B4ng_Ho%C3%A0ng_(di%E1%BB%85n_vi%C3%AAn)" target="_blank" rel="noopener">Wikipedia</a>
+        <a href="https://www.linkedin.com/in/leconghoang/" target="_blank" rel="noopener">LinkedIn</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="face" data-screen-label="Mình giúp gì">
+    <div class="wrap-mid">
+      <div class="face-tag">Mình giúp gì</div>
+      <h2>Tính cùng anh chị, cố vấn bên cạnh, và tạo nhịp cho cả đội</h2>
+      <div class="dn-grid">
+        <div class="dn-card dn-line">
+          <h3>Tính</h3>
+          <p>Trải tuần làm việc của công ty ra, xem giờ đang chảy đi đâu. Chọn đúng một hai việc đáng giao cho AI nhất, và nói rõ việc nào chưa nên. Đo thời gian trước và sau, có trừ cả công kiểm và sửa.</p>
+        </div>
+        <div class="dn-card dn-line">
+          <h3>Cố vấn</h3>
+          <p>Ngồi cạnh khi anh chị phải chọn: công cụ nào, ai giữ việc gì, chi bao nhiêu là đủ. Thấy rủi ro chỗ nào, mình nói thẳng chỗ đó, còn quyết định vẫn là của anh chị.</p>
+        </div>
+        <div class="dn-card dn-line">
+          <h3>Tạo nhịp</h3>
+          <p>AI chỉ có ích khi được dùng đều. Mình cùng đội dựng một nhịp tuần đơn giản, rồi giữ nhịp đó tới khi đội tự chạy được mà không cần mình.</p>
+        </div>
+      </div>
+      <h3 style="margin-top:32px">Một nhịp tuần trông như thế này</h3>
+      <div class="dn-rhythm">
+        <div class="dn-line"><small>Đầu tuần</small>Chọn việc giao cho AI, ghi rõ cần ra cái gì, thế nào là đạt.</div>
+        <div class="dn-line"><small>Giữa tuần</small>Chạy trên việc thật, ghi lại chỗ AI sai, chỗ người phải sửa.</div>
+        <div class="dn-line"><small>Cuối tuần</small>Ngồi lại xem số: giữ, sửa, hay bỏ. Không giữ một cách làm chỉ vì nó trông hay.</div>
+      </div>
+      <p class="loop">↺ Lặp lại mỗi tuần. Sau vài vòng, đội tự giữ nhịp, mình lùi ra.</p>
       <figure class="fig dn-fig"><span class="fig-frame"><img src="assets/dn-quy-trinh.jpg" alt="Tay dán giấy nhớ lên bức tường quy trình, vài bước đã bị gạch chéo" width="1600" height="1194" loading="lazy" /></span><figcaption>Ảnh dựng bằng AI để gợi không khí.</figcaption></figure>
+    </div>
+  </section>
+
+  <section class="face" data-screen-label="Tính thử">
+    <div class="wrap-mid">
+      <div class="face-tag">Tính thử trong một phút</div>
+      <h2>Một việc lặp lại đang tốn công ty anh chị bao nhiêu?</h2>
+      <p>Đây là phép tính mình hay làm ở buổi đầu. Anh chị điền số của công ty mình vào. Nó không phải lời hứa, chỉ giúp anh chị thấy có đáng ngồi lại nói chuyện hay chưa.</p>
+      <form class="dn-calc dn-line" id="tinh" onsubmit="return false">
+        <label for="n">Số người đang làm việc đó<input type="number" id="n" min="1" value="5" inputmode="numeric" /></label>
+        <label for="h">Giờ mỗi người dành cho nó mỗi tuần<input type="number" id="h" min="0" step="0.5" value="8" inputmode="decimal" /></label>
+        <label for="g">Chi phí một giờ công, nghìn đồng<input type="number" id="g" min="0" step="10" value="150" inputmode="numeric" /></label>
+        <label for="p">Phần AI có thể đỡ, phần trăm<input type="number" id="p" min="0" max="100" step="5" value="30" inputmode="numeric" /></label>
+        <label for="o">Phần mất lại cho việc kiểm và sửa, phần trăm<input type="number" id="o" min="0" max="100" step="5" value="25" inputmode="numeric" /></label>
+        <div class="dn-out">
+          <div class="dn-line"><b id="r-gio">0</b><span>giờ lấy lại mỗi tháng, đã trừ kiểm sửa</span></div>
+          <div class="dn-line"><b id="r-nam">0</b><span>tiền công tương đương mỗi năm</span></div>
+          <div class="dn-line"><b id="r-hoan">0</b><span>tháng để bù học phí Bắt Nhịp 15 triệu</span></div>
+        </div>
+        <p class="dn-note" id="r-loi"></p>
+        <div style="margin-top:20px" role="figure" aria-label="Chia giờ của việc này mỗi tháng">
+          <h4 style="margin:0 0 4px;font-size:15px">Giờ của việc này mỗi tháng, chia ra</h4>
+          <div class="stack" id="cs"><span id="s1" style="background:var(--c1)"></span><span id="s2" style="background:var(--c2)"></span><span id="s3" style="background:var(--c0)"></span></div>
+          <div class="lg"><span style="--k:var(--c1)" id="l1"></span><span style="--k:var(--c2)" id="l2"></span><span style="--k:var(--c0)" id="l3"></span></div>
+        </div>
+        <p class="dn-note">Số điền sẵn chỉ là ví dụ, không phải số đo của công ty nào. Đây mới là một việc. Khi làm thật, mình đo bằng giờ thật của anh chị, và chỗ mất giờ thường khác hẳn chỗ mọi người đoán lúc đầu.</p>
+        <a class="btn btn-primary btn-lg dn-cta" href="#lien-he">Hẹn 15 phút để tính bằng số thật của công ty</a>
+      </form>
+    </div>
+  </section>
+
+  <section class="face" data-screen-label="Cách làm việc">
+    <div class="wrap-mid">
+      <div class="face-tag">Hai cách đi cùng nhau</div>
+      <h2>Chọn theo chỗ anh chị đang đứng</h2>
+      <div class="ch dn-line" role="figure" aria-label="Ba bậc đồng hành">
+        <h4>Ba bậc, đi tới đâu tuỳ anh chị</h4>
+        <div class="ladder">
+          <div class="l1"><b>Bắt Nhịp</b>Học từ đầu · 5 tuần, theo tới ngày 30</div>
+          <div class="l2"><b>Cầm Nhịp</b>Cùng triển khai · 90 ngày</div>
+          <div class="l3"><b>Hòa Nhịp</b>Cố vấn dài hạn · khi đã hợp</div>
+        </div>
+        <div class="ladder-ax"><span>Bắt đầu nhẹ</span><span>Đồng hành sâu hơn →</span></div>
+      </div>
+      <div class="dn-grid">
+        <div class="dn-card dn-line">
+          <h3>Bắt Nhịp · học từ đầu</h3>
+          <p>Cho chủ và hai ba người chủ chốt. Học trên việc thật của công ty: chọn việc, giao việc cho AI, kiểm lại, biết lúc nào dừng. Năm tuần, nhóm tối đa ba người, rồi theo tiếp tới ngày thứ 30 để chắc cách làm mới vẫn được dùng đều.</p>
+          <p style="margin-top:12px"><span class="dn-price dn-line"><b>15 triệu</b> mỗi người</span></p>
+          <a class="btn btn-ghost dn-cta" href="#lien-he">Hỏi về Bắt Nhịp</a>
+        </div>
+        <div class="dn-card dn-line">
+          <h3>Cầm Nhịp · cùng triển khai</h3>
+          <p>Mình làm riêng 1 kèm 1 với anh chị trong 90 ngày, có ba buổi làm việc sâu. Cùng nhau dựng ít nhất một quy trình có AI trên việc thật, rồi bàn giao để đội tự chạy. Giữa các buổi có kênh hỏi đáp, mình phản hồi trong 48 giờ làm việc.</p>
+          <p style="margin-top:12px"><span class="dn-price dn-line">từ <b>45 triệu</b>, tuỳ phạm vi</span></p>
+          <a class="btn btn-ghost dn-cta" href="#lien-he">Hỏi về Cầm Nhịp</a>
+        </div>
+        <div class="dn-card dn-line">
+          <h3>Hòa Nhịp · cố vấn dài hạn</h3>
+          <p>Sau một trong hai cách trên, nếu hai bên thấy hợp, mình đứng sau làm cố vấn dài hạn cho anh chị. Mình chỉ nhận lời khi đã làm việc với nhau một thời gian.</p>
+          <p style="margin-top:12px"><span class="dn-price dn-line">Bàn riêng khi đã hợp</span></p>
+        </div>
+      </div>
+      <figure class="fig dn-fig"><span class="fig-frame"><img src="assets/dn-hoc-cung.jpg" alt="Hai người ngồi cạnh nhau, một người chỉ vào màn hình laptop, người kia ghi chép vào sổ" width="1600" height="1194" loading="lazy" /></span><figcaption>Ảnh dựng bằng AI để gợi không khí.</figcaption></figure>
     </div>
   </section>
 
@@ -94,31 +317,19 @@
       <div class="dn-steps">
         <p>Anh chị nhắn mình qua Zalo hoặc email, hẹn một cuộc gọi 15 phút.</p>
         <p>Trong 15 phút đó, anh chị chỉ cần kể việc đang tốn thời gian nhất. Mình hỏi để nắm tình hình, chưa vội bàn tới dịch vụ.</p>
-        <p>Nếu thấy hợp, mình gửi một đề xuất ngắn: nên học, nên triển khai, hay chưa cần làm gì. Có phạm vi, giá và việc mình không nhận.</p>
+        <p>Nếu thấy hợp, mình gửi một đề xuất ngắn bằng văn bản: nên học, nên triển khai, hay chưa cần làm gì. Có phạm vi, chi phí và việc mình không nhận.</p>
       </div>
       <figure class="fig dn-fig"><span class="fig-frame"><img src="assets/dn-cuoc-goi.jpg" alt="Hai bàn tay ôm tách trà cạnh chiếc điện thoại và cuốn sổ mở bên cửa sổ" width="1600" height="1194" loading="lazy" /></span><figcaption>Ảnh dựng bằng AI để gợi không khí.</figcaption></figure>
-    </div>
-  </section>
-
-  <section class="face" data-screen-label="Mình là ai">
-    <div class="wrap-mid">
-      <div class="face-tag">Mình là ai</div>
-      <h2>Người đã tự đưa AI vào chính công ty mình</h2>
-      <p>Mình không phải kỹ sư. Mình là diễn viên, và hơn mười năm nay điều hành marillCreative, một studio làm phim quảng cáo và nội dung ở Sài Gòn. Vài năm gần đây, mình đưa AI vào chính dây chuyền của studio, với khách thật và hạn thật. Cách mình đang dùng AI mỗi ngày ở studio, mình mở ra để anh chị xem tận mắt.</p>
-      <div class="face-links">
-        <a href="ve-lch.html">Về Lê Công Hoàng</a>
-        <a href="ai-os.html">Hệ AI mình đang chạy</a>
-        <a href="https://www.linkedin.com/in/leconghoang/" target="_blank" rel="noopener">LinkedIn</a>
-      </div>
     </div>
   </section>
 
   <section class="face" data-screen-label="Nói trước">
     <div class="wrap-mid">
       <div class="face-tag">Nói trước cho rõ</div>
-      <h2>Vài điểm mình nói rõ trước</h2>
+      <h2>Mấy chuyện nên biết trước khi hẹn</h2>
       <p>Mình không hứa công ty nào cũng tiết kiệm được một con số chung. Thời gian tiết kiệm được tính trên việc thật của anh chị, sau khi đã cộng cả công kiểm tra và chỉnh sửa.</p>
-      <p>Phí công cụ AI, ví dụ gói ChatGPT hay Claude, là khoản riêng, mình giúp chọn mức đủ dùng chứ không bán kèm.</p>
+      <p>Có những việc mình sẽ khuyên chưa nên vội đưa AI vào, ví dụ việc chạm dữ liệu nhạy cảm của khách, hay việc mà sai một lần là mất tiền thật.</p>
+      <p>Phí công cụ AI, ví dụ gói ChatGPT hay Claude, là khoản riêng. Mình giúp chọn mức đủ dùng chứ không bán kèm.</p>
       <p>Hiện mình nhận việc với tư cách cá nhân. Nếu công ty anh chị cần hoá đơn, anh chị cứ hỏi trong cuộc gọi đầu, mình trả lời rõ trước khi đi tiếp.</p>
     </div>
   </section>
@@ -147,6 +358,34 @@
   </div>
 </footer>
 
+<div id="tip" role="tooltip"></div>
 <script src="site.js"></script>
+<script>
+// ponytail: 4,33 tuần một tháng; so với học phí Bắt Nhịp 15 triệu vì đó là cửa vào rẻ nhất
+(function(){
+  var $=function(id){return document.getElementById(id)};
+  var vn=function(x,d){return x.toLocaleString('vi-VN',{maximumFractionDigits:d||0})};
+  var pct=function(id){return Math.min(100,Math.max(0,+$(id).value||0))/100};
+  function tinh(){
+    var n=Math.max(0,+$('n').value||0),h=Math.max(0,+$('h').value||0),g=Math.max(0,+$('g').value||0);
+    var tong=n*h*4.33, gio=tong*pct('p')*(1-pct('o')), nam=gio*12*g*1000;
+    $('r-gio').textContent=vn(gio);
+    $('r-nam').textContent=nam>=1e6?vn(nam/1e6,1)+' triệu':vn(nam)+' đ';
+    $('r-hoan').textContent=nam>0?vn(15e6/(nam/12),1):'chưa tính được';
+    $('r-loi').textContent=gio<4?'Với số này, việc đó có lẽ chưa đáng đưa AI vào. Cuộc gọi 15 phút có khi sẽ chỉ ra một việc khác đáng hơn.':'';
+    var kiem=tong*pct('p')*pct('o'), con=Math.max(0,tong-gio-kiem);
+    $('s1').style.flexGrow=gio; $('s2').style.flexGrow=kiem; $('s3').style.flexGrow=con||(tong?0:1);
+    $('l1').textContent='AI đỡ ròng · '+vn(gio)+' giờ'; $('l2').textContent='Kiểm và sửa · '+vn(kiem)+' giờ'; $('l3').textContent='Người vẫn làm · '+vn(con)+' giờ';
+  }
+  $('tinh').addEventListener('input',tinh); tinh();
+})();
+// ponytail: một tooltip chung cho mọi phần tử có data-tip; chạm trên điện thoại cũng hiện
+(function(){var t=document.getElementById('tip');
+  function show(e){var el=e.target.closest&&e.target.closest('[data-tip]'); if(!el){t.style.opacity=0;return}
+    var p=e.touches?e.touches[0]:e; t.textContent=el.dataset.tip; t.style.opacity=1;
+    t.style.left=Math.min(p.clientX+12,innerWidth-t.offsetWidth-8)+'px'; t.style.top=(p.clientY+14)+'px';}
+  document.addEventListener('mousemove',show); document.addEventListener('touchstart',show,{passive:true});
+})();
+</script>
 </body>
 </html>
